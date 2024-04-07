@@ -21,7 +21,7 @@ public class MazeLoader
         return GetMazeFromLines(lineInFile);
     }
 
-    public static string[][] GetMazeFromLines(string lines)
+    private static string[][] GetMazeFromLines(string lines)
     {
         return lines
             .Split("\r\n")
