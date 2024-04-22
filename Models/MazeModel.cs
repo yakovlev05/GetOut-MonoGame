@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace GetOut.Models;
 
@@ -16,6 +17,7 @@ public class MazeModel
     public MazeCellModel[,] Maze { get; init; }
     public int CellHeight { get; init; } = 16;
     public int CellWidth { get; init; } = 16; // TODO: Доделать получение размеров 
+    public List<Rectangle> ListWalls { get; private set; } = new List<Rectangle>();
 
     public MazeModel(DirectoryInfo mazePath)
     {
@@ -41,6 +43,8 @@ public class MazeModel
             foreach (var cell in splitMaze)
             {
                 var splitCell = cell.Split('-');
+                if (splitCell[0].Contains("wall"))
+                    ListWalls.Add(new Rectangle(x * CellWidth, y * CellHeight, CellWidth, CellHeight));
                 var texture = ContentModel.Textures[MazeAssetsFolder][splitCell[0]];
                 var tileX = int.Parse(splitCell[1]);
                 var tileY = int.Parse(splitCell[2]);
