@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.IO;
+using GetOut.Models;
+using GetOut.View;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -32,6 +35,8 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        new ContentModel(Content);
+        var test = new MazeModel(new DirectoryInfo("./Mazes/initial.txt"));
     }
 
     protected override void Update(GameTime gameTime)
@@ -45,8 +50,8 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
+        GraphicsDevice.Clear(Color.SandyBrown);
+        DrawMaze.Draw(_spriteBatch, new MazeModel(new DirectoryInfo("./Mazes/initial.txt")));
         base.Draw(gameTime);
     }
 }
