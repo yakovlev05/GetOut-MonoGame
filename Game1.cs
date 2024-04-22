@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using GetOut.Models;
-using GetOut.Services;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,9 +8,6 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private Content _content;
-    private string[] _namesMazes;
-    private string[,] _currentMaze;
 
     public Game1()
     {
@@ -34,17 +26,12 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
-        // GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _content = new Content(Content); //
-        _namesMazes = MazeLoader.LoadNamesFromFolder(new DirectoryInfo("../../../Mazes")).ToArray(); //
-        // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
@@ -52,26 +39,13 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-
-        // TODO: Add your update logic here
-
-        _currentMaze =
-            MazeToGraphic.ConvertMazeToGraphic(MazeLoader.LoadMazeFromFolder(new DirectoryInfo("../../../Mazes"),
-                _namesMazes.First())); //
-        View.Draw.DrawMaze(_graphics, _spriteBatch, _currentMaze, _content); // ТЕСТ
+        
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        View.Draw.DrawMaze(_graphics,
-            _spriteBatch,
-            _currentMaze,
-            _content);
-
-        // TODO: Add your drawing code here
 
         base.Draw(gameTime);
     }
