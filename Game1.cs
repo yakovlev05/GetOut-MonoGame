@@ -16,6 +16,7 @@ public class Game1 : Game
     //
     private PlayerModel _player;
     private PlayerController _playerController;
+    private MazeModel _mazeModel;
 
     public Game1()
     {
@@ -41,11 +42,11 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         new ContentModel(Content);
-        var test = new MazeModel(new DirectoryInfo("./Mazes/initial.txt"));
+        _mazeModel = new MazeModel(new DirectoryInfo("./Mazes/initial.txt"));
 
         _player = new PlayerModel(ContentModel.Textures["mazeVariant1"]["player"], new Vector2(0, 0),
             new Rectangle(0, 0, 16, 28));
-        _playerController = new PlayerController(ContentModel.Textures["mazeVariant1"]["player"], 5, _player, 100);
+        _playerController = new PlayerController(ContentModel.Textures["mazeVariant1"]["player"], 5, _player, 100, _mazeModel);
     }
 
     protected override void Update(GameTime gameTime)
@@ -61,7 +62,7 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.SandyBrown);
-        DrawMaze.Draw(_spriteBatch, new MazeModel(new DirectoryInfo("./Mazes/initial.txt")));
+        DrawMaze.Draw(_spriteBatch, _mazeModel);
         DrawPlayer.Draw(_spriteBatch, _player);
         base.Draw(gameTime);
     }
