@@ -5,6 +5,8 @@ using GetOut.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using MonoGame.Extended.ViewportAdapters;
 
 namespace GetOut;
 
@@ -12,6 +14,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private OrthographicCamera _camera;
 
     //
     private PlayerModel _player;
@@ -35,6 +38,8 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
+        _camera = new OrthographicCamera(new BoxingViewportAdapter(Window, GraphicsDevice, 1920, 1080));
+
         base.Initialize();
     }
 
@@ -46,7 +51,8 @@ public class Game1 : Game
 
         _player = new PlayerModel(ContentModel.Textures["mazeVariant1"]["player"], new Vector2(0, 0),
             new Rectangle(0, 0, 16, 28));
-        _playerController = new PlayerController(ContentModel.Textures["mazeVariant1"]["player"], 5, _player, 100, _mazeModel);
+        _playerController =
+            new PlayerController(ContentModel.Textures["mazeVariant1"]["player"], 5, _player, 100, _mazeModel);
     }
 
     protected override void Update(GameTime gameTime)
