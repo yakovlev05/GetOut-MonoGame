@@ -17,7 +17,7 @@ public class ContentModel
         var folders = new DirectoryInfo(contentManager.RootDirectory).GetDirectories();
         foreach (var folder in folders)
         {
-            if (folder.Name == "bin" || folder.Name == "obj") continue;
+            if (folder.Name == "bin" || folder.Name == "obj" || folder.Name=="MainMenu") continue;
 
             var textures = new Dictionary<string, Texture2D>();
             var files = folder.GetFiles();

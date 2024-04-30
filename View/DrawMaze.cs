@@ -1,14 +1,15 @@
 ﻿using GetOut.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 
 namespace GetOut.View;
 
 public class DrawMaze
 {
-    public static void Draw(SpriteBatch spriteBatch, MazeModel maze)
+    public static void Draw(SpriteBatch spriteBatch, MazeModel maze, OrthographicCamera camera)
     {
-        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: camera.GetViewMatrix());
         var xx = (1920 - 16 * 8) / 2;
         var yy = (1080 - 16 * 5) / 2;
         var currentPosition = new Vector2(xx, yy);
