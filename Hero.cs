@@ -15,8 +15,16 @@ public class Hero
         _position = position;
         _speed = speed;
 
-        _anims.AddAnimation(new Vector2(0,0), new Animation(texture, 10,3, 0.1f, 2));
-        _anims.AddAnimation(new Vector2(1, 0), new Animation(texture, 10, 3, 0.1f, 3));
+        _anims.AddAnimation(new Vector2(0, 0), new Animation(texture, 12, 8, 0.1f, 5, 10)); // Состояние в покое
+        _anims.AddAnimation(new Vector2(1, 0), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо
+        _anims.AddAnimation(new Vector2(1, 1), new Animation(texture, 12, 8, 0.1f, 8, 10)); //  Движение вправо вниз
+        _anims.AddAnimation(new Vector2(0, 1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вниз
+        _anims.AddAnimation(new Vector2(-1, 1), new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево вниз
+        _anims.AddAnimation(new Vector2(-1,0), new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево
+        _anims.AddAnimation(new Vector2(-1,-1), new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево вверх
+        _anims.AddAnimation(new Vector2(0,-1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вверх
+        _anims.AddAnimation(new Vector2(1,-1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо вверх
+        
     }
 
     public void Update()
