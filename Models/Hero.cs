@@ -1,6 +1,8 @@
 ﻿using GetOut.Controllers;
+using GetOut.Program;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace GetOut.Models;
 
@@ -20,12 +22,14 @@ public class Hero
         _anims.AddAnimation(new Vector2(1, 0), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо
         _anims.AddAnimation(new Vector2(1, 1), new Animation(texture, 12, 8, 0.1f, 8, 10)); //  Движение вправо вниз
         _anims.AddAnimation(new Vector2(0, 1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вниз
-        _anims.AddAnimation(new Vector2(-1, 1), new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево вниз
-        _anims.AddAnimation(new Vector2(-1,0), new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево
-        _anims.AddAnimation(new Vector2(-1,-1), new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево вверх
-        _anims.AddAnimation(new Vector2(0,-1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вверх
-        _anims.AddAnimation(new Vector2(1,-1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо вверх
-        
+        _anims.AddAnimation(new Vector2(-1, 1),
+            new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево вниз
+        _anims.AddAnimation(new Vector2(-1, 0), new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево
+        _anims.AddAnimation(new Vector2(-1, -1),
+            new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево вверх
+        _anims.AddAnimation(new Vector2(0, -1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вверх
+        _anims.AddAnimation(new Vector2(1, -1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо вверх
+        _anims.AddAnimation(Keys.Q, new Animation(texture, 12, 8, 0.1f, 4, 10)); // Смерть
     }
 
     public void Update()
@@ -36,6 +40,8 @@ public class Hero
         }
 
         _anims.Update(InputManager.Direction);
+        if (InputManager.IsPressedKey(Keys.Q) != Keys.None)
+            _anims.Update(Keys.Q);
     }
 
     public void Draw()

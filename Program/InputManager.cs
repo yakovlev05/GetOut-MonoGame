@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace GetOut;
@@ -21,5 +22,10 @@ public static class InputManager
             if (keyboardState.IsKeyDown(Keys.W)) _direction.Y--;
             if (keyboardState.IsKeyDown(Keys.S)) _direction.Y++;
         }
+    }
+
+    public static Keys IsPressedKey(Keys key) // Возвращает значение клаивиши, если она нажата, иначе null
+    {
+        return Keyboard.GetState().IsKeyDown(key) ? key : Keys.None;
     }
 }

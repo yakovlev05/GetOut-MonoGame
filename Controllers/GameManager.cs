@@ -8,7 +8,7 @@ public class GameManager
 
     public void Init()
     {
-        _hero = new(new(300, 300), 200f);
+        _hero = new(new(1920/2, 1080/2), 200f);
     }
 
     public void Update()

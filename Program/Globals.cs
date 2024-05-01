@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GetOut;
+namespace GetOut.Program;
 
 public static class Globals
 {

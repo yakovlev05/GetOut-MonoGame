@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using GetOut.Controllers;
 using GetOut.Models;
 using GetOut.Program;
@@ -46,12 +47,14 @@ public class Game1 : Game
         _gameManager = new();
         _gameManager.Init();
 
-        GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
 
         _screenManager = new ScreenManager();
         Components.Add(_screenManager);
 
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Window, GraphicsDevice, 1920, 1080));
+        _camera.Zoom = 2f;
+        
+        _camera.LookAt(new Vector2(1920/2,1080/2)); // Ставит начальную позиция камеры в центр
 
         base.Initialize();
     }
@@ -75,12 +78,11 @@ public class Game1 : Game
         if (Keyboard.GetState().IsKeyDown(Keys.X))
         {
             LoadScreen1();
-        }
+        } 
 
         Globals.Update(gameTime);
         _gameManager.Update();
         // _camera.Move(Camera.GetMovementDirection() * 20);
-        // _playerController.Move(Keyboard.GetState());
         base.Update(gameTime);
     }
 
@@ -88,9 +90,8 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.SandyBrown);
         DrawMaze.Draw(_spriteBatch, _mazeModel, _camera);
-        // DrawPlayer.Draw(_spriteBatch, _player);
 
-        _spriteBatch.Begin();
+        _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
         _gameManager.Draw();
         _spriteBatch.End();
 
