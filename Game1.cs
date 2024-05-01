@@ -15,6 +15,8 @@ namespace GetOut;
 
 public class Game1 : Game
 {
+    private GameManager _gameManager;
+
     private ScreenManager _screenManager;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -42,12 +44,17 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
+        Globals.Content = Content;
+        _gameManager = new();
+        _gameManager.Init();
+
+        GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
+
         _screenManager = new ScreenManager();
         Components.Add(_screenManager);
 
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Window, GraphicsDevice, 1920, 1080));
-
-        // LoadScreen1();
+        
         base.Initialize();
     }
 
@@ -61,6 +68,8 @@ public class Game1 : Game
             new Rectangle(0, 0, 16, 28));
         _playerController =
             new PlayerController(ContentModel.Textures["mazeVariant1"]["player"], 5, _player, 100, _mazeModel);
+
+        Globals.SpriteBatch = _spriteBatch;
     }
 
     protected override void Update(GameTime gameTime)
@@ -74,7 +83,9 @@ public class Game1 : Game
             LoadScreen1();
         }
 
-        _camera.Move(Camera.GetMovementDirection() * 20);
+        Globals.Update(gameTime);
+        _gameManager.Update();
+        // _camera.Move(Camera.GetMovementDirection() * 20);
         // _playerController.Move(Keyboard.GetState());
         base.Update(gameTime);
     }
@@ -83,7 +94,12 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.SandyBrown);
         DrawMaze.Draw(_spriteBatch, _mazeModel, _camera);
-        DrawPlayer.Draw(_spriteBatch, _player);
+        // DrawPlayer.Draw(_spriteBatch, _player);
+
+        _spriteBatch.Begin();
+        _gameManager.Draw();
+        _spriteBatch.End();
+
         base.Draw(gameTime);
     }
 
