@@ -81,7 +81,10 @@ public class Game1 : Game
         {
             LoadScreen1();
         } 
-
+        if (Keyboard.GetState().IsKeyDown(Keys.C))
+        {
+            LoadScreen2();
+        }
         Globals.Update(gameTime);
         _gameManager.Update();
         // _camera.Position = _gameManager.Hero.Position;
@@ -96,6 +99,7 @@ public class Game1 : Game
         DrawMaze.Draw(_spriteBatch, _mazeModel, _camera);
 
         _spriteBatch.Begin(transformMatrix: _matrix, samplerState: SamplerState.PointClamp);
+        Globals.SpriteBatch = _spriteBatch;
         _gameManager.Draw();
         _spriteBatch.End();
 
@@ -105,5 +109,10 @@ public class Game1 : Game
     private void LoadScreen1()
     {
         _screenManager.LoadScreen(new MainMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
+    }
+
+    private void LoadScreen2()
+    {
+        _screenManager.LoadScreen(new LevelScreen(this, _gameManager), new FadeTransition(GraphicsDevice, Color.Black));
     }
 }

@@ -14,6 +14,8 @@ public class Hero
     private readonly AnimationManager _anims = new();
     public Vector2 StartPosition { get; private init; }
 
+    private Vector2 Direction => Vector2.Normalize(InputManager.Direction) * _speed * Globals.TotalSeconds;
+
     public Hero(Vector2 position, float speed)
     {
         StartPosition = position;
@@ -39,7 +41,7 @@ public class Hero
     {
         if (InputManager.Moving)
         {
-            Position += Vector2.Normalize(InputManager.Direction) * _speed * Globals.TotalSeconds;
+            Position += Direction;
         }
 
         _anims.Update(InputManager.Direction);
@@ -52,5 +54,21 @@ public class Hero
         // var cameraOffset = Globals.Camera.Position;
         // _anims.Draw(Position);
         _anims.Draw(StartPosition);
+    }
+
+    public Vector2 GetDirection(MapController mapController)
+    {
+        Rectangle heroRectangle = new Rectangle((int)Position.X, (int)Position.Y, 120, 80);
+        if (!mapController.IsMovePossible(heroRectangle)) return Vector2.Zero;
+
+        var direction = Direction;
+        if (float.IsNaN(direction.X) || float.IsNaN(direction.Y))
+        {
+            return Vector2.Zero;
+        }
+        else
+        {
+            return direction;
+        }
     }
 }
