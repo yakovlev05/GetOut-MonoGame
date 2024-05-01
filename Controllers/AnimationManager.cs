@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GetOut.Models;
 using Microsoft.Xna.Framework;
 
-namespace GetOut;
+namespace GetOut.Controllers;
 
 public class AnimationManager
 {

@@ -1,4 +1,6 @@
-﻿namespace GetOut;
+﻿using GetOut.Models;
+
+namespace GetOut.Controllers;
 
 public class GameManager
 {

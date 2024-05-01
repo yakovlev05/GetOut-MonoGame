@@ -23,8 +23,6 @@ public class Game1 : Game
     private OrthographicCamera _camera;
 
     //
-    private PlayerModel _player;
-    private PlayerController _playerController;
     private MazeModel _mazeModel;
 
     public Game1()
@@ -54,7 +52,7 @@ public class Game1 : Game
         Components.Add(_screenManager);
 
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Window, GraphicsDevice, 1920, 1080));
-        
+
         base.Initialize();
     }
 
@@ -64,10 +62,6 @@ public class Game1 : Game
         new ContentModel(Content);
         _mazeModel = new MazeModel(new DirectoryInfo("./Mazes/initial.txt"));
 
-        _player = new PlayerModel(ContentModel.Textures["mazeVariant1"]["player"], new Vector2(0, 0),
-            new Rectangle(0, 0, 16, 28));
-        _playerController =
-            new PlayerController(ContentModel.Textures["mazeVariant1"]["player"], 5, _player, 100, _mazeModel);
 
         Globals.SpriteBatch = _spriteBatch;
     }
