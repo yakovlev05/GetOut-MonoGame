@@ -17,7 +17,8 @@ namespace GetOut;
 public class Game1 : Game
 {
     private GameManager _gameManager;
-
+    private Matrix _matrix;
+    
     private ScreenManager _screenManager;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -52,9 +53,10 @@ public class Game1 : Game
         Components.Add(_screenManager);
 
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Window, GraphicsDevice, 1920, 1080));
-        _camera.Zoom = 2f;
-        
-        _camera.LookAt(new Vector2(1920/2,1080/2)); // Ставит начальную позиция камеры в центр
+        Globals.Camera = _camera;
+        _camera.Zoom = 3f;
+        _matrix = _camera.GetViewMatrix();
+        // _camera.LookAt(new Vector2(1920/2,1080/2)); // Ставит начальную позиция камеры в центр
 
         base.Initialize();
     }
@@ -82,6 +84,8 @@ public class Game1 : Game
 
         Globals.Update(gameTime);
         _gameManager.Update();
+        // _camera.Position = _gameManager.Hero.Position;
+        _camera.LookAt(_gameManager.Hero.Position);
         // _camera.Move(Camera.GetMovementDirection() * 20);
         base.Update(gameTime);
     }
@@ -91,7 +95,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.SandyBrown);
         DrawMaze.Draw(_spriteBatch, _mazeModel, _camera);
 
-        _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
+        _spriteBatch.Begin(transformMatrix: _matrix, samplerState: SamplerState.PointClamp);
         _gameManager.Draw();
         _spriteBatch.End();
 

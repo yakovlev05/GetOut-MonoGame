@@ -1,4 +1,5 @@
-﻿using GetOut.Controllers;
+﻿using System;
+using GetOut.Controllers;
 using GetOut.Program;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,14 +9,16 @@ namespace GetOut.Models;
 
 public class Hero
 {
-    private Vector2 _position;
+    public Vector2 Position { get; private set; }
     private float _speed;
     private readonly AnimationManager _anims = new();
+    public Vector2 StartPosition { get; private init; }
 
     public Hero(Vector2 position, float speed)
     {
+        StartPosition = position;
         var texture = Globals.Content.Load<Texture2D>("./hero");
-        _position = position;
+        Position = position;
         _speed = speed;
 
         _anims.AddAnimation(new Vector2(0, 0), new Animation(texture, 12, 8, 0.1f, 5, 10)); // Состояние в покое
@@ -36,7 +39,7 @@ public class Hero
     {
         if (InputManager.Moving)
         {
-            _position += Vector2.Normalize(InputManager.Direction) * _speed * Globals.TotalSeconds;
+            Position += Vector2.Normalize(InputManager.Direction) * _speed * Globals.TotalSeconds;
         }
 
         _anims.Update(InputManager.Direction);
@@ -46,6 +49,8 @@ public class Hero
 
     public void Draw()
     {
-        _anims.Draw(_position);
+        // var cameraOffset = Globals.Camera.Position;
+        // _anims.Draw(Position);
+        _anims.Draw(StartPosition);
     }
 }
