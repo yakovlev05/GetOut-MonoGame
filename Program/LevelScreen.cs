@@ -29,10 +29,9 @@ public class LevelScreen : GameScreen
     public override void Initialize()
     {
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
-
-        _camera.Zoom = 1f;
+        _camera.Zoom = 3f;
         _matrix = _camera.GetViewMatrix();
-        _matrix = _camera.GetViewMatrix();
+        
         //-960 -540 край карты на середине
         _camera.Position = new Vector2(-912, -460);
         Globals.Camera1 = _camera;
@@ -55,7 +54,7 @@ public class LevelScreen : GameScreen
         _tiledMapRenderer.Update(gameTime);
 
         Globals.Camera1 = _camera;
-        _camera.Position += _gameManager.Hero.GetDirection(_mapController);
+        _camera.Position += _gameManager.Hero.GetDirection(_mapController, _matrix);
         Globals.Camera1 = _camera;
 
         Console.WriteLine($"ИГРОК {_gameManager.Hero.Position}");
@@ -84,10 +83,16 @@ public class LevelScreen : GameScreen
             //     Console.WriteLine();
             // }
 
-            _spriteBatch.DrawRectangle(cord.X, cord.Y, 16, 16, Color.Red);
+            _spriteBatch.DrawRectangle(cord.X, cord.Y, 16*3, 16*3, Color.Red);
         }
-
-        _spriteBatch.DrawRectangle(_gameManager.Hero.StartPosition.X, _gameManager.Hero.StartPosition.Y, 120, 80,
+        _spriteBatch.End();
+        
+        // _spriteBatch.Begin(transformMatrix: _matrix);
+        _spriteBatch.Begin();
+        Vector2 cord1 =
+            Vector2.Transform(new Vector2(_gameManager.Hero.StartPosition.X, _gameManager.Hero.StartPosition.Y),
+                _matrix); 
+        _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 120*3, 80*3,
             Color.SandyBrown);
         // foreach (var wall in _mapController.Walls1)
         // {                        

@@ -44,19 +44,19 @@ public class Hero
         if (InputManager.IsPressedKey(Keys.Q) != Keys.None)
             _anims.Update(Keys.Q);
 
-        if (Globals.MapController != null)
-        {
-            if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y) || double.IsInfinity(Direction.X) ||
-                double.IsInfinity(Direction.Y))
-            {
-                return;
-            }
-        
-            var nextPosition = StartPosition + Direction;
-            // Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
-            var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 120, 80);
-            if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return;
-        }
+        // if (Globals.MapController != null)
+        // {
+        //     if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y) || double.IsInfinity(Direction.X) ||
+        //         double.IsInfinity(Direction.Y))
+        //     {
+        //         return;
+        //     }
+        //
+        //     var nextPosition = StartPosition + Direction;
+        //     // Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
+        //     var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 120*3, 80*3);
+        //     if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return;
+        // }
 
         if (InputManager.Moving)
         {
@@ -71,20 +71,23 @@ public class Hero
         _anims.Draw(StartPosition);
     }
 
-    public Vector2 GetDirection(MapController mapController)
+    public Vector2 GetDirection(MapController mapController, Matrix _matrix)
     {
         if (Globals.MapController != null)
         {
             if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y) || double.IsInfinity(Direction.X) ||
                 double.IsInfinity(Direction.Y))
             {
-                return Vector2.Zero;d
+                return Vector2.Zero;
             }
             else
             {
-                var nextPosition = StartPosition + Direction;
+                // var nextPosition = StartPosition + Direction;
                 // Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
-                var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 120, 80);
+                
+                Vector2 nextPosition = Vector2.Transform(new Vector2(StartPosition.X,StartPosition.Y),_matrix) + Direction*3;
+                
+                var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 120*3, 80*3);
                 if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return Vector2.Zero;
             }
             

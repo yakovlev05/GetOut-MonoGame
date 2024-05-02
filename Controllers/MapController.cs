@@ -67,7 +67,7 @@ public class MapController
             // if (point.X == 30 || point.X == 29 * 16) Console.WriteLine();
 
             var cord = Globals.Camera1.WorldToScreen(point.X, point.Y);
-            var wallRect = new RectangleF(cord.X, cord.Y, 16, 16);
+            var wallRect = new RectangleF(cord.X, cord.Y, 16 * 3, 16 * 3);
             if (hero.Intersects(wallRect)) return false;
         }
 
