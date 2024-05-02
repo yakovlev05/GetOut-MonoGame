@@ -88,11 +88,11 @@ public class LevelScreen : GameScreen
         _spriteBatch.End();
         
         // _spriteBatch.Begin(transformMatrix: _matrix);
-        _spriteBatch.Begin();
+        _spriteBatch.Begin(); // Новые рамзеры 
         Vector2 cord1 =
-            Vector2.Transform(new Vector2(_gameManager.Hero.StartPosition.X, _gameManager.Hero.StartPosition.Y),
+            Vector2.Transform(new Vector2(_gameManager.Hero.StartPosition.X+40, _gameManager.Hero.StartPosition.Y+32),
                 _matrix); 
-        _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 120*3, 80*3,
+        _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 32*3, 48*3,
             Color.SandyBrown);
         // foreach (var wall in _mapController.Walls1)
         // {                        

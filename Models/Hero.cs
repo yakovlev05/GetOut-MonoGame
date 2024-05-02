@@ -85,9 +85,9 @@ public class Hero
                 // var nextPosition = StartPosition + Direction;
                 // Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
                 
-                Vector2 nextPosition = Vector2.Transform(new Vector2(StartPosition.X,StartPosition.Y),_matrix) + Direction*3;
+                Vector2 nextPosition = Vector2.Transform(new Vector2(StartPosition.X+40,StartPosition.Y+32),_matrix) + Direction*3;
                 
-                var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 120*3, 80*3);
+                var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 32*3, 48*3);
                 if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return Vector2.Zero;
             }
             
