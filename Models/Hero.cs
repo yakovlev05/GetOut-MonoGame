@@ -51,7 +51,7 @@ public class Hero
             {
                 return;
             }
-
+        
             var nextPosition = StartPosition + Direction;
             // Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
             var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 120, 80);
@@ -73,8 +73,22 @@ public class Hero
 
     public Vector2 GetDirection(MapController mapController)
     {
-        var heroRectangle = new RectangleF(StartPosition.X, StartPosition.Y, 120, 80);
-        if (!mapController.IsMovePossible(heroRectangle)) return Vector2.Zero;
+        if (Globals.MapController != null)
+        {
+            if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y) || double.IsInfinity(Direction.X) ||
+                double.IsInfinity(Direction.Y))
+            {
+                return Vector2.Zero;d
+            }
+            else
+            {
+                var nextPosition = StartPosition + Direction;
+                // Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
+                var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 120, 80);
+                if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return Vector2.Zero;
+            }
+            
+        }
 
         var direction = Direction;
         if (float.IsNaN(direction.X) || float.IsNaN(direction.Y))

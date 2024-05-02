@@ -58,9 +58,9 @@ public class MapController
 
     public bool IsMovePossible(RectangleF hero)
     {
-        var overlapAllowed = 5;
-        var adjustedHero = new RectangleF(hero.X + overlapAllowed, hero.Y + overlapAllowed,
-            hero.Width - 2 * overlapAllowed, hero.Height - 2 * overlapAllowed);
+        // var overlapAllowed = 5;
+        // var adjustedHero = new RectangleF(hero.X, hero.Y,
+        //     hero.Width - 2 * overlapAllowed, hero.Height - 2 * overlapAllowed);
 
         foreach (var point in Walls1)
         {
@@ -68,7 +68,7 @@ public class MapController
 
             var cord = Globals.Camera1.WorldToScreen(point.X, point.Y);
             var wallRect = new RectangleF(cord.X, cord.Y, 16, 16);
-            if (adjustedHero.Intersects(wallRect)) return false;
+            if (hero.Intersects(wallRect)) return false;
         }
 
         return true;
