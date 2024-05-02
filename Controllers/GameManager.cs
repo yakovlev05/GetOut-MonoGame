@@ -9,7 +9,8 @@ public class GameManager
 
     public void Init()
     {
-        Hero = new(new(900, 500), 200f);
+        // Hero = new(new(900, 500), 200f);
+        Hero = new(new(800, 400), 200f);
     }
 
     public void Update()

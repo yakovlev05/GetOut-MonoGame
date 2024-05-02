@@ -29,12 +29,13 @@ public class LevelScreen : GameScreen
     public override void Initialize()
     {
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
-        Globals.Camera = _camera;
-        _camera.Zoom = 3f;
+
+        _camera.Zoom = 1f;
         _matrix = _camera.GetViewMatrix();
         _matrix = _camera.GetViewMatrix();
         //-960 -540 край карты на середине
         _camera.Position = new Vector2(-912, -460);
+        Globals.Camera = _camera;
         base.Initialize();
     }
 
@@ -44,18 +45,22 @@ public class LevelScreen : GameScreen
         _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _mapController = new MapController(_tiledMap);
+        Globals.MapController = _mapController;
         base.LoadContent();
     }
 
     public override void Update(GameTime gameTime)
     {
         _tiledMapRenderer.Update(gameTime);
-        // Globals.Update(gameTime);
-        // _gameManager.Update();
-        // _camera.LookAt(_gameManager.Hero.Position);
-        _mapController = new MapController(_tiledMap);
+
         _camera.Position += _gameManager.Hero.GetDirection(_mapController);
-        Console.WriteLine( _gameManager.Hero.Position);
+        Globals.Camera = _camera;
+        
+        Console.WriteLine($"ИГРОК {_gameManager.Hero.Position}");
+        Console.WriteLine($"ИГРОК1 {_camera.ScreenToWorld(_gameManager.Hero.Position)}");
+        Console.WriteLine($"КОНВЕРТ1 {_camera.WorldToScreen(new Vector2(0, 0))}");
+        Console.WriteLine($"КОНВЕРТ {_camera.WorldToScreen(new Vector2(-912, -460))}");
+        Console.WriteLine($"КОНВЕРТ {_camera.ScreenToWorld(new Vector2(16, 16))}");
     }
 
     public override void Draw(GameTime gameTime)
@@ -68,6 +73,20 @@ public class LevelScreen : GameScreen
 
         _spriteBatch.Begin(transformMatrix: _matrix, samplerState: SamplerState.PointClamp);
         _gameManager.Draw();
+        _spriteBatch.End();
+
+
+        _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix());
+        // foreach (var wall in _mapController.Walls1)
+        // {
+        //     var cord = _camera.WorldToScreen(wall.X, wall.Y);
+        //     _spriteBatch.DrawRectangle(cord.X, cord.Y, 16, 16, Color.Red);
+        // }
+        foreach (var wall in _mapController.Walls1)
+        {
+            var cord = wall;
+            _spriteBatch.DrawRectangle(cord.X, cord.Y, 16, 16, Color.Red);
+        }
         _spriteBatch.End();
     }
 }

@@ -39,14 +39,26 @@ public class Hero
 
     public void Update()
     {
+        _anims.Update(InputManager.Direction);
+        if (InputManager.IsPressedKey(Keys.Q) != Keys.None)
+            _anims.Update(Keys.Q);
+
+        // if (Globals.MapController != null)
+        // {
+        //     if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y) || double.IsInfinity(Direction.X) ||
+        //         double.IsInfinity(Direction.Y))
+        //     {
+        //         return;
+        //     }
+        //     var nextPosition = Position + Direction;
+        //     Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
+        //     if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return;
+        // }
+
         if (InputManager.Moving)
         {
             Position += Direction;
         }
-
-        _anims.Update(InputManager.Direction);
-        if (InputManager.IsPressedKey(Keys.Q) != Keys.None)
-            _anims.Update(Keys.Q);
     }
 
     public void Draw()
@@ -60,7 +72,7 @@ public class Hero
     {
         Rectangle heroRectangle = new Rectangle((int)Position.X, (int)Position.Y, 120, 80);
         if (!mapController.IsMovePossible(heroRectangle)) return Vector2.Zero;
-
+    
         var direction = Direction;
         if (float.IsNaN(direction.X) || float.IsNaN(direction.Y))
         {
