@@ -35,7 +35,7 @@ public class LevelScreen : GameScreen
         _matrix = _camera.GetViewMatrix();
         //-960 -540 край карты на середине
         _camera.Position = new Vector2(-912, -460);
-        Globals.Camera = _camera;
+        Globals.Camera1 = _camera;
         base.Initialize();
     }
 
@@ -47,20 +47,19 @@ public class LevelScreen : GameScreen
         _mapController = new MapController(_tiledMap);
         Globals.MapController = _mapController;
         base.LoadContent();
+        Globals.Camera1 = _camera;
     }
 
     public override void Update(GameTime gameTime)
     {
         _tiledMapRenderer.Update(gameTime);
 
+        Globals.Camera1 = _camera;
         _camera.Position += _gameManager.Hero.GetDirection(_mapController);
-        Globals.Camera = _camera;
-        
+        Globals.Camera1 = _camera;
+
         Console.WriteLine($"ИГРОК {_gameManager.Hero.Position}");
         Console.WriteLine($"ИГРОК1 {_camera.ScreenToWorld(_gameManager.Hero.Position)}");
-        Console.WriteLine($"КОНВЕРТ1 {_camera.WorldToScreen(new Vector2(0, 0))}");
-        Console.WriteLine($"КОНВЕРТ {_camera.WorldToScreen(new Vector2(-912, -460))}");
-        Console.WriteLine($"КОНВЕРТ {_camera.ScreenToWorld(new Vector2(16, 16))}");
     }
 
     public override void Draw(GameTime gameTime)
@@ -76,17 +75,26 @@ public class LevelScreen : GameScreen
         _spriteBatch.End();
 
 
-        _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix());
-        // foreach (var wall in _mapController.Walls1)
-        // {
-        //     var cord = _camera.WorldToScreen(wall.X, wall.Y);
-        //     _spriteBatch.DrawRectangle(cord.X, cord.Y, 16, 16, Color.Red);
-        // }
+        _spriteBatch.Begin();
         foreach (var wall in _mapController.Walls1)
         {
-            var cord = wall;
+            var cord = _camera.WorldToScreen(wall.X, wall.Y);
+            // if (wall.X == 16 * 29)
+            // {
+            //     Console.WriteLine();
+            // }
+
             _spriteBatch.DrawRectangle(cord.X, cord.Y, 16, 16, Color.Red);
         }
+
+        _spriteBatch.DrawRectangle(_gameManager.Hero.StartPosition.X, _gameManager.Hero.StartPosition.Y, 120, 80,
+            Color.SandyBrown);
+        // foreach (var wall in _mapController.Walls1)
+        // {                        
+        //     var cord = wall;
+        //     _spriteBatch.DrawRectangle(cord.X, cord.Y, 16, 16, Color.Red);
+        // }
         _spriteBatch.End();
+        Globals.Camera1 = _camera;
     }
 }

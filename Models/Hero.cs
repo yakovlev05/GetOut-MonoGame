@@ -4,6 +4,7 @@ using GetOut.Program;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 
 namespace GetOut.Models;
 
@@ -43,17 +44,19 @@ public class Hero
         if (InputManager.IsPressedKey(Keys.Q) != Keys.None)
             _anims.Update(Keys.Q);
 
-        // if (Globals.MapController != null)
-        // {
-        //     if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y) || double.IsInfinity(Direction.X) ||
-        //         double.IsInfinity(Direction.Y))
-        //     {
-        //         return;
-        //     }
-        //     var nextPosition = Position + Direction;
-        //     Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
-        //     if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return;
-        // }
+        if (Globals.MapController != null)
+        {
+            if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y) || double.IsInfinity(Direction.X) ||
+                double.IsInfinity(Direction.Y))
+            {
+                return;
+            }
+
+            var nextPosition = StartPosition + Direction;
+            // Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
+            var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 120, 80);
+            if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return;
+        }
 
         if (InputManager.Moving)
         {
@@ -70,9 +73,9 @@ public class Hero
 
     public Vector2 GetDirection(MapController mapController)
     {
-        Rectangle heroRectangle = new Rectangle((int)Position.X, (int)Position.Y, 120, 80);
+        var heroRectangle = new RectangleF(StartPosition.X, StartPosition.Y, 120, 80);
         if (!mapController.IsMovePossible(heroRectangle)) return Vector2.Zero;
-    
+
         var direction = Direction;
         if (float.IsNaN(direction.X) || float.IsNaN(direction.Y))
         {

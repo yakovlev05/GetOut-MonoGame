@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GetOut.Program;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 
 namespace GetOut.Controllers;
@@ -55,23 +56,19 @@ public class MapController
         return result;
     }
 
-    public bool IsMovePossible(Rectangle hero)
+    public bool IsMovePossible(RectangleF hero)
     {
-        // // Уменьшаем размер прямоугольника героя на overlapAllowed пикселей
-        // var adjustedHero = new Rectangle(hero.X + overlapAllowed, hero.Y + overlapAllowed, 
-        //     hero.Width - 2 * overlapAllowed, hero.Height - 2 * overlapAllowed);
-        // foreach (var wall in Walls)
-        // {
-        //     if (hero.Intersects(wall)) return false;
-        // }
-        //
-        // return true;
+        var overlapAllowed = 5;
+        var adjustedHero = new RectangleF(hero.X + overlapAllowed, hero.Y + overlapAllowed,
+            hero.Width - 2 * overlapAllowed, hero.Height - 2 * overlapAllowed);
 
         foreach (var point in Walls1)
         {
-            var cord = Globals.Camera.WorldToScreen(point.X, point.Y);
-            var wallRect = new Rectangle((ushort)cord.X, (ushort)cord.Y, 16, 16);
-            if (hero.Intersects(wallRect)) return false;
+            // if (point.X == 30 || point.X == 29 * 16) Console.WriteLine();
+
+            var cord = Globals.Camera1.WorldToScreen(point.X, point.Y);
+            var wallRect = new RectangleF(cord.X, cord.Y, 16, 16);
+            if (adjustedHero.Intersects(wallRect)) return false;
         }
 
         return true;
