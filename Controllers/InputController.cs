@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace GetOut;
+namespace GetOut.Controllers;
 
-public static class InputManager
+public static class InputController
 {
     private static Vector2 _direction;
     public static Vector2 Direction => _direction;

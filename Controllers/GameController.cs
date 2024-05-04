@@ -3,7 +3,7 @@ using GetOut.Program;
 
 namespace GetOut.Controllers;
 
-public class GameManager
+public class GameController
 {
     public Hero Hero { get; private set; }
 
@@ -15,7 +15,7 @@ public class GameManager
 
     public void Update()
     {
-        InputManager.Update();
+        InputController.Update();
         Hero.Update();
     }
 

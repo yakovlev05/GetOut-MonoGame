@@ -1,2 +1,4 @@
-﻿using var game = new GetOut.Game1();
+﻿using GetOut.Program;
+
+using var game = new Game1();
 game.Run();

@@ -16,14 +16,14 @@ public class LevelScreen : GameScreen
     private TiledMap _tiledMap;
     private TiledMapRenderer _tiledMapRenderer;
     private SpriteBatch _spriteBatch;
-    private GameManager _gameManager;
+    private GameController _gameController;
     private OrthographicCamera _camera;
     private Matrix _matrix;
     private MapController _mapController;
 
-    public LevelScreen(Game game, GameManager gameManager) : base(game)
+    public LevelScreen(Game game, GameController gameController) : base(game)
     {
-        _gameManager = gameManager;
+        _gameController = gameController;
     }
 
     public override void Initialize()
@@ -46,51 +46,38 @@ public class LevelScreen : GameScreen
         _mapController = new MapController(_tiledMap);
         Globals.MapController = _mapController;
         base.LoadContent();
-        Globals.Camera1 = _camera;
     }
 
     public override void Update(GameTime gameTime)
     {
         _tiledMapRenderer.Update(gameTime);
-
-        Globals.Camera1 = _camera;
-        _camera.Position += _gameManager.Hero.GetDirection(_mapController, _matrix);
-        Globals.Camera1 = _camera;
-
-        Console.WriteLine($"ИГРОК {_gameManager.Hero.Position}");
-        Console.WriteLine($"ИГРОК1 {_camera.ScreenToWorld(_gameManager.Hero.Position)}");
+        _gameController.Update();
+        _camera.Position += _gameController.Hero.GetDirection(_mapController, _matrix);
+        
     }
 
     public override void Draw(GameTime gameTime)
     {
         Globals.SpriteBatch = _spriteBatch;
         GraphicsDevice.Clear(Color.Black);
-        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-        _tiledMapRenderer.Draw(_camera.GetViewMatrix());
-        _spriteBatch.End();
 
         _spriteBatch.Begin(transformMatrix: _matrix, samplerState: SamplerState.PointClamp);
-        _gameManager.Draw();
+        _tiledMapRenderer.Draw(_camera.GetViewMatrix());
+        _gameController.Draw();
         _spriteBatch.End();
 
-
+        
         _spriteBatch.Begin();
         foreach (var wall in _mapController.Walls1)
         {
             var cord = _camera.WorldToScreen(wall.X, wall.Y);
-            // if (wall.X == 16 * 29)
-            // {
-            //     Console.WriteLine();
-            // }
-
             _spriteBatch.DrawRectangle(cord.X, cord.Y, 16*3, 16*3, Color.Red);
         }
         _spriteBatch.End();
         
-        // _spriteBatch.Begin(transformMatrix: _matrix);
         _spriteBatch.Begin(); // Новые рамзеры 
         Vector2 cord1 =
-            Vector2.Transform(new Vector2(_gameManager.Hero.StartPosition.X+40, _gameManager.Hero.StartPosition.Y+32),
+            Vector2.Transform(new Vector2(_gameController.Hero.StartPosition.X+40, _gameController.Hero.StartPosition.Y+32),
                 _matrix); 
         _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 32*3, 48*3,
             Color.SandyBrown);
@@ -100,6 +87,5 @@ public class LevelScreen : GameScreen
         //     _spriteBatch.DrawRectangle(cord.X, cord.Y, 16, 16, Color.Red);
         // }
         _spriteBatch.End();
-        Globals.Camera1 = _camera;
     }
 }

@@ -12,10 +12,10 @@ public class Hero
 {
     public Vector2 Position { get; private set; }
     private float _speed;
-    private readonly AnimationManager _anims = new();
+    private readonly AnimationController _anims = new();
     public Vector2 StartPosition { get; private init; }
 
-    private Vector2 Direction => Vector2.Normalize(InputManager.Direction) * _speed * Globals.TotalSeconds;
+    private Vector2 Direction => Vector2.Normalize(InputController.Direction) * _speed * Globals.TotalSeconds;
 
     public Hero(Vector2 position, float speed)
     {
@@ -40,8 +40,8 @@ public class Hero
 
     public void Update()
     {
-        _anims.Update(InputManager.Direction);
-        if (InputManager.IsPressedKey(Keys.Q) != Keys.None)
+        _anims.Update(InputController.Direction);
+        if (InputController.IsPressedKey(Keys.Q) != Keys.None)
             _anims.Update(Keys.Q);
 
         // if (Globals.MapController != null)
@@ -58,7 +58,7 @@ public class Hero
         //     if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return;
         // }
 
-        if (InputManager.Moving)
+        if (InputController.Moving)
         {
             Position += Direction;
         }

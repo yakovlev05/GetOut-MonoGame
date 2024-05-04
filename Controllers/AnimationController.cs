@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace GetOut.Controllers;
 
-public class AnimationManager
+public class AnimationController
 {
     private readonly Dictionary<object, Animation> _anims = new (); // Словарь анимация
     private object _lastKey; // Поледний использованный ключ для словаря
