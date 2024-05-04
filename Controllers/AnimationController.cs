@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GetOut.Models;
+using GetOut.View;
 using Microsoft.Xna.Framework;
 
 namespace GetOut.Controllers;

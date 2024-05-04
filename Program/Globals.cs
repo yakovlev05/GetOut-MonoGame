@@ -14,6 +14,7 @@ public static class Globals
     public static OrthographicCamera Camera { get; set; }
     public static MapController MapController { get; set; }
     public static OrthographicCamera Camera1 { get; set; }
+    public static GameWindow Window { get; set; }
 
     public static void Update(GameTime gt)
     {

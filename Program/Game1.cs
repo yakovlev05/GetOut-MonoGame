@@ -27,6 +27,7 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
+        Globals.Window = Window;
         Globals.Content = Content;
         _gameController = new();
         _gameController.Init();
@@ -43,6 +44,7 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
+        InputController.Update();
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();

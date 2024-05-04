@@ -3,7 +3,7 @@ using GetOut.Program;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GetOut.Models;
+namespace GetOut.View;
 
 public class Animation
 {

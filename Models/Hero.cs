@@ -1,6 +1,7 @@
 ﻿using System;
 using GetOut.Controllers;
 using GetOut.Program;
+using GetOut.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
