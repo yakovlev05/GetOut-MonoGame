@@ -99,7 +99,7 @@
 /processor:TiledMapProcessor
 /build:level1/level1.tmx
 
-#begin MainMenu/Dungeon_Tileset_at.png
+#begin MainMenuScreen/Dungeon_Tileset_at.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -109,19 +109,53 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:MainMenu/Dungeon_Tileset_at.png
+/build:MainMenuScreen/Dungeon_Tileset_at.png
 
-#begin MainMenu/Dungeon_Tileset_at.tsx
+#begin MainMenuScreen/Dungeon_Tileset_at.tsx
 /importer:TiledMapTilesetImporter
 /processor:TiledMapTilesetProcessor
-/build:MainMenu/Dungeon_Tileset_at.tsx
+/build:MainMenuScreen/Dungeon_Tileset_at.tsx
 
-#begin MainMenu/mainmenu.tmx
+#begin MainMenuScreen/exit_button_active.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenuScreen/exit_button_active.png
+
+#begin MainMenuScreen/exit_button_active.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:MainMenuScreen/exit_button_active.tsx
+
+#begin MainMenuScreen/exit_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenuScreen/exit_button.png
+
+#begin MainMenuScreen/exit_button.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:MainMenuScreen/exit_button.tsx
+
+#begin MainMenuScreen/mainmenu.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
-/build:MainMenu/mainmenu.tmx
+/build:MainMenuScreen/mainmenu.tmx
 
-#begin MainMenu/title.png
+#begin MainMenuScreen/play_button_active.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -131,10 +165,44 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:MainMenu/title.png
+/build:MainMenuScreen/play_button_active.png
 
-#begin MainMenu/title.tsx
+#begin MainMenuScreen/play_button_active.tsx
 /importer:TiledMapTilesetImporter
 /processor:TiledMapTilesetProcessor
-/build:MainMenu/title.tsx
+/build:MainMenuScreen/play_button_active.tsx
+
+#begin MainMenuScreen/play_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenuScreen/play_button.png
+
+#begin MainMenuScreen/play_button.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:MainMenuScreen/play_button.tsx
+
+#begin MainMenuScreen/title.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenuScreen/title.png
+
+#begin MainMenuScreen/title.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:MainMenuScreen/title.tsx
 

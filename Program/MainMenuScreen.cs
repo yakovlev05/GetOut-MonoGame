@@ -20,7 +20,7 @@ public class MainMenuScreen : GameScreen
 
     public override void LoadContent()
     {
-        _tiledMap = Content.Load<TiledMap>("./MainMenu/mainmenu");
+        _tiledMap = Content.Load<TiledMap>("./MainMenuScreen/mainmenu");
         _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -30,6 +30,8 @@ public class MainMenuScreen : GameScreen
     public override void Update(GameTime gameTime)
     {
         _tiledMapRenderer.Update(gameTime);
+        var button = _tiledMap.GetLayer<TiledMapLayer>("play_button_active");
+        button.IsVisible = true;
     }
 
     public override void Draw(GameTime gameTime)
