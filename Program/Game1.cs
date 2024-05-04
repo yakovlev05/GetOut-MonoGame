@@ -30,8 +30,7 @@ public class Game1 : Game
         Globals.Content = Content;
         _gameController = new();
         _gameController.Init();
-
-
+        
         _screenManager = new ScreenManager();
         Components.Add(_screenManager);
 
