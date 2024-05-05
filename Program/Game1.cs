@@ -1,4 +1,5 @@
 ﻿using GetOut.Controllers;
+using GetOut.Program.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
@@ -31,7 +32,7 @@ public class Game1 : Game
         Globals.Content = Content;
         _gameController = new();
         _gameController.Init();
-        
+
         _screenManager = new ScreenManager();
         Components.Add(_screenManager);
 
@@ -51,6 +52,7 @@ public class Game1 : Game
 
         if (Keyboard.GetState().IsKeyDown(Keys.X)) LoadScreen1();
         if (Keyboard.GetState().IsKeyDown(Keys.C)) LoadScreen2();
+        if (Keyboard.GetState().IsKeyDown(Keys.V)) LoadScreen3();
 
         Globals.Update(gameTime);
         base.Update(gameTime);
@@ -71,5 +73,10 @@ public class Game1 : Game
     {
         _screenManager.LoadScreen(new LevelScreen(this, _gameController),
             new FadeTransition(GraphicsDevice, Color.Black));
+    }
+
+    private void LoadScreen3()
+    {
+        _screenManager.LoadScreen(new LevelMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
     }
 }

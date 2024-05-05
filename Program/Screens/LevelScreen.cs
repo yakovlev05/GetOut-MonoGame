@@ -1,5 +1,4 @@
-﻿using System;
-using GetOut.Controllers;
+﻿using GetOut.Controllers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -8,7 +7,7 @@ using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
 using MonoGame.Extended.ViewportAdapters;
 
-namespace GetOut.Program;
+namespace GetOut.Program.Screens;
 
 public class LevelScreen : GameScreen
 {

@@ -8,7 +8,7 @@ using MonoGame.Extended.Screens;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
 
-namespace GetOut.Program;
+namespace GetOut.Program.Screens;
 
 public class MainMenuScreen : GameScreen
 {
