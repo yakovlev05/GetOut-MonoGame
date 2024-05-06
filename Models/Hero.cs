@@ -8,7 +8,7 @@ using MonoGame.Extended;
 
 namespace GetOut.Models;
 
-public class Hero
+public class Hero : IEntityInterface
 {
     private float Speed { get; init; }
     private AnimationController Anims { get; init; } = new();

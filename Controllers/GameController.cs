@@ -1,16 +1,25 @@
-﻿using GetOut.Models;
-using GetOut.Program;
+﻿using System.Collections.Generic;
+using GetOut.Models;
 
 namespace GetOut.Controllers;
 
 public class GameController
 {
-    public Hero Hero { get; private set; }
+    public Hero Hero { get; private set; } // Героя вынесли отдельно, так как он будет везде, он независим от всего остального, исключительная личность
+    public List<IEntityInterface> Entities { get; private set; }
+    
+    public GameController()
+    {
+    }
+    
+    public GameController(List<IEntityInterface> entities)
+    {
+        Entities = entities;
+    }
 
     public void Init()
-    { // 900*500
-        Hero = new(new(900, 500), 200f);
-        // Hero = new(new(600, 400), 200f);
+    {
+        Hero = new(new(900, 500), 200f); // Центр Экрана, присутсвует везде
     }
 
     public void Update()
