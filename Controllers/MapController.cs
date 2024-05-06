@@ -3,25 +3,29 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Tiled.Renderers;
 
 namespace GetOut.Controllers;
 
 public class MapController
 {
-    private TiledMap Map { get; set; }
     public List<Point> Walls { get; private set; }
     private OrthographicCamera Camera { get; init; }
 
-    public MapController(TiledMap map, OrthographicCamera camera)
+    private TiledMapRenderer TiledMapRenderer { get; init; }
+    private TiledMap TiledMap { get; set; }
+
+    public MapController(TiledMap tiledMap, TiledMapRenderer tiledMapRenderer, OrthographicCamera camera)
     {
-        Map = map;
+        TiledMap = tiledMap;
         Camera = camera;
+        TiledMapRenderer = tiledMapRenderer;
         Walls = GetPointsInTileGrid("walls");
     }
 
     private List<Point> GetPointsInTileGrid(string layerName)
     {
-        return Map
+        return TiledMap
             .GetLayer<TiledMapTileLayer>(layerName).Tiles
             .Where(x => x.GlobalIdentifier != 0)
             .Select(x => new Point(x.X * 16, x.Y * 16))
@@ -39,4 +43,8 @@ public class MapController
 
         return true;
     }
+
+    public void Update(GameTime gameTime) => TiledMapRenderer.Update(gameTime);
+
+    public void Draw() => TiledMapRenderer.Draw(Camera.GetViewMatrix());
 }
