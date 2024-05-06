@@ -72,6 +72,13 @@ public class Game1 : Game
 
     public void LoadLevelScreenTest()
     {
-        _screenManager.LoadScreen(new LevelScreenTest(this, "./level1/level1", new GameController()), new FadeTransition(GraphicsDevice, Color.Black));
+        _screenManager.LoadScreen(new LevelScreenTest(this, "./level1/level1", new GameController()),
+            new FadeTransition(GraphicsDevice, Color.Black));
+    }
+
+    public void LoadLevelTEST()
+    {
+        _screenManager.LoadScreen(new LevelScreenTest(this, "./Levels/levels/level1", new GameController()),
+            new FadeTransition(GraphicsDevice, Color.Black));
     }
 }

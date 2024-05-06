@@ -495,6 +495,45 @@
 /processor:TiledMapTilesetProcessor
 /build:LevelMenuScreen/title.tsx
 
+#begin Levels/assets/Dungeon_Tileset_at.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Levels/assets/Dungeon_Tileset_at.png
+
+#begin Levels/assets/Dungeon_Tileset_at.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:Levels/assets/Dungeon_Tileset_at.tsx
+
+#begin Levels/assets/Dungeon_Tileset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Levels/assets/Dungeon_Tileset.png
+
+#begin Levels/assets/Dungeon_Tileset.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:Levels/assets/Dungeon_Tileset.tsx
+
+#begin Levels/levels/level1.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Levels/levels/level1.tmx
+
 #begin MainMenuScreen/Dungeon_Tileset_at.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -596,23 +635,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:MainMenuScreen/title.png
-
-#begin MainMenuScreen/title.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:MainMenuScreen/title.png
-
-#begin MainMenuScreen/title.tsx
-/importer:TiledMapTilesetImporter
-/processor:TiledMapTilesetProcessor
-/build:MainMenuScreen/title.tsx
 
 #begin MainMenuScreen/title.tsx
 /importer:TiledMapTilesetImporter

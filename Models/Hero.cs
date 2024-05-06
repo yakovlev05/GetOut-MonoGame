@@ -51,10 +51,10 @@ public class Hero : IEntityInterface
         if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y)) return Vector2.Zero;
 
         var scaleDirection = new Vector2(Direction.X * matrix.M11, Direction.Y * matrix.M22);
-        var personPosition = Vector2.Transform(new Vector2(StartPosition.X + 50, StartPosition.Y + 37), matrix);
+        var personPosition = Vector2.Transform(new Vector2(StartPosition.X + 50, StartPosition.Y + 42), matrix);
         var nextPosition = personPosition + scaleDirection;
 
-        var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 15 * matrix.M11, 43 * matrix.M22);
+        var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 15 * matrix.M11, 38 * matrix.M22);
         if (!mapController.IsMovePossible(nextHeroRectangle)) return Vector2.Zero;
 
 

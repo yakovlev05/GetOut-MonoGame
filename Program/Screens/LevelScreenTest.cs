@@ -31,8 +31,8 @@ public class LevelScreenTest : GameScreen
 
     public override void Initialize()
     {
-        //-960 -540 край карты на середине
-        _camera.Position = new Vector2(-912, -400);
+        //-960 -540 край карты на середине //492
+        _camera.Position = new Vector2(-912, -492);
         base.Initialize();
     }
 
@@ -62,7 +62,7 @@ public class LevelScreenTest : GameScreen
         _gameController.Draw();
         _spriteBatch.End();
 
-        // Отрисовка границ объектов для тестирования
+        // // Отрисовка границ объектов для тестирования
         // _spriteBatch.Begin();
         // foreach (var wall in _mapController.Walls)
         // {
@@ -76,11 +76,11 @@ public class LevelScreenTest : GameScreen
         // _spriteBatch.Begin(); // Новые рамзеры
         // Vector2 cord1 =
         //     Vector2.Transform(
-        //         new Vector2(_gameController.Hero.StartPosition.X + 50, _gameController.Hero.StartPosition.Y + 37),
+        //         new Vector2(_gameController.Hero.StartPosition.X + 50, _gameController.Hero.StartPosition.Y + 42),
         //         _matrix);
         //
         //
-        // _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 15 * _matrix.M11, 43 * _matrix.M22, Color.SandyBrown);
+        // _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 15 * _matrix.M11, 38 * _matrix.M22, Color.SandyBrown);
         // _spriteBatch.End();
     }
 }

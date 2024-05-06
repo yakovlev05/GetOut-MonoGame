@@ -68,6 +68,7 @@ public class LevelMenuScreen : GameScreen
                 {
                     Console.WriteLine(button.Key);
                     if (button.Key == "level1_active") Game.LoadLevelScreenTest();
+                    if (button.Key=="level2_active") Game.LoadLevelTEST();
                 }
             }
             else _buttonsLayers[button.Key].IsVisible = false;
