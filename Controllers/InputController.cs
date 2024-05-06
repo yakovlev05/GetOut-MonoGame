@@ -26,9 +26,9 @@ public static class InputController
         }
     }
 
-    public static Keys IsPressedKey(Keys key) // Возвращает значение клаивиши, если она нажата, иначе null
+    public static bool IsPressedKey(Keys key) // Возвращает значение клаивиши, если она нажата, иначе null
     {
-        return Keyboard.GetState().IsKeyDown(key) ? key : Keys.None;
+        return Keyboard.GetState().IsKeyDown(key);
     }
 
     public static bool IsLeftButtonPressed()

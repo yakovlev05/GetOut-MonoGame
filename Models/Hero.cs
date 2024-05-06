@@ -40,7 +40,7 @@ public class Hero
     public void Update()
     {
         Anims.Update(InputController.Direction);
-        if (InputController.IsPressedKey(Keys.Q) != Keys.None)
+        if (InputController.IsPressedKey(Keys.Q))
             Anims.Update(Keys.Q);
     }
 

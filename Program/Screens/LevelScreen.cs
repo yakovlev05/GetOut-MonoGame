@@ -1,6 +1,7 @@
 ﻿using GetOut.Controllers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Tiled;
@@ -51,6 +52,8 @@ public class LevelScreen : GameScreen
 
     public override void Update(GameTime gameTime)
     {
+        if (InputController.IsPressedKey(Keys.Escape)) Game.LoadLevelMenuScreen();
+        
         _tiledMapRenderer.Update(gameTime);
         _gameController.Update();
         _camera.Position += _gameController.Hero.GetDirection(_mapController, _matrix);

@@ -4,6 +4,7 @@ using System.Linq;
 using GetOut.Controllers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Tiled;
@@ -55,13 +56,19 @@ public class LevelMenuScreen : GameScreen
     {
         _tiledMapRenderer.Update(gameTime);
 
+        if (InputController.IsPressedKey(Keys.Escape)) Game.LoadMainMenuScreen();
+
         foreach (var button in _buttonsRectangles)
         {
             var rectangle = button.Value;
             if (InputController.IsMouseInRectangle(rectangle))
             {
                 _buttonsLayers[button.Key].IsVisible = true;
-                if (InputController.IsLeftButtonPressed()) Console.WriteLine(button.Key);
+                if (InputController.IsLeftButtonPressed())
+                {
+                    Console.WriteLine(button.Key);
+                    if (button.Key == "level1_active") Game.LoadLevelScreen();
+                }
             }
             else _buttonsLayers[button.Key].IsVisible = false;
         }

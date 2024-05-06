@@ -3,8 +3,10 @@ using System.Linq;
 using GetOut.Controllers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.Screens;
+using MonoGame.Extended.Screens.Transitions;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
 
@@ -65,25 +67,22 @@ public class MainMenuScreen : GameScreen
     {
         _tiledMapRenderer.Update(gameTime);
 
+        if (InputController.IsPressedKey(Keys.Escape)) Game.Exit();
+
         if (InputController.IsMouseInRectangle(_playButtonRectangle))
         {
-            if (InputController.IsLeftButtonPressed()) Console.WriteLine("Кнопка PLAY");
+            if (InputController.IsLeftButtonPressed()) Game.LoadLevelMenuScreen();
             _playButtonActive.IsVisible = true;
         }
-        else
-        {
-            _playButtonActive.IsVisible = false;
-        }
+        else _playButtonActive.IsVisible = false;
+
 
         if (InputController.IsMouseInRectangle(_exitButtonRectangle))
         {
-            if (InputController.IsLeftButtonPressed()) Console.WriteLine("Кнопка EXIT");
+            if (InputController.IsLeftButtonPressed()) Game.Exit();
             _exitButtonActive.IsVisible = true;
         }
-        else
-        {
-            _exitButtonActive.IsVisible = false;
-        }
+        else _exitButtonActive.IsVisible = false;
     }
 
     public override void Draw(GameTime gameTime)

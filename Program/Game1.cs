@@ -1,7 +1,6 @@
 ﻿using GetOut.Controllers;
 using GetOut.Program.Screens;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
 
@@ -9,9 +8,8 @@ namespace GetOut.Program;
 
 public class Game1 : Game
 {
-    private GameController _gameController;
     private ScreenManager _screenManager;
-    private GraphicsDeviceManager _graphics;
+    private readonly GraphicsDeviceManager _graphics;
 
 
     public Game1()
@@ -30,8 +28,6 @@ public class Game1 : Game
     {
         Globals.Window = Window;
         Globals.Content = Content;
-        _gameController = new();
-        _gameController.Init();
 
         _screenManager = new ScreenManager();
         Components.Add(_screenManager);
@@ -41,41 +37,38 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+        LoadMainMenuScreen();
     }
 
     protected override void Update(GameTime gameTime)
     {
         InputController.Update();
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-
-        if (Keyboard.GetState().IsKeyDown(Keys.X)) LoadScreen1();
-        if (Keyboard.GetState().IsKeyDown(Keys.C)) LoadScreen2();
-        if (Keyboard.GetState().IsKeyDown(Keys.V)) LoadScreen3();
-
         Globals.Update(gameTime);
+
+        // if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+        //     Keyboard.GetState().IsKeyDown(Keys.Escape))
+        //     Exit();
+
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.SandyBrown);
         base.Draw(gameTime);
     }
 
-    private void LoadScreen1()
+    public void LoadMainMenuScreen()
     {
         _screenManager.LoadScreen(new MainMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
     }
 
-    private void LoadScreen2()
-    {
-        _screenManager.LoadScreen(new LevelScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
-    }
-
-    private void LoadScreen3()
+    public void LoadLevelMenuScreen()
     {
         _screenManager.LoadScreen(new LevelMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
+    }
+
+    public void LoadLevelScreen()
+    {
+        _screenManager.LoadScreen(new LevelScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
     }
 }
