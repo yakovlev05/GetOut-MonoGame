@@ -58,7 +58,7 @@ public class Hero : IEntityInterface
 
 
         var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 15 * 3, 43 * 3);
-        if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return Vector2.Zero;
+        if (!mapController.IsMovePossible(nextHeroRectangle)) return Vector2.Zero;
 
 
         return Direction;

@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.Screens;
-using MonoGame.Extended.Tiled;
-using MonoGame.Extended.Tiled.Renderers;
 using MonoGame.Extended.ViewportAdapters;
 
 namespace GetOut.Program.Screens;
@@ -19,15 +17,13 @@ public class LevelScreenTest : GameScreen
     private Matrix _matrix;
     private MapController _mapController;
 
-    public LevelScreenTest(Game game, string pathMap, GameController gameController) : base(game)
+    public LevelScreenTest(Game game, string mapPath, GameController gameController) : base(game)
     {
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
         _camera.Zoom = 3f;
         _matrix = _camera.GetViewMatrix();
         
-        var tiledMap = Content.Load<TiledMap>(pathMap);
-        var tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, tiledMap);
-        _mapController = new MapController(tiledMap, tiledMapRenderer, _camera);
+        _mapController = new MapController(mapPath, _camera);
 
         _gameController = gameController;
         _gameController.Init();
@@ -44,7 +40,6 @@ public class LevelScreenTest : GameScreen
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        Globals.MapController = _mapController;
         base.LoadContent();
     }
 

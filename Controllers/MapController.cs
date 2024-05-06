@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GetOut.Program;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
@@ -15,11 +16,12 @@ public class MapController
     private TiledMapRenderer TiledMapRenderer { get; init; }
     private TiledMap TiledMap { get; set; }
 
-    public MapController(TiledMap tiledMap, TiledMapRenderer tiledMapRenderer, OrthographicCamera camera)
+    public MapController(string pathMap, OrthographicCamera camera)
     {
-        TiledMap = tiledMap;
+        TiledMap = Globals.Content.Load<TiledMap>(pathMap);
+        TiledMapRenderer = new TiledMapRenderer(Globals.GraphicsDevice, TiledMap);
+        
         Camera = camera;
-        TiledMapRenderer = tiledMapRenderer;
         Walls = GetPointsInTileGrid("walls");
     }
 

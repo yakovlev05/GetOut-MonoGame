@@ -30,6 +30,7 @@ public class Game1 : Game
     {
         Globals.Window = Window;
         Globals.Content = Content;
+        Globals.GraphicsDevice = GraphicsDevice;
 
         _screenManager = new ScreenManager();
         Components.Add(_screenManager);
