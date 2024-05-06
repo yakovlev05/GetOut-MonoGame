@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GetOut.Program;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 
@@ -17,28 +15,7 @@ public class MapController
     public MapController(TiledMap map)
     {
         Map = map;
-        Walls = GetRectanglesFromLayer("walls");
         Walls1 = GetPointsInTileGrid("walls");
-    }
-
-    private List<Rectangle> GetRectanglesFromLayer(string layerName)
-    {
-        var rectangles = new List<Rectangle>();
-
-        var layer = Map.GetLayer<TiledMapTileLayer>(layerName);
-        var width = layer.TileWidth;
-        var height = layer.TileHeight;
-        foreach (var tile in layer.Tiles)
-        {
-            // if (tile.GlobalIdentifier == 0) continue; // Skip tiles with GID 0, they are empty tiles
-
-            var x = tile.X;
-            var y = tile.Y;
-            if (x != 0) Console.WriteLine();
-            rectangles.Add(new Rectangle(x, y, width, height));
-        }
-
-        return rectangles;
     }
 
     private List<Point> GetPointsInTileGrid(string layerName)
@@ -64,8 +41,6 @@ public class MapController
 
         foreach (var point in Walls1)
         {
-            // if (point.X == 30 || point.X == 29 * 16) Console.WriteLine();
-
             var cord = Globals.Camera1.WorldToScreen(point.X, point.Y);
             var wallRect = new RectangleF(cord.X, cord.Y, 16 * 3, 16 * 3);
             if (hero.Intersects(wallRect)) return false;

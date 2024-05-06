@@ -20,9 +20,8 @@ public class LevelScreen : GameScreen
     private Matrix _matrix;
     private MapController _mapController;
 
-    public LevelScreen(Game game, GameController gameController) : base(game)
+    public LevelScreen(Game game) : base(game)
     {
-        _gameController = gameController;
     }
 
     public override void Initialize()
@@ -30,9 +29,12 @@ public class LevelScreen : GameScreen
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
         _camera.Zoom = 3f;
         _matrix = _camera.GetViewMatrix();
-        
+
+        _gameController = new GameController();
+        _gameController.Init();
+
         //-960 -540 край карты на середине
-        _camera.Position = new Vector2(-912, -460);
+        _camera.Position = new Vector2(-912, -492);
         Globals.Camera1 = _camera;
         base.Initialize();
     }
@@ -52,7 +54,6 @@ public class LevelScreen : GameScreen
         _tiledMapRenderer.Update(gameTime);
         _gameController.Update();
         _camera.Position += _gameController.Hero.GetDirection(_mapController, _matrix);
-        
     }
 
     public override void Draw(GameTime gameTime)
@@ -65,26 +66,26 @@ public class LevelScreen : GameScreen
         _gameController.Draw();
         _spriteBatch.End();
 
-        
+
         _spriteBatch.Begin();
         foreach (var wall in _mapController.Walls1)
         {
             var cord = _camera.WorldToScreen(wall.X, wall.Y);
-            _spriteBatch.DrawRectangle(cord.X, cord.Y, 16*3, 16*3, Color.Red);
+            _spriteBatch.DrawRectangle(cord.X, cord.Y, 16 * 3, 16 * 3, Color.Red);
         }
+
         _spriteBatch.End();
-        
-        _spriteBatch.Begin(); // Новые рамзеры 
+
+
+        _spriteBatch.Begin(); // Новые рамзеры
         Vector2 cord1 =
-            Vector2.Transform(new Vector2(_gameController.Hero.StartPosition.X+40, _gameController.Hero.StartPosition.Y+32),
-                _matrix); 
-        _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 32*3, 48*3,
+            Vector2.Transform(
+                new Vector2(_gameController.Hero.StartPosition.X + 50, _gameController.Hero.StartPosition.Y + 37),
+                _matrix);
+
+
+        _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 15 * 3, 43 * 3,
             Color.SandyBrown);
-        // foreach (var wall in _mapController.Walls1)
-        // {                        
-        //     var cord = wall;
-        //     _spriteBatch.DrawRectangle(cord.X, cord.Y, 16, 16, Color.Red);
-        // }
         _spriteBatch.End();
     }
 }

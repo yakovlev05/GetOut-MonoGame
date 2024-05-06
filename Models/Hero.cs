@@ -11,7 +11,6 @@ namespace GetOut.Models;
 
 public class Hero
 {
-    public Vector2 Position { get; private set; }
     private float _speed;
     private readonly AnimationController _anims = new();
     public Vector2 StartPosition { get; private init; }
@@ -22,7 +21,6 @@ public class Hero
     {
         StartPosition = position;
         var texture = Globals.Content.Load<Texture2D>("./hero");
-        Position = position;
         _speed = speed;
 
         _anims.AddAnimation(new Vector2(0, 0), new Animation(texture, 12, 8, 0.1f, 5, 10)); // Состояние в покое
@@ -44,31 +42,10 @@ public class Hero
         _anims.Update(InputController.Direction);
         if (InputController.IsPressedKey(Keys.Q) != Keys.None)
             _anims.Update(Keys.Q);
-
-        // if (Globals.MapController != null)
-        // {
-        //     if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y) || double.IsInfinity(Direction.X) ||
-        //         double.IsInfinity(Direction.Y))
-        //     {
-        //         return;
-        //     }
-        //
-        //     var nextPosition = StartPosition + Direction;
-        //     // Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
-        //     var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 120*3, 80*3);
-        //     if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return;
-        // }
-
-        if (InputController.Moving)
-        {
-            Position += Direction;
-        }
     }
 
     public void Draw()
     {
-        // var cameraOffset = Globals.Camera.Position;
-        // _anims.Draw(Position);
         _anims.Draw(StartPosition);
     }
 
@@ -83,25 +60,16 @@ public class Hero
             }
             else
             {
-                // var nextPosition = StartPosition + Direction;
-                // Rectangle nextHeroRectangle = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, 120, 80); //120*80
-                
-                Vector2 nextPosition = Vector2.Transform(new Vector2(StartPosition.X+40,StartPosition.Y+32),_matrix) + Direction*3;
-                
-                var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 32*3, 48*3);
+                var direction2 = new Vector2(Direction.X * _matrix.M11, Direction.Y * _matrix.M22);
+                Vector2 nextPosition =
+                    Vector2.Transform(new Vector2(StartPosition.X + 50, StartPosition.Y + 37), _matrix) + direction2;
+
+
+                var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 15 * 3, 43 * 3);
                 if (!Globals.MapController.IsMovePossible(nextHeroRectangle)) return Vector2.Zero;
             }
-            
         }
 
-        var direction = Direction;
-        if (float.IsNaN(direction.X) || float.IsNaN(direction.Y))
-        {
-            return Vector2.Zero;
-        }
-        else
-        {
-            return direction;
-        }
+        return Direction;
     }
 }

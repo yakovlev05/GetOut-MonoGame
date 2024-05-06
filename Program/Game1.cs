@@ -71,8 +71,7 @@ public class Game1 : Game
 
     private void LoadScreen2()
     {
-        _screenManager.LoadScreen(new LevelScreen(this, _gameController),
-            new FadeTransition(GraphicsDevice, Color.Black));
+        _screenManager.LoadScreen(new LevelScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
     }
 
     private void LoadScreen3()
