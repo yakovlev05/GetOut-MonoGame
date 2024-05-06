@@ -19,31 +19,29 @@ public class LevelScreenTest : GameScreen
     private Matrix _matrix;
     private MapController _mapController;
 
-    public LevelScreenTest(Game game) : base(game)
-    {
-    }
-
-    public override void Initialize()
+    public LevelScreenTest(Game game, string pathMap, GameController gameController) : base(game)
     {
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
         _camera.Zoom = 3f;
         _matrix = _camera.GetViewMatrix();
+        
+        var tiledMap = Content.Load<TiledMap>(pathMap);
+        var tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, tiledMap);
+        _mapController = new MapController(tiledMap, tiledMapRenderer, _camera);
 
-        _gameController = new GameController();
+        _gameController = gameController;
         _gameController.Init();
+    }
 
+    public override void Initialize()
+    {
         //-960 -540 край карты на середине
         _camera.Position = new Vector2(-912, -400);
-        Globals.Camera1 = _camera;
         base.Initialize();
     }
 
     public override void LoadContent()
     {
-        var tiledMap = Content.Load<TiledMap>("./level1/level1");
-        var tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, tiledMap);
-        _mapController = new MapController(tiledMap, tiledMapRenderer, _camera);
-
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         Globals.MapController = _mapController;

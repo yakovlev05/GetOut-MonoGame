@@ -3,6 +3,8 @@ using GetOut.Program.Screens;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
+using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Tiled.Renderers;
 
 namespace GetOut.Program;
 
@@ -67,8 +69,8 @@ public class Game1 : Game
         _screenManager.LoadScreen(new LevelMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
     }
 
-    public void LoadLevelScreen()
+    public void LoadLevelScreenTest()
     {
-        _screenManager.LoadScreen(new LevelScreenTest(this), new FadeTransition(GraphicsDevice, Color.Black));
+        _screenManager.LoadScreen(new LevelScreenTest(this, "./level1/level1", new GameController()), new FadeTransition(GraphicsDevice, Color.Black));
     }
 }
