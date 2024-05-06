@@ -34,7 +34,7 @@ public class LevelScreen : GameScreen
         _gameController.Init();
 
         //-960 -540 край карты на середине
-        _camera.Position = new Vector2(-912, -492);
+        _camera.Position = new Vector2(-912, -400);
         Globals.Camera1 = _camera;
         base.Initialize();
     }
@@ -44,7 +44,7 @@ public class LevelScreen : GameScreen
         _tiledMap = Content.Load<TiledMap>("./level1/level1");
         _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _mapController = new MapController(_tiledMap);
+        _mapController = new MapController(_tiledMap, _camera);
         Globals.MapController = _mapController;
         base.LoadContent();
     }
@@ -68,7 +68,7 @@ public class LevelScreen : GameScreen
 
 
         _spriteBatch.Begin();
-        foreach (var wall in _mapController.Walls1)
+        foreach (var wall in _mapController.Walls)
         {
             var cord = _camera.WorldToScreen(wall.X, wall.Y);
             _spriteBatch.DrawRectangle(cord.X, cord.Y, 16 * 3, 16 * 3, Color.Red);

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GetOut.Program;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
@@ -9,39 +9,30 @@ namespace GetOut.Controllers;
 public class MapController
 {
     private TiledMap Map { get; set; }
-    private List<Rectangle> Walls { get; set; }
-    public List<Point> Walls1 { get; set; }
+    public List<Point> Walls { get; private set; }
+    private OrthographicCamera Camera { get; init; }
 
-    public MapController(TiledMap map)
+    public MapController(TiledMap map, OrthographicCamera camera)
     {
         Map = map;
-        Walls1 = GetPointsInTileGrid("walls");
+        Camera = camera;
+        Walls = GetPointsInTileGrid("walls");
     }
 
     private List<Point> GetPointsInTileGrid(string layerName)
     {
-        var result = new List<Point>();
-        var layer = Map.GetLayer<TiledMapTileLayer>(layerName);
-        foreach (var tile in layer.Tiles)
-        {
-            if (tile.GlobalIdentifier == 0) continue; // Skip tiles with GID 0, they are empty tiles
-            var x = tile.X;
-            var y = tile.Y;
-            result.Add(new Point(x * 16, y * 16));
-        }
-
-        return result;
+        return Map
+            .GetLayer<TiledMapTileLayer>(layerName).Tiles
+            .Where(x => x.GlobalIdentifier != 0)
+            .Select(x => new Point(x.X * 16, x.Y * 16))
+            .ToList();
     }
 
     public bool IsMovePossible(RectangleF hero)
     {
-        // var overlapAllowed = 5;
-        // var adjustedHero = new RectangleF(hero.X, hero.Y,
-        //     hero.Width - 2 * overlapAllowed, hero.Height - 2 * overlapAllowed);
-
-        foreach (var point in Walls1)
+        foreach (var point in Walls)
         {
-            var cord = Globals.Camera1.WorldToScreen(point.X, point.Y);
+            var cord = Camera.WorldToScreen(point.X, point.Y);
             var wallRect = new RectangleF(cord.X, cord.Y, 16 * 3, 16 * 3);
             if (hero.Intersects(wallRect)) return false;
         }
