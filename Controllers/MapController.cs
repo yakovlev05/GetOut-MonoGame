@@ -20,7 +20,7 @@ public class MapController
     {
         TiledMap = Globals.Content.Load<TiledMap>(pathMap);
         TiledMapRenderer = new TiledMapRenderer(Globals.GraphicsDevice, TiledMap);
-        
+
         Camera = camera;
         Walls = GetPointsInTileGrid("walls");
     }
@@ -39,7 +39,7 @@ public class MapController
         foreach (var point in Walls)
         {
             var cord = Camera.WorldToScreen(point.X, point.Y);
-            var wallRect = new RectangleF(cord.X, cord.Y, 16 * 3, 16 * 3);
+            var wallRect = new RectangleF(cord.X, cord.Y, 16 * Camera.Zoom, 16 * Camera.Zoom);
             if (hero.Intersects(wallRect)) return false;
         }
 

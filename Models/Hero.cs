@@ -46,18 +46,15 @@ public class Hero : IEntityInterface
 
     public void Draw() => Anims.Draw(StartPosition);
 
-//TODO: MapController сделать
-    public Vector2 GetDirection(MapController mapController, Matrix _matrix)
+    public Vector2 GetDirection(MapController mapController, Matrix matrix)
     {
         if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y)) return Vector2.Zero;
 
+        var scaleDirection = new Vector2(Direction.X * matrix.M11, Direction.Y * matrix.M22);
+        var personPosition = Vector2.Transform(new Vector2(StartPosition.X + 50, StartPosition.Y + 37), matrix);
+        var nextPosition = personPosition + scaleDirection;
 
-        var direction2 = new Vector2(Direction.X * _matrix.M11, Direction.Y * _matrix.M22);
-        Vector2 nextPosition =
-            Vector2.Transform(new Vector2(StartPosition.X + 50, StartPosition.Y + 37), _matrix) + direction2;
-
-
-        var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 15 * 3, 43 * 3);
+        var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 15 * matrix.M11, 43 * matrix.M22);
         if (!mapController.IsMovePossible(nextHeroRectangle)) return Vector2.Zero;
 
 

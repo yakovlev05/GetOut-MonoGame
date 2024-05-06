@@ -22,7 +22,7 @@ public class LevelScreenTest : GameScreen
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
         _camera.Zoom = 3f;
         _matrix = _camera.GetViewMatrix();
-        
+
         _mapController = new MapController(mapPath, _camera);
 
         _gameController = gameController;
@@ -62,12 +62,12 @@ public class LevelScreenTest : GameScreen
         _gameController.Draw();
         _spriteBatch.End();
 
-        //Отрисовка границ объектов для тестирования
+        // Отрисовка границ объектов для тестирования
         // _spriteBatch.Begin();
         // foreach (var wall in _mapController.Walls)
         // {
         //     var cord = _camera.WorldToScreen(wall.X, wall.Y);
-        //     _spriteBatch.DrawRectangle(cord.X, cord.Y, 16 * 3, 16 * 3, Color.Red);
+        //     _spriteBatch.DrawRectangle(cord.X, cord.Y, 16 * _camera.Zoom, 16 * _camera.Zoom, Color.Red);
         // }
         //
         // _spriteBatch.End();
@@ -80,8 +80,7 @@ public class LevelScreenTest : GameScreen
         //         _matrix);
         //
         //
-        // _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 15 * 3, 43 * 3,
-        //     Color.SandyBrown);
+        // _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 15 * _matrix.M11, 43 * _matrix.M22, Color.SandyBrown);
         // _spriteBatch.End();
     }
 }
