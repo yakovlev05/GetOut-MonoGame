@@ -658,3 +658,59 @@
 /processor:TiledMapTilesetProcessor
 /build:MainMenuScreen/title.tsx
 
+#begin VictoryScreen/ok_button_active.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:VictoryScreen/ok_button_active.png
+
+#begin VictoryScreen/ok_button_active.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:VictoryScreen/ok_button_active.tsx
+
+#begin VictoryScreen/ok_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:VictoryScreen/ok_button.png
+
+#begin VictoryScreen/ok_button.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:VictoryScreen/ok_button.tsx
+
+#begin VictoryScreen/victory.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:VictoryScreen/victory.png
+
+#begin VictoryScreen/victory.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:VictoryScreen/victory.tsx
+
+#begin VictoryScreen/VictoryScreen.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:VictoryScreen/VictoryScreen.tmx
+
