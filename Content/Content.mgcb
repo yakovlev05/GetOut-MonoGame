@@ -529,6 +529,23 @@
 /processor:TiledMapTilesetProcessor
 /build:Levels/assets/Dungeon_Tileset.tsx
 
+#begin Levels/assets/flag.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Levels/assets/flag.png
+
+#begin Levels/assets/flag.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:Levels/assets/flag.tsx
+
 #begin Levels/assets/keys_1_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
