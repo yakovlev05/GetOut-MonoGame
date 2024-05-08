@@ -81,4 +81,9 @@ public class Game1 : Game
         _screenManager.LoadScreen(new LevelScreenTest(this, "./Levels/levels/level1", new GameController()),
             new FadeTransition(GraphicsDevice, Color.Black));
     }
+
+    public void LoadVictoryScreen()
+    {
+        _screenManager.LoadScreen(new VictoryScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
+    }
 }
