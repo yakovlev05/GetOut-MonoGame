@@ -16,6 +16,12 @@ public class Hero : IEntityInterface
 
     private Vector2 Direction => Vector2.Normalize(InputController.Direction) * Speed * Globals.TotalSeconds;
 
+    public float WidthHero => 15;
+    public float HeightHero => 38;
+
+    public float OffsetPositionX => 50;
+    public float OffsetPositionY => 42;
+    
     public Hero(Vector2 position, float speed)
     {
         StartPosition = position;
@@ -51,10 +57,10 @@ public class Hero : IEntityInterface
         if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y)) return Vector2.Zero;
 
         var scaleDirection = new Vector2(Direction.X * matrix.M11, Direction.Y * matrix.M22);
-        var personPosition = Vector2.Transform(new Vector2(StartPosition.X + 50, StartPosition.Y + 42), matrix);
+        var personPosition = Vector2.Transform(new Vector2(StartPosition.X + OffsetPositionX, StartPosition.Y + OffsetPositionY), matrix);
         var nextPosition = personPosition + scaleDirection;
 
-        var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, 15 * matrix.M11, 38 * matrix.M22);
+        var nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, WidthHero * matrix.M11, HeightHero * matrix.M22);
         if (!mapController.IsMovePossible(nextHeroRectangle)) return Vector2.Zero;
 
 

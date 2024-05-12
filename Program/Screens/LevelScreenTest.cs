@@ -46,6 +46,7 @@ public class LevelScreenTest : GameScreen
     public override void Update(GameTime gameTime)
     {
         if (InputController.IsPressedKey(Keys.Escape)) Game.LoadLevelMenuScreen();
+        if (_mapController.IsExit(_gameController.Hero)) Game.LoadVictoryScreen();
 
         _mapController.Update(gameTime);
         _gameController.Update();
@@ -76,11 +77,21 @@ public class LevelScreenTest : GameScreen
         // _spriteBatch.Begin(); // Новые рамзеры
         // Vector2 cord1 =
         //     Vector2.Transform(
-        //         new Vector2(_gameController.Hero.StartPosition.X + 50, _gameController.Hero.StartPosition.Y + 42),
+        //         new Vector2(_gameController.Hero.StartPosition.X + _gameController.Hero.OffsetPositionX,
+        //             _gameController.Hero.StartPosition.Y + _gameController.Hero.OffsetPositionY),
         //         _matrix);
         //
         //
-        // _spriteBatch.DrawRectangle(cord1.X, cord1.Y, 15 * _matrix.M11, 38 * _matrix.M22, Color.SandyBrown);
+        // _spriteBatch.DrawRectangle(cord1.X, cord1.Y, _gameController.Hero.WidthHero * _matrix.M11,
+        //     _gameController.Hero.HeightHero * _matrix.M22, Color.SandyBrown);
+        // _spriteBatch.End();
+        //
+        // _spriteBatch.Begin();
+        // foreach (var flag in _mapController.Flags)
+        // {
+        //     var cord = _camera.WorldToScreen(flag.X, flag.Y);
+        //     _spriteBatch.DrawRectangle(cord.X, cord.Y, 16 * _camera.Zoom, 16 * _camera.Zoom, Color.Green);
+        // }
         // _spriteBatch.End();
     }
 }

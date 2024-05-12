@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GetOut.Models;
 using GetOut.Program;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
@@ -10,7 +11,9 @@ namespace GetOut.Controllers;
 
 public class MapController
 {
-    public List<Point> Walls { get; private set; }
+    public List<Point> Walls { get; set; }
+    public List<Point> Flags { get; set; }
+
     private OrthographicCamera Camera { get; init; }
 
     private TiledMapRenderer TiledMapRenderer { get; init; }
@@ -23,6 +26,7 @@ public class MapController
 
         Camera = camera;
         Walls = GetPointsInTileGrid("walls");
+        Flags = GetPointsInTileGrid("flag");
     }
 
     private List<Point> GetPointsInTileGrid(string layerName)
@@ -49,4 +53,14 @@ public class MapController
     public void Update(GameTime gameTime) => TiledMapRenderer.Update(gameTime);
 
     public void Draw() => TiledMapRenderer.Draw(Camera.GetViewMatrix());
+
+    public bool IsExit(Hero hero)
+    {
+        return Flags
+            .Select(x => Camera.WorldToScreen(x.X, x.Y))
+            .Select(x => new RectangleF(x.X, x.Y, 16 * Camera.Zoom, 16 * Camera.Zoom))
+            .Any(x => x.Intersects(new RectangleF(hero.StartPosition.X + hero.OffsetPositionX,
+                hero.StartPosition.Y + hero.OffsetPositionY, hero.WidthHero * Camera.Zoom,
+                hero.HeightHero * Camera.Zoom)));
+    }
 }
