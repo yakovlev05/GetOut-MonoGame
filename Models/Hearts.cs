@@ -8,6 +8,8 @@ namespace GetOut.Models;
 
 public class Hearts : IEntityInterface
 {
+    public Hero Hero { get; set; }
+    public bool StaticPosition { get; init; } = true;
     private AnimationController Anims { get; init; } = new();
     public Vector2 Position { get; init; }
     private int Count { get; set; }

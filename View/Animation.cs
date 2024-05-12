@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GetOut.Program;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,7 @@ public class Animation
     private bool _active = true; // Включена анимация или нет
     private bool IsFlipHorizontally { get; set; }
     private Vector2 OffsetPosition { get; set; }
+    public bool HasCompletedCycle { get; private set; }
 
     public Animation(Texture2D texture, int framesX, int framesY, float frameTime, int row = 1,
         int chooseCountFrames = 1000, bool isFlipHorizontally = false, Vector2 offsetPosition = default)
@@ -54,6 +56,7 @@ public class Animation
 
     public void Update()
     {
+        HasCompletedCycle = false;
         if (!_active) return;
 
         _frameTimeLeft -= Globals.TotalSeconds;
@@ -61,7 +64,10 @@ public class Animation
         if (_frameTimeLeft <= 0)
         {
             _frameTimeLeft += _frameTime;
+            var wasLastFrame = _frame == _frames - 1;
             _frame = (_frame + 1) % _frames;
+            
+            HasCompletedCycle = wasLastFrame && _frame == 0;
         }
     }
 

@@ -45,4 +45,9 @@ public class AnimationController
     {
         _anims[key].Draw(position);
     }
+
+    public bool IsAnimationFinished(object key)
+    {
+        return _anims[key].HasCompletedCycle;
+    }
 }

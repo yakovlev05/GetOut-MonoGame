@@ -82,7 +82,8 @@ public class Game1 : Game
     {
         _screenManager.LoadScreen(new LevelScreenTest(this, "./Levels/levels/level1", new GameController(new List<IEntityInterface>()
             {
-                new Hearts(Vector2.Zero, 3)
+                new Hearts(Vector2.Zero, 3),
+                new BigDemon(new Vector2(0,0))
             })),
             new FadeTransition(GraphicsDevice, Color.Black));
     }

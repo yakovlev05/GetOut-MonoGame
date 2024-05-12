@@ -26,6 +26,11 @@ public class GameController
     public void Init()
     {
         Hero = new(new(900, 500), 200f); // Центр Экрана, присутсвует везде
+
+        foreach (var entity in Entities)
+        {
+            entity.Hero = Hero;
+        }
     }
 
     public void Update()
@@ -44,6 +49,16 @@ public class GameController
 
         foreach (var entity in Entities)
         {
+            if (!entity.StaticPosition) continue;
+            entity.Draw();
+        }
+    }
+    
+    public void DrawDynamic()
+    {
+        foreach (var entity in Entities)
+        {
+            if (entity.StaticPosition) continue;
             entity.Draw();
         }
     }

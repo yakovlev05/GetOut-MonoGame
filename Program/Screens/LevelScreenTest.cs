@@ -22,6 +22,8 @@ public class LevelScreenTest : GameScreen
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
         _camera.Zoom = 3f;
         _matrix = _camera.GetViewMatrix();
+        Globals.HeroMatrix = _matrix;
+        Globals.Camera = _camera;
 
         _mapController = new MapController(mapPath, _camera);
 
@@ -63,6 +65,18 @@ public class LevelScreenTest : GameScreen
         _gameController.Draw();
         _spriteBatch.End();
 
+
+        _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
+        _gameController.DrawDynamic();
+        _spriteBatch.End();
+        
+        // Отрисовка границ героя через координаты мира
+        // _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix());
+        // var cord = Globals.Camera.ScreenToWorld(-1920+38*3, -1080+50*3); // 38,  50
+        // Console.WriteLine(cord);
+        // _spriteBatch.DrawRectangle(cord.X,cord.Y,15,38,Color.Blue);
+        // _spriteBatch.End();
+        
         // // Отрисовка границ объектов для тестирования
         // _spriteBatch.Begin();
         // foreach (var wall in _mapController.Walls)
