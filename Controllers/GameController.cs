@@ -44,6 +44,16 @@ public class GameController
 
         foreach (var entity in Entities)
         {
+            if (!entity.StaticPosition) continue;
+            entity.Draw();
+        }
+    }
+    
+    public void DrawDynamic()
+    {
+        foreach (var entity in Entities)
+        {
+            if (entity.StaticPosition) continue;
             entity.Draw();
         }
     }

@@ -12,6 +12,7 @@ namespace GetOut.Models;
 
 public class Hero : IEntityInterface
 {
+    public bool StaticPosition { get; init; } = true;
     private float Speed { get; init; }
     private AnimationController Anims { get; init; } = new();
     public Vector2 StartPosition { get; init; }

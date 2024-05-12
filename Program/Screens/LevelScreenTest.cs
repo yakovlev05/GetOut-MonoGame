@@ -63,6 +63,10 @@ public class LevelScreenTest : GameScreen
         _gameController.Draw();
         _spriteBatch.End();
 
+
+        _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
+        _gameController.DrawDynamic();
+        _spriteBatch.End();
         // // Отрисовка границ объектов для тестирования
         // _spriteBatch.Begin();
         // foreach (var wall in _mapController.Walls)

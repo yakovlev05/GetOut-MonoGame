@@ -495,6 +495,18 @@
 /processor:TiledMapTilesetProcessor
 /build:LevelMenuScreen/title.tsx
 
+#begin Levels/assets/BigDemon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Levels/assets/BigDemon.png
+
 #begin Levels/assets/Dungeon_Tileset_at.png
 /importer:TextureImporter
 /processor:TextureProcessor
