@@ -58,7 +58,30 @@ public class Hero : IEntityInterface
     {
         if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y)) return Vector2.Zero;
 
-        var scaleDirection = new Vector2(Direction.X * matrix.M11, Direction.Y * matrix.M22);
+        // Основное движение
+        var vectorDirection = TryMove(Direction, mapController, matrix);
+        if (vectorDirection != null) return vectorDirection.Value;
+
+        // Пробуем по x
+        vectorDirection =
+            TryMove(Vector2.Normalize(new Vector2(InputController.Direction.X, 0)) * Speed * Globals.TotalSeconds,
+                mapController, matrix);
+        if (vectorDirection != null) return vectorDirection.Value;
+
+        // Пробуем по y
+        vectorDirection =
+            TryMove(Vector2.Normalize(new Vector2(0, InputController.Direction.Y)) * Speed * Globals.TotalSeconds,
+                mapController, matrix);
+        if (vectorDirection != null) return vectorDirection.Value;
+
+        return Vector2.Zero;
+    }
+
+    private Vector2? TryMove(Vector2 direction, MapController mapController, Matrix matrix)
+    {
+        if (double.IsNaN(direction.X) || double.IsNaN(direction.Y)) return Vector2.Zero;
+
+        var scaleDirection = new Vector2(direction.X * matrix.M11, direction.Y * matrix.M22);
         var personPosition =
             Vector2.Transform(new Vector2(StartPosition.X + OffsetPositionX, StartPosition.Y + OffsetPositionY),
                 matrix);
@@ -66,30 +89,8 @@ public class Hero : IEntityInterface
 
         var nextHeroRectangle =
             new RectangleF(nextPosition.X, nextPosition.Y, WidthHero * matrix.M11, HeightHero * matrix.M22);
-        if (!mapController.IsMovePossible(nextHeroRectangle))
-        {
-            // Пробуем пройти по оси X
-            var newDirection = Vector2.Normalize(new Vector2(InputController.Direction.X, 0)) * Speed * Globals.TotalSeconds;
-            scaleDirection = new Vector2(newDirection.X * matrix.M11, newDirection.Y * matrix.M22);
-            nextPosition = personPosition + scaleDirection;
-            nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, WidthHero * matrix.M11,
-                HeightHero * matrix.M22);
-            if (double.IsNaN(newDirection.X) || double.IsNaN(newDirection.Y)) return Vector2.Zero;
-            if (mapController.IsMovePossible(nextHeroRectangle)) return newDirection;
 
-            // Пробуем пройти по оси Y
-            newDirection = Vector2.Normalize(new Vector2(0, InputController.Direction.Y)) * Speed * Globals.TotalSeconds;
-            scaleDirection = new Vector2(newDirection.X * matrix.M11, newDirection.Y * matrix.M22);
-            nextPosition = personPosition + scaleDirection;
-            nextHeroRectangle = new RectangleF(nextPosition.X, nextPosition.Y, WidthHero * matrix.M11,
-                HeightHero * matrix.M22);
-            if (double.IsNaN(newDirection.X) || double.IsNaN(newDirection.Y)) return Vector2.Zero;
-            if (mapController.IsMovePossible(nextHeroRectangle)) return newDirection;
-
-            return Vector2.Zero;
-        }
-
-
-        return Direction;
+        if (mapController.IsMovePossible(nextHeroRectangle)) return direction;
+        return null;
     }
 }
