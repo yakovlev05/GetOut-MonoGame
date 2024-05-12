@@ -1,4 +1,6 @@
-﻿using GetOut.Controllers;
+﻿using System.Collections.Generic;
+using GetOut.Controllers;
+using GetOut.Models;
 using GetOut.Program.Screens;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
@@ -78,7 +80,10 @@ public class Game1 : Game
 
     public void LoadLevelTEST()
     {
-        _screenManager.LoadScreen(new LevelScreenTest(this, "./Levels/levels/level1", new GameController()),
+        _screenManager.LoadScreen(new LevelScreenTest(this, "./Levels/levels/level1", new GameController(new List<IEntityInterface>()
+            {
+                new Hearts(Vector2.Zero, 3)
+            })),
             new FadeTransition(GraphicsDevice, Color.Black));
     }
 

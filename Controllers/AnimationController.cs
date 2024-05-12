@@ -7,13 +7,18 @@ namespace GetOut.Controllers;
 
 public class AnimationController
 {
-    private readonly Dictionary<object, Animation> _anims = new (); // Словарь анимация
+    private readonly Dictionary<object, Animation> _anims = new(); // Словарь анимация
     private object _lastKey; // Поледний использованный ключ для словаря
 
     public void AddAnimation(object key, Animation animation)
     {
         _anims.Add(key, animation);
         _lastKey ??= key;
+    }
+
+    public void DeleteAnimation(object key)
+    {
+        _anims.Remove(key);
     }
 
     public void Update(object key) // Обновление ключа (переключение анимации)
@@ -34,5 +39,10 @@ public class AnimationController
     public void Draw(Vector2 position)
     {
         _anims[_lastKey].Draw(position);
+    }
+
+    public void DrawFromKey(object key, Vector2 position)
+    {
+        _anims[key].Draw(position);
     }
 }

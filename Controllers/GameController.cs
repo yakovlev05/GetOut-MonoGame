@@ -5,13 +5,19 @@ namespace GetOut.Controllers;
 
 public class GameController
 {
-    public Hero Hero { get; private set; } // Героя вынесли отдельно, так как он будет везде, он независим от всего остального, исключительная личность
-    public List<IEntityInterface> Entities { get; private set; }
-    
+    public Hero
+        Hero
+    {
+        get;
+        private set;
+    } // Героя вынесли отдельно, так как он будет везде, он независим от всего остального, исключительная личность
+
+    public List<IEntityInterface> Entities { get; private set; } = new List<IEntityInterface>();
+
     public GameController()
     {
     }
-    
+
     public GameController(List<IEntityInterface> entities)
     {
         Entities = entities;
@@ -26,10 +32,19 @@ public class GameController
     {
         InputController.Update();
         Hero.Update();
+        foreach (var entity in Entities)
+        {
+            entity.Update();
+        }
     }
 
     public void Draw()
     {
         Hero.Draw();
+
+        foreach (var entity in Entities)
+        {
+            entity.Draw();
+        }
     }
 }
