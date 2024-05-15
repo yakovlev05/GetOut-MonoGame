@@ -73,22 +73,25 @@ public class BigDemon : IEntityInterface
 
     public void AttackHero()
     {
+        if (IsHeroIntersect()) Hearts.Decrease();
+
+    }
+
+    private bool IsHeroIntersect()
+    {
         /////////Герой
         var personPosition =
-            Vector2.Transform(new Vector2(900 + 50, 500 + 42),
+            Vector2.Transform(new Vector2(900 +50, 500 + 42),
                 Globals.HeroMatrix);
-        // Console.WriteLine(personPosition);
-
+        
         var nextHeroRectangle =
-            new RectangleF(personPosition.X, personPosition.Y, 15 * Globals.HeroMatrix.M11,
-                38 * Globals.HeroMatrix.M22);
-
-
+            new RectangleF(personPosition.X, personPosition.Y, 15 * Globals.HeroMatrix.M11, 38 * Globals.HeroMatrix.M22);
+        
+        
         ///////Демон
         var demonPosition = Globals.Camera.WorldToScreen(PositionInWorld);
-        var rectangleDemon = new RectangleF(demonPosition.X, demonPosition.Y, 32 * Globals.Camera.Zoom,
-            36 * Globals.Camera.Zoom);
+        var rectangleDemon = new RectangleF(demonPosition.X, demonPosition.Y, 32 * Globals.Camera.Zoom, 36 * Globals.Camera.Zoom);
 
-        if (rectangleDemon.Intersects(nextHeroRectangle)) Console.WriteLine("DEMON ATTACK HERO");
+        return rectangleDemon.Intersects(nextHeroRectangle);
     }
 }

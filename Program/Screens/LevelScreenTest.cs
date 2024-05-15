@@ -22,8 +22,7 @@ public class LevelScreenTest : GameScreen
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
         _camera.Zoom = 3f;
         _matrix = _camera.GetViewMatrix();
-        Globals.HeroMatrix = _matrix;
-        Globals.Camera = _camera;
+        
 
         _mapController = new MapController(mapPath, _camera);
 
@@ -35,6 +34,10 @@ public class LevelScreenTest : GameScreen
     {
         //-960 -540 край карты на середине //492
         _camera.Position = new Vector2(-912, -492);
+        
+        Globals.HeroMatrix = _matrix;
+        Globals.Camera = _camera;
+        
         base.Initialize();
     }
 

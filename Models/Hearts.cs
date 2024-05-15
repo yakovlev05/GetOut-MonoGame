@@ -1,4 +1,5 @@
-﻿using GetOut.Controllers;
+﻿using System;
+using GetOut.Controllers;
 using GetOut.Program;
 using GetOut.View;
 using Microsoft.Xna.Framework;
@@ -15,6 +16,8 @@ public class Hearts
     private int Count { get; set; }
     private int WidthHeart => 13;
     private int HeightHeart => 4;
+    private float ShieldTimeInSeconds => 5; // Время невосприимчивосвти к урону после получения урона
+    private float LastDamageElapsedTimeInSeconds { get; set; } = 6; // Текущее время с последнего урона
 
     public Hearts(Vector2 position, int count)
     {
@@ -32,6 +35,7 @@ public class Hearts
 
     public void Update()
     {
+        LastDamageElapsedTimeInSeconds += Globals.TotalSeconds;
     }
 
     public void Draw()
@@ -39,6 +43,15 @@ public class Hearts
         for (int i = 0; i < Count; i++)
         {
             Anims.DrawFromKey(i, new Vector2(640 + 10, 360 + 10)); // С 3x зумом  верхний левый угол - 1920/3 : 1080/3
+        }
+    }
+    
+    public void Decrease()
+    {
+        if (LastDamageElapsedTimeInSeconds > ShieldTimeInSeconds)
+        {
+            LastDamageElapsedTimeInSeconds = 0;
+            Count--;
         }
     }
 }
