@@ -25,6 +25,8 @@ public class Hero
     public float OffsetPositionX => 50;
     public float OffsetPositionY => 42;
 
+    public Hearts Hearts { get; set; }
+    
     public Hero(Vector2 position, float speed)
     {
         StartPosition = position;

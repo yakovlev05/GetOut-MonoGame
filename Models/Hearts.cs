@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GetOut.Models;
 
-public class Hearts : IEntityInterface
+public class Hearts
 {
     public Hero Hero { get; set; }
     public bool StaticPosition { get; init; } = true;
