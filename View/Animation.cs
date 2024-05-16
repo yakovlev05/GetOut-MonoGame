@@ -66,7 +66,7 @@ public class Animation
             _frameTimeLeft += _frameTime;
             var wasLastFrame = _frame == _frames - 1;
             _frame = (_frame + 1) % _frames;
-            
+
             HasCompletedCycle = wasLastFrame && _frame == 0;
         }
     }
@@ -74,7 +74,16 @@ public class Animation
     public void Draw(Vector2 position)
     {
         var effect = IsFlipHorizontally ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-        Globals.SpriteBatch.Draw(_texture, position + OffsetPosition, _sourceRectangles[_frame], Color.White, 0, Vector2.Zero,
+        Globals.SpriteBatch.Draw(_texture, position + OffsetPosition, _sourceRectangles[_frame], Color.White, 0,
+            Vector2.Zero,
+            Vector2.One, effect, 1);
+    }
+
+    public void DrawFrame(Vector2 position, int frame)
+    {
+        var effect = IsFlipHorizontally ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+        Globals.SpriteBatch.Draw(_texture, position + OffsetPosition, _sourceRectangles[frame - 1], Color.White, 0,
+            Vector2.Zero,
             Vector2.One, effect, 1);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using GetOut.Controllers;
+﻿using GetOut.Controllers;
 using GetOut.Program;
 using GetOut.View;
 using Microsoft.Xna.Framework;
@@ -18,6 +17,7 @@ public class Hearts
     private int HeightHeart => 4;
     private float ShieldTimeInSeconds => 5; // Время невосприимчивосвти к урону после получения урона
     private float LastDamageElapsedTimeInSeconds { get; set; } = 6; // Текущее время с последнего урона
+    public bool IsDied => Count == 0;
 
     public Hearts(Vector2 position, int count)
     {

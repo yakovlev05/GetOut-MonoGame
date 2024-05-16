@@ -66,7 +66,7 @@ public class LevelMenuScreen : GameScreen
                 _buttonsLayers[button.Key].IsVisible = true;
                 if (InputController.IsLeftButtonPressed())
                 {
-                    Console.WriteLine(button.Key);
+                    // Console.WriteLine(button.Key);
                     if (button.Key == "level1_active") Game.LoadLevelScreenTest();
                     if (button.Key=="level2_active") Game.LoadLevelTEST();
                 }
@@ -81,10 +81,10 @@ public class LevelMenuScreen : GameScreen
 
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         _tiledMapRenderer.Draw(_matrix);
-        foreach (var rect in _buttonsRectangles)
-        {
-            _spriteBatch.DrawRectangle(rect.Value, Color.Red);
-        }
+        // foreach (var rect in _buttonsRectangles)
+        // {
+        //     _spriteBatch.DrawRectangle(rect.Value, Color.Red);
+        // }
 
         _spriteBatch.End();
     }

@@ -50,4 +50,9 @@ public class AnimationController
     {
         return _anims[key].HasCompletedCycle;
     }
+
+    public void DrawFrame(object key, Vector2 position, int frame)
+    {
+        _anims[key].DrawFrame(position, frame);
+    }
 }

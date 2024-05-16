@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using GetOut.Controllers;
 using GetOut.Program;
 using GetOut.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace GetOut.Models;
@@ -25,8 +23,10 @@ public class Hero
     public float OffsetPositionX => 50;
     public float OffsetPositionY => 42;
 
+    public bool IsDied { get; set; } = false;
+
     public Hearts Hearts { get; set; }
-    
+
     public Hero(Vector2 position, float speed)
     {
         StartPosition = position;
@@ -45,20 +45,29 @@ public class Hero
             new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение влево вверх
         Anims.AddAnimation(new Vector2(0, -1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вверх
         Anims.AddAnimation(new Vector2(1, -1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо вверх
-        Anims.AddAnimation(Keys.Q, new Animation(texture, 12, 8, 0.1f, 4, 10)); // Смерть
+        Anims.AddAnimation("die", new Animation(texture, 12, 8, 0.1f, 4, 10)); // Смерть
     }
 
     public void Update()
     {
-        Anims.Update(InputController.Direction);
-        if (InputController.IsPressedKey(Keys.Q))
-            Anims.Update(Keys.Q);
+        if (Hearts.IsDied && !Anims.IsAnimationFinished("die"))
+        {
+            IsDied = true;
+            Anims.Update("die");
+        }
+        else Anims.Update(InputController.Direction);
     }
 
-    public void Draw() => Anims.Draw(StartPosition);
+    public void Draw()
+    {
+        if (IsDied && Anims.IsAnimationFinished("die")) Anims.DrawFrame("die", StartPosition, 10);
+        else Anims.Draw(StartPosition);
+    }
 
     public Vector2 GetDirection(MapController mapController, Matrix matrix)
     {
+        if (IsDied) return Vector2.Zero;
+
         if (double.IsNaN(Direction.X) || double.IsNaN(Direction.Y)) return Vector2.Zero;
 
         // Основное движение
