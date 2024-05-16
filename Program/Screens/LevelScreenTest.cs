@@ -52,6 +52,7 @@ public class LevelScreenTest : GameScreen
     {
         if (InputController.IsPressedKey(Keys.Escape)) Game.LoadLevelMenuScreen();
         if (_mapController.IsExit(_gameController.Hero)) Game.LoadVictoryScreen();
+        if (_gameController.Hero.IsShowGameOverScreen) Game.LoadGameOverScreen();
 
         _mapController.Update(gameTime);
         _gameController.Update();

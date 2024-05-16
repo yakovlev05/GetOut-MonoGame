@@ -91,4 +91,9 @@ public class Game1 : Game
     {
         _screenManager.LoadScreen(new VictoryScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
     }
+
+    public void LoadGameOverScreen()
+    {
+        _screenManager.LoadScreen(new GameOverScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
+    }
 }

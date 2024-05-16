@@ -24,6 +24,7 @@ public class Hero
     public float OffsetPositionY => 42;
 
     public bool IsDied { get; set; } = false;
+    public bool IsShowGameOverScreen { get; private set; } = false;
 
     public Hearts Hearts { get; set; }
 
@@ -60,7 +61,11 @@ public class Hero
 
     public void Draw()
     {
-        if (IsDied && Anims.IsAnimationFinished("die")) Anims.DrawFrame("die", StartPosition, 10);
+        if (IsDied && Anims.IsAnimationFinished("die"))
+        {
+            Anims.DrawFrame("die", StartPosition, 10);
+            IsShowGameOverScreen = true;
+        }
         else Anims.Draw(StartPosition);
     }
 
