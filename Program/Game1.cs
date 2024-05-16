@@ -5,8 +5,6 @@ using GetOut.Program.Screens;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
-using MonoGame.Extended.Tiled;
-using MonoGame.Extended.Tiled.Renderers;
 
 namespace GetOut.Program;
 
@@ -62,38 +60,22 @@ public class Game1 : Game
         base.Draw(gameTime);
     }
 
-    public void LoadMainMenuScreen()
-    {
+    public void LoadMainMenuScreen() =>
         _screenManager.LoadScreen(new MainMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
-    }
 
-    public void LoadLevelMenuScreen()
-    {
+    public void LoadLevelMenuScreen() =>
         _screenManager.LoadScreen(new LevelMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
-    }
 
-    public void LoadLevelScreenTest()
-    {
-        _screenManager.LoadScreen(new LevelScreenTest(this, "./level1/level1", new GameController()),
-            new FadeTransition(GraphicsDevice, Color.Black));
-    }
 
-    public void LoadLevelTEST()
-    {
-        _screenManager.LoadScreen(new LevelScreenTest(this, "./Levels/levels/level1", new GameController(new List<IEntityInterface>()
-            {
-                new BigDemon(new Vector2(0,0))
-            })),
-            new FadeTransition(GraphicsDevice, Color.Black));
-    }
-
-    public void LoadVictoryScreen()
-    {
+    public void LoadVictoryScreen() =>
         _screenManager.LoadScreen(new VictoryScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
-    }
 
-    public void LoadGameOverScreen()
-    {
+    public void LoadGameOverScreen() =>
         _screenManager.LoadScreen(new GameOverScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
+
+    public void LoadLevelScreen(List<IEntityInterface> entities)
+    {
+        _screenManager.LoadScreen(new LevelScreenTest(this, "./Levels/levels/level1", new GameController(entities)),
+            new FadeTransition(GraphicsDevice, Color.Black));
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetOut.Controllers;
+using GetOut.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -67,8 +68,7 @@ public class LevelMenuScreen : GameScreen
                 if (InputController.IsLeftButtonPressed())
                 {
                     // Console.WriteLine(button.Key);
-                    if (button.Key == "level1_active") Game.LoadLevelScreenTest();
-                    if (button.Key=="level2_active") Game.LoadLevelTEST();
+                    if (button.Key == "level1_active") Game.LoadLevelScreen(new List<IEntityInterface>(){new BigDemon(new Vector2(0,0))});
                 }
             }
             else _buttonsLayers[button.Key].IsVisible = false;

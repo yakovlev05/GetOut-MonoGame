@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetOut.Controllers;
+using GetOut.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -66,7 +67,7 @@ public class GameOverScreen : GameScreen
                 _buttonsLayers[button.Key].IsVisible = true;
                 if (InputController.IsLeftButtonPressed())
                 {
-                    if (button.Key == "retry_button_active") Game.LoadLevelTEST();
+                    if (button.Key == "retry_button_active") Game.LoadLevelScreen(new List<IEntityInterface>(){new BigDemon(new Vector2(0,0))});
                     if (button.Key == "menu_button_active") Game.LoadLevelMenuScreen();
                 }
             }
@@ -80,10 +81,10 @@ public class GameOverScreen : GameScreen
 
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         _tiledMapRenderer.Draw(_matrix);
-        foreach (var rect in _buttonsRectangles)
-        {
-            _spriteBatch.DrawRectangle(rect.Value, Color.Red);
-        }
+        // foreach (var rect in _buttonsRectangles)
+        // {
+        //     _spriteBatch.DrawRectangle(rect.Value, Color.Red);
+        // }
 
         _spriteBatch.End();
     }
