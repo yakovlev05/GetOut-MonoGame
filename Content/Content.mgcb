@@ -677,6 +677,28 @@
 /processor:TiledMapTilesetProcessor
 /build:Levels/assets/keys_1_1.tsx
 
+#begin Levels/assets/peaks.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Levels/assets/peaks.png
+
+#begin Levels/assets/peaks.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:Levels/assets/peaks.tsx
+
+#begin Levels/assets/peaks.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:Levels/assets/peaks.tsx
+
 #begin Levels/levels/level1.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
