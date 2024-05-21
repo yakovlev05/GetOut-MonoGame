@@ -26,7 +26,7 @@ public class MapPeaks : IEntityInterface
 
     public void Update()
     {
-        if (IsHeroIntersects())  Console.WriteLine("ПИКИ ПИКИ ПИКИ");
+        if (IsDamageFrameKnow && IsHeroIntersects()) Console.WriteLine("ПИКИ ПИКИ ПИКИ");
     }
 
     public void Draw()
@@ -45,9 +45,13 @@ public class MapPeaks : IEntityInterface
 
     public bool IsHeroIntersects()
     {
+        var heroOriginalRect = Hero.GetRectangleInScreenCord();
+        heroOriginalRect.Height /= 3;
+        heroOriginalRect.Y += heroOriginalRect.Height * Globals.Camera.Zoom * 2 / 3;
+
         return ListPointsInScreenCordsPeaks
             .Select(x => Globals.Camera.WorldToScreen(x.X, x.Y))
             .Select(x => new RectangleF(x.X, x.Y, 16 * Globals.Camera.Zoom, 16 * Globals.Camera.Zoom))
-            .Any(x => x.Intersects(Hero.GetRectangleInScreenCord()));
+            .Any(x => x.Intersects(heroOriginalRect));
     }
 }
