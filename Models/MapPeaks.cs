@@ -26,7 +26,7 @@ public class MapPeaks : IEntityInterface
 
     public void Update()
     {
-        if (IsDamageFrameKnow && IsHeroIntersects()) Console.WriteLine("ПИКИ ПИКИ ПИКИ");
+        if (IsDamageFrameKnow && IsHeroIntersects()) Hearts.Decrease();
     }
 
     public void Draw()
