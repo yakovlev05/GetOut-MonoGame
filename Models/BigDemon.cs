@@ -90,21 +90,10 @@ public class BigDemon : IEntityInterface
 
     private bool IsHeroIntersect()
     {
-        /////////Герой
-        var personPosition =
-            Vector2.Transform(new Vector2(900 + 50, 500 + 42),
-                Globals.HeroMatrix);
-
-        var nextHeroRectangle =
-            new RectangleF(personPosition.X, personPosition.Y, 15 * Globals.HeroMatrix.M11,
-                38 * Globals.HeroMatrix.M22);
-
-
-        ///////Демон
         var demonPosition = Globals.Camera.WorldToScreen(PositionInWorld);
         var rectangleDemon = new RectangleF(demonPosition.X, demonPosition.Y, 32 * Globals.Camera.Zoom,
             36 * Globals.Camera.Zoom);
 
-        return rectangleDemon.Intersects(nextHeroRectangle);
+        return rectangleDemon.Intersects(Hero.GetRectangleInScreenCord());
     }
 }

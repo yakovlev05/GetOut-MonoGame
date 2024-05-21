@@ -41,4 +41,9 @@ public static class InputController
         var mouseRectangleF = new RectangleF(MousePosition.X, MousePosition.Y, 1, 1);
         return mouseRectangleF.Intersects(rectangleF);
     }
+
+    public static Keys[] GetPressedKeys()
+    {
+        return Keyboard.GetState().GetPressedKeys();
+    }
 }

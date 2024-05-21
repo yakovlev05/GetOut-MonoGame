@@ -56,7 +56,7 @@ public class LevelScreenTest : GameScreen
 
         _mapController.Update(gameTime);
         _gameController.Update();
-        _camera.Position += _gameController.Hero.GetDirection(_mapController, _matrix);
+        _camera.Position += _gameController.Hero.GetMoveDirection(_mapController, _matrix);
     }
 
     public override void Draw(GameTime gameTime)
