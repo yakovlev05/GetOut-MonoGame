@@ -45,7 +45,7 @@ public class MapPeaks : IEntityInterface
 
     public bool IsHeroIntersects()
     {
-        var heroOriginalRect = Hero.GetRectangleInScreenCord();
+        var heroOriginalRect = Hero.GetDefaultRectangleInScreenCord();
         heroOriginalRect.Height /= 3;
         heroOriginalRect.Y += heroOriginalRect.Height * Globals.Camera.Zoom * 2 / 3;
 

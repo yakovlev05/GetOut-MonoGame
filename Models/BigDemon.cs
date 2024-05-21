@@ -50,7 +50,7 @@ public class BigDemon : IEntityInterface
         if (IsDied) return;
         if (Hero.IsAttack)
         {
-            if (IsHeroIntersect())
+            if (IsHeroIntersect(Hero.GetRectangleAttackInScreenCord()))
             {
                 IsDied = true;
                 return;
@@ -87,16 +87,16 @@ public class BigDemon : IEntityInterface
 
     public void AttackHero()
     {
-        if (IsHeroIntersect()) Hearts.Decrease();
+        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hearts.Decrease();
     }
 
-    private bool IsHeroIntersect()
+    private bool IsHeroIntersect(RectangleF rectangleHero)
     {
         var demonPosition = Globals.Camera.WorldToScreen(PositionInWorld);
         var rectangleDemon = new RectangleF(demonPosition.X, demonPosition.Y, 32 * Globals.Camera.Zoom,
             36 * Globals.Camera.Zoom);
 
-        return rectangleDemon.Intersects(Hero.GetRectangleInScreenCord());
+        return rectangleDemon.Intersects(rectangleHero);
     }
 
     public void Init()

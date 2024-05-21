@@ -85,7 +85,7 @@ public class Hero
             Anims.Update("left_right_run");
         }
         else Anims.Update(InputController.Direction);
-        
+
         LastHorizontalDirection = new Vector2(Direction.X == 0 ? LastHorizontalDirection.X : Direction.X, 0);
     }
 
@@ -141,11 +141,8 @@ public class Hero
         return null;
     }
 
-    public RectangleF GetRectangleInScreenCord()
+    public RectangleF GetRectangleAttackInScreenCord()
     {
-        if (!IsAttack)
-            return new RectangleF(ActualPositionInScreenCord.X, ActualPositionInScreenCord.Y,
-                WidthHero * Globals.HeroMatrix.M11, HeightHero * Globals.HeroMatrix.M22);
         if (IsAttack && LastHorizontalDirection == new Vector2(1, 0))
             return new RectangleF(ActualPositionInScreenCord.X, ActualPositionInScreenCord.Y,
                 WidthHero * Globals.HeroMatrix.M11 + 150, HeightHero * Globals.HeroMatrix.M22);
@@ -154,6 +151,12 @@ public class Hero
                 WidthHero * Globals.HeroMatrix.M11 + 150, HeightHero * Globals.HeroMatrix.M22);
 
 
-        throw new Exception();
+        return RectangleF.Empty;
+    }
+
+    public RectangleF GetDefaultRectangleInScreenCord()
+    {
+        return new RectangleF(ActualPositionInScreenCord.X, ActualPositionInScreenCord.Y,
+            WidthHero * Globals.HeroMatrix.M11, HeightHero * Globals.HeroMatrix.M22);
     }
 }
