@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using GetOut.Controllers;
 using GetOut.Program;
 using GetOut.View;
@@ -49,7 +48,8 @@ public class Hero
         Anims.AddAnimation(new Vector2(0, 0), new Animation(texture, 12, 8, 0.1f, 5, 10)); // Состояние в покое
         Anims.AddAnimation("left_idle", new Animation(texture, 12, 8, 0.1f, 5, 10, true)); // Состояние в покое - лево
         Anims.AddAnimation(new Vector2(1, 0), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо
-        Anims.AddAnimation("left_right_run", new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение вправо - лицо влево
+        Anims.AddAnimation("left_right_run",
+            new Animation(texture, 12, 8, 0.1f, 8, 10, true)); // Движение вправо - лицо влево
         Anims.AddAnimation(new Vector2(1, 1), new Animation(texture, 12, 8, 0.1f, 8, 10)); //  Движение вправо вниз
         Anims.AddAnimation(new Vector2(0, 1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вниз
         Anims.AddAnimation(new Vector2(-1, 1),
@@ -61,6 +61,7 @@ public class Hero
         Anims.AddAnimation(new Vector2(1, -1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо вверх
         Anims.AddAnimation("die", new Animation(texture, 12, 8, 0.1f, 4, 10)); // Смерть
         Anims.AddAnimation("attack_right", new Animation(texture, 12, 8, 0.1f, 3, 10));
+        Anims.AddAnimation("left_attack_right", new Animation(texture, 12, 8, 0.1f, 3, 10, true));
     }
 
     public void Update()
@@ -72,8 +73,7 @@ public class Hero
         }
         else if (InputController.IsPressedKey(Keys.Space))
         {
-            Anims.Update("attack_right");
-            return;
+            Anims.Update(LastHorizontalDirection == new Vector2(1, 0) ? "attack_right" : "left_attack_right");
         }
         else if (Direction == Vector2.Zero && LastHorizontalDirection == new Vector2(-1, 0))
         {
@@ -102,7 +102,7 @@ public class Hero
 
     public Vector2 GetMoveDirection(MapController mapController, Matrix matrix)
     {
-        if (IsDied) return Vector2.Zero;
+        if (IsDied || IsAttack) return Vector2.Zero;
 
         if (double.IsNaN(MoveDirection.X) || double.IsNaN(MoveDirection.Y)) return Vector2.Zero;
 
@@ -147,9 +147,13 @@ public class Hero
         if (!IsAttack)
             return new RectangleF(ActualPositionInScreenCord.X, ActualPositionInScreenCord.Y,
                 WidthHero * Globals.HeroMatrix.M11, HeightHero * Globals.HeroMatrix.M22);
-        if (IsAttack)
-            return new RectangleF(ActualPositionInScreenCord.X - 50, ActualPositionInScreenCord.Y,
-                WidthHero * Globals.HeroMatrix.M11 + 100, HeightHero * Globals.HeroMatrix.M22);
+        if (IsAttack && LastHorizontalDirection == new Vector2(1, 0))
+            return new RectangleF(ActualPositionInScreenCord.X, ActualPositionInScreenCord.Y,
+                WidthHero * Globals.HeroMatrix.M11 + 150, HeightHero * Globals.HeroMatrix.M22);
+        if (IsAttack && LastHorizontalDirection == new Vector2(-1, 0))
+            return new RectangleF(ActualPositionInScreenCord.X - 150, ActualPositionInScreenCord.Y,
+                WidthHero * Globals.HeroMatrix.M11 + 150, HeightHero * Globals.HeroMatrix.M22);
+
 
         throw new Exception();
     }
