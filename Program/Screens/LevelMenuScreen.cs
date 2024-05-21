@@ -68,7 +68,9 @@ public class LevelMenuScreen : GameScreen
                 if (InputController.IsLeftButtonPressed())
                 {
                     // Console.WriteLine(button.Key);
-                    if (button.Key == "level1_active") Game.LoadLevelScreen(new List<IEntityInterface>(){new BigDemon(new Vector2(0,0))});
+                    if (button.Key == "level1_active")
+                        Game.LoadLevelScreen(new List<IEntityInterface>()
+                            { new BigDemon(new Vector2(0, 0)), new MapPeaks() });
                 }
             }
             else _buttonsLayers[button.Key].IsVisible = false;

@@ -85,8 +85,7 @@ public class Hero
             Anims.Update("left_right_run");
         }
         else Anims.Update(InputController.Direction);
-
-        Console.WriteLine(Direction);
+        
         LastHorizontalDirection = new Vector2(Direction.X == 0 ? LastHorizontalDirection.X : Direction.X, 0);
     }
 

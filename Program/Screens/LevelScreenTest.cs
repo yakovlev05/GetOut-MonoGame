@@ -27,7 +27,6 @@ public class LevelScreenTest : GameScreen
         _mapController = new MapController(mapPath, _camera);
 
         _gameController = gameController;
-        _gameController.Init();
     }
 
     public override void Initialize()
@@ -37,6 +36,8 @@ public class LevelScreenTest : GameScreen
         
         Globals.HeroMatrix = _matrix;
         Globals.Camera = _camera;
+        
+        _gameController.Init(_mapController);
         
         base.Initialize();
     }

@@ -11,9 +11,11 @@ namespace GetOut.Models;
 
 public class BigDemon : IEntityInterface
 {
+    public MapController MapController { get; set; }
     public Hearts Hearts { get; set; }
     public Hero Hero { get; set; }
     public bool StaticPosition { get; init; } = false;
+    public bool RequireMapController { get; init; } = false;
     private AnimationController Anims { get; init; } = new();
     public Vector2 PositionInWorld { get; private set; }
     public int Width => 32;
@@ -45,7 +47,7 @@ public class BigDemon : IEntityInterface
 
     public void Update()
     {
-        if(IsDied) return;
+        if (IsDied) return;
         if (Hero.IsAttack)
         {
             if (IsHeroIntersect())
@@ -95,5 +97,9 @@ public class BigDemon : IEntityInterface
             36 * Globals.Camera.Zoom);
 
         return rectangleDemon.Intersects(Hero.GetRectangleInScreenCord());
+    }
+
+    public void Init()
+    {
     }
 }

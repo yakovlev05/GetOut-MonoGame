@@ -29,7 +29,7 @@ public class MapController
         Flags = GetPointsInTileGrid("flag");
     }
 
-    private List<Point> GetPointsInTileGrid(string layerName)
+    public List<Point> GetPointsInTileGrid(string layerName)
     {
         return TiledMap
             .GetLayer<TiledMapTileLayer>(layerName).Tiles
@@ -62,5 +62,13 @@ public class MapController
             .Any(x => x.Intersects(new RectangleF(hero.StartPosition.X + hero.OffsetPositionX,
                 hero.StartPosition.Y + hero.OffsetPositionY, hero.WidthHero * Camera.Zoom,
                 hero.HeightHero * Camera.Zoom)));
+    }
+
+    public TiledMapTilesetAnimatedTile GetAnimatedTile(string layerName)
+    {
+        var tileset = TiledMap.Tilesets.First(t => t.Name == layerName);
+        var myTile = tileset.Tiles.First();
+        var animatedTile = (TiledMapTilesetAnimatedTile) myTile;
+        return animatedTile;
     }
 }
