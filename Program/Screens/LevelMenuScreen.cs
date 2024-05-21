@@ -27,6 +27,8 @@ public class LevelMenuScreen : GameScreen
 
     private Dictionary<string, RectangleF> _buttonsRectangles;
 
+    private List<string> OpenLevels;
+
     public LevelMenuScreen(Game game) : base(game)
     {
     }
@@ -50,6 +52,8 @@ public class LevelMenuScreen : GameScreen
         InitializeButtonsLayers(); // Заполняем словарь, сотояющий название слоя - слой (только кнопки)
         InitializeButtonsRectangles(); // Заполянем словарь, состоящий из название слоя - прямоугольник кнопки
 
+        OpenLevels = new() { "1_", "2_", "3_" }; // Есть уровень 10, _ решение проблемы
+
         base.LoadContent();
     }
 
@@ -64,6 +68,7 @@ public class LevelMenuScreen : GameScreen
             var rectangle = button.Value;
             if (InputController.IsMouseInRectangle(rectangle))
             {
+                if (OpenLevels.All(x => !button.Key.Contains(x))) return; // Блокировка некоторых уровней
                 _buttonsLayers[button.Key].IsVisible = true;
                 if (InputController.IsLeftButtonPressed())
                 {

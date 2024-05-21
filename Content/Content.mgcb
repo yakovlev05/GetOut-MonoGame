@@ -568,6 +568,23 @@
 /processor:TiledMapTilesetProcessor
 /build:LevelMenuScreen/levels_title.tsx
 
+#begin LevelMenuScreen/lock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LevelMenuScreen/lock.png
+
+#begin LevelMenuScreen/lock.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:LevelMenuScreen/lock.tsx
+
 #begin LevelMenuScreen/title.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -688,11 +705,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Levels/assets/peaks.png
-
-#begin Levels/assets/peaks.tsx
-/importer:TiledMapTilesetImporter
-/processor:TiledMapTilesetProcessor
-/build:Levels/assets/peaks.tsx
 
 #begin Levels/assets/peaks.tsx
 /importer:TiledMapTilesetImporter
