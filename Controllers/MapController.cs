@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GetOut.Models;
 using GetOut.Program;
@@ -68,7 +69,7 @@ public class MapController
     {
         var tileset = TiledMap.Tilesets.First(t => t.Name == layerName);
         var myTile = tileset.Tiles.First();
-        var animatedTile = (TiledMapTilesetAnimatedTile) myTile;
+        var animatedTile = (TiledMapTilesetAnimatedTile)myTile;
         return animatedTile;
     }
 
@@ -76,4 +77,28 @@ public class MapController
     {
         return TiledMap.GetLayer<TiledMapTileLayer>(layerName);
     }
+
+    public MapCell[,] GetMapCells()
+    {
+        var map = new MapCell[TiledMap.Width, TiledMap.Height];
+
+        var walls = TiledMap.GetLayer<TiledMapTileLayer>("walls").Tiles;
+
+        foreach (var tile in walls)
+        {
+            if (tile.GlobalIdentifier != 0)
+            {
+                map[tile.X,tile.Y] = MapCell.Wall;
+            }
+            // map[tile.X,tile.Y] = tile.GlobalIdentifier != 0 ? MapCell.Empty : MapCell.Wall;
+        }
+        
+        return map;
+    }
+}
+
+public enum MapCell
+{
+    Empty,
+    Wall
 }
