@@ -665,6 +665,23 @@
 /processor:TiledMapTilesetProcessor
 /build:Levels/assets/flag.tsx
 
+#begin Levels/assets/health.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Levels/assets/health.png
+
+#begin Levels/assets/health.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:Levels/assets/health.tsx
+
 #begin Levels/assets/hearts.png
 /importer:TextureImporter
 /processor:TextureProcessor
