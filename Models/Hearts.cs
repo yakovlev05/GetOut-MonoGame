@@ -13,6 +13,7 @@ public class Hearts
     private AnimationController Anims { get; init; } = new();
     public Vector2 Position { get; init; }
     private int Count { get; set; }
+    private int StartCount { get; set; }
     private int WidthHeart => 13;
     private int HeightHeart => 4;
     private float ShieldTimeInSeconds => 5; // Время невосприимчивосвти к урону после получения урона
@@ -23,6 +24,7 @@ public class Hearts
     {
         Position = position;
         Count = count;
+        StartCount = count;
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/hearts");
 
@@ -45,7 +47,7 @@ public class Hearts
             Anims.DrawFromKey(i, new Vector2(640 + 10, 360 + 10)); // С 3x зумом  верхний левый угол - 1920/3 : 1080/3
         }
     }
-    
+
     public void Decrease()
     {
         if (LastDamageElapsedTimeInSeconds > ShieldTimeInSeconds)
@@ -53,5 +55,10 @@ public class Hearts
             LastDamageElapsedTimeInSeconds = 0;
             Count--;
         }
+    }
+
+    public void Increase()
+    {
+        if (Count < StartCount) Count++;
     }
 }

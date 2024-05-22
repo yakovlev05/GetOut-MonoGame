@@ -71,4 +71,9 @@ public class MapController
         var animatedTile = (TiledMapTilesetAnimatedTile) myTile;
         return animatedTile;
     }
+
+    public TiledMapTileLayer GetTileLayer(string layerName)
+    {
+        return TiledMap.GetLayer<TiledMapTileLayer>(layerName);
+    }
 }
