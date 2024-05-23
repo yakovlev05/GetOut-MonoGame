@@ -32,7 +32,7 @@ public static class Bfs
             }
         }
 
-        return new List<Point>();
+        return new List<Point>() { start };
     }
 
     private static readonly List<Point> PossibleDirections = new List<Point>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using GetOut.Algorithms.BFS;
 using GetOut.Controllers;
@@ -7,7 +6,6 @@ using GetOut.Program;
 using GetOut.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
 
 namespace GetOut.Models;
 
@@ -21,12 +19,13 @@ public class PumpkinDude : IEntityInterface
 
     private AnimationController Anims { get; init; } = new();
     public Vector2 PositionInWorld { get; private set; }
+    public Vector2 ActualDirection { get; private set; }
     public int Width => 16;
     public int Height => 23;
 
     private MapCell[,] Map { get; set; }
 
-    private readonly float Speed = 1f;
+    private float Speed { get; set; } = 1;
 
     public PumpkinDude(Vector2 positionInWorld)
     {
@@ -56,42 +55,26 @@ public class PumpkinDude : IEntityInterface
         Map = MapController.GetMapCells();
     }
 
-    public void GoToHero()
+    private void GoToHero()
     {
-        //Говнокод, но мы  это исправим
-        var person = Hero.StartPosition;
-        var p = Globals.Camera.ScreenToWorld(person);
-        // var point1 = new Point((int)Math.Round((p.X / 16.0) + 0.5), (int)Math.Ceiling(p.Y / 16.0) + 1);
-        var point1 = new Point((int)Math.Round((p.X / 16.0) + 0.5), (int)Math.Ceiling((p.Y + 16 * 2) / 16.0));
+        // Получаем коодинаты героя и переводим в координаты по тайлам с учётом погрешностей
+        var hero = Globals.Camera.ScreenToWorld(Hero.StartPosition);
+        var heroPosition = new Point((int)Math.Round(hero.X / 16.0 + 0.5), (int)Math.Ceiling((hero.Y + 16 * 2) / 16.0));
 
-        var start = new Point((int)Math.Round(PositionInWorld.X / 16), (int)Math.Floor((PositionInWorld.Y / 16)));
+        var dudePosition =
+            new Point((int)Math.Round(PositionInWorld.X / 16), (int)Math.Floor((PositionInWorld.Y / 16)));
 
-        List<Point> reversePath = null;
-        try
-        {
-            reversePath = Bfs.FindPath(Map, start, point1);
-        }
-        catch
-        {
-            return;
-        }
+        // Поиск в ширину, старт - позиция монстра, финиш - позиция героя
+        var path = Bfs.FindPath(Map, dudePosition, heroPosition);
+
+        if (path.Count < 2) return; // Поиск возващае путь вместе с начальной точкой
+        var nextStepPoint = path.Skip(1).First();
 
 
-        if (reversePath.Count < 2) return;
-        var path = reversePath;
-
-        var point = path.Skip(1).First();
-
-
-        var target = new Vector2(point.X * 16, point.Y * 16);
+        var target = new Vector2(nextStepPoint.X * 16, nextStepPoint.Y * 16);
         var direction = Vector2.Normalize(target - PositionInWorld) * Speed;
         PositionInWorld += direction * Speed;
 
-
-        // PositionInWorld += TryMove(direction);
-
-
-        // PositionInWorld = target;
-        Console.WriteLine(PositionInWorld);
+        ActualDirection = direction; // Обновляем позици для обновления анимации
     }
 }
