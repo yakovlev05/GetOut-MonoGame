@@ -4,7 +4,7 @@ namespace GetOut.Models;
 
 public interface IEntityInterface
 {
-    public Hearts Hearts { get; set; }
+    public Hearts HeroHearts { get; set; }
     public Hero Hero { get; set; }
     public MapController MapController { get; set; }
     public bool StaticPosition { get; init; }

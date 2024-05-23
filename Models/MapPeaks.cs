@@ -11,7 +11,7 @@ namespace GetOut.Models;
 
 public class MapPeaks : IEntityInterface
 {
-    public Hearts Hearts { get; set; }
+    public Hearts HeroHearts { get; set; }
     public Hero Hero { get; set; }
     public bool StaticPosition { get; init; } = false; // Не имеет значения, это карта
     public bool RequireMapController { get; init; } = true;
@@ -26,7 +26,7 @@ public class MapPeaks : IEntityInterface
 
     public void Update()
     {
-        if (IsDamageFrameKnow && IsHeroIntersects()) Hearts.Decrease();
+        if (IsDamageFrameKnow && IsHeroIntersects()) HeroHearts.Decrease();
     }
 
     public void Draw()

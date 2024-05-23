@@ -12,7 +12,7 @@ namespace GetOut.Models;
 public class BigDemon : IEntityInterface
 {
     public MapController MapController { get; set; }
-    public Hearts Hearts { get; set; }
+    public Hearts HeroHearts { get; set; }
     public Hero Hero { get; set; }
     public bool StaticPosition { get; init; } = false;
     public bool RequireMapController { get; init; } = false;
@@ -87,7 +87,7 @@ public class BigDemon : IEntityInterface
 
     public void AttackHero()
     {
-        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hearts.Decrease();
+        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) HeroHearts.Decrease();
     }
 
     private bool IsHeroIntersect(RectangleF rectangleHero)

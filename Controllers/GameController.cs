@@ -29,14 +29,14 @@ public class GameController
     public void Init(MapController mapController)
     {
         Hero = new(new(900, 500), 200f); // Центр Экрана, присутсвует везде
-        Hearts = new Hearts(Vector2.Zero, 3); // Всегда есть, с эти классом взаимодействуют другие сущности
+        Hearts = new Hearts(new Vector2(640+10, 360+10), 3); // Всегда есть, с эти классом взаимодействуют другие сущности
         Hero.Hearts = Hearts;
 
         foreach (var entity in Entities)
         {
             if (entity.RequireMapController) entity.MapController = mapController;
             entity.Hero = Hero;
-            entity.Hearts = Hearts;
+            entity.HeroHearts = Hearts;
             entity.Init();
         }
     }

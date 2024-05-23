@@ -11,7 +11,7 @@ namespace GetOut.Models;
 
 public class PumpkinDude : IEntityInterface
 {
-    public Hearts Hearts { get; set; }
+    public Hearts HeroHearts { get; set; }
     public Hero Hero { get; set; }
     public MapController MapController { get; set; }
     public bool StaticPosition { get; init; } = false;
@@ -22,6 +22,7 @@ public class PumpkinDude : IEntityInterface
     public Vector2 ActualDirection { get; private set; }
     public int Width => 16;
     public int Height => 23;
+    public Hearts MyHearts { get; set; }
 
     private MapCell[,] Map { get; set; }
 
@@ -31,23 +32,36 @@ public class PumpkinDude : IEntityInterface
     {
         PositionInWorld = positionInWorld;
 
+        MyHearts = new Hearts(PositionInWorld, 3, 0.35f, new Vector2(0,-2f));
+
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/PumpkinDude");
 
         Anims.AddAnimation("idle", new Animation(texture, 4, 2, 0.1f, 1, 4, offsetPosition: new Vector2(0, -7f)));
-        Anims.AddAnimation("run_right", new Animation(texture, 4, 2, 0.1f, 2, 4));
-        Anims.AddAnimation("run_left", new Animation(texture, 4, 2, 0.1f, 2, 4, true));
+        Anims.AddAnimation("run_right", new Animation(texture, 4, 2, 0.1f, 2, 4, offsetPosition: new Vector2(0, -7f)));
+        Anims.AddAnimation("run_left",
+            new Animation(texture, 4, 2, 0.1f, 2, 4, true, offsetPosition: new Vector2(0, -7f)));
     }
 
     public void Update()
     {
-        Anims.Update("idle");
         GoToHero();
+        if (Math.Abs(ActualDirection.X) > Math.Abs(ActualDirection.Y))
+        {
+            Anims.Update(ActualDirection.X > 0 ? "run_right" : "run_left");
+        }
+        else
+        {
+            Anims.Update(ActualDirection.Y != 0 ? "run_right" : "idle");
+        }
+        
+        MyHearts.Update();
+        MyHearts.UpdatePosition(PositionInWorld);
     }
 
     public void Draw()
     {
-        // var t = PositionInWorld - new Vector2(0, 5f);
         Anims.Draw(PositionInWorld);
+        MyHearts.Draw();
     }
 
     public void Init()
@@ -67,7 +81,12 @@ public class PumpkinDude : IEntityInterface
         // Поиск в ширину, старт - позиция монстра, финиш - позиция героя
         var path = Bfs.FindPath(Map, dudePosition, heroPosition);
 
-        if (path.Count < 2) return; // Поиск возващае путь вместе с начальной точкой
+        if (path.Count < 2)
+        {
+            ActualDirection = Vector2.Zero;
+            return;
+        } // Поиск возващае путь вместе с начальной точкой
+
         var nextStepPoint = path.Skip(1).First();
 
 

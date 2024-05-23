@@ -18,10 +18,13 @@ public class Animation
     private bool IsFlipHorizontally { get; set; }
     private Vector2 OffsetPosition { get; set; }
     public bool HasCompletedCycle { get; private set; }
+    public float Scale { get; private set; }
 
     public Animation(Texture2D texture, int framesX, int framesY, float frameTime, int row = 1,
-        int chooseCountFrames = 1000, bool isFlipHorizontally = false, Vector2 offsetPosition = default)
+        int chooseCountFrames = 1000, bool isFlipHorizontally = false, Vector2 offsetPosition = default,
+        float scale = 1)
     {
+        Scale = scale;
         IsFlipHorizontally = isFlipHorizontally;
         _texture = texture;
         _frameTime = frameTime;
@@ -76,7 +79,7 @@ public class Animation
         var effect = IsFlipHorizontally ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
         Globals.SpriteBatch.Draw(_texture, position + OffsetPosition, _sourceRectangles[_frame], Color.White, 0,
             Vector2.Zero,
-            Vector2.One, effect, 1);
+            Scale, effect, 1);
     }
 
     public void DrawFrame(Vector2 position, int frame)
@@ -84,6 +87,6 @@ public class Animation
         var effect = IsFlipHorizontally ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
         Globals.SpriteBatch.Draw(_texture, position + OffsetPosition, _sourceRectangles[frame - 1], Color.White, 0,
             Vector2.Zero,
-            Vector2.One, effect, 1);
+            Scale, effect, 1);
     }
 }

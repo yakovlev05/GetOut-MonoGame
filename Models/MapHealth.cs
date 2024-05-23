@@ -10,7 +10,7 @@ namespace GetOut.Models;
 
 public class MapHealth : IEntityInterface
 {
-    public Hearts Hearts { get; set; }
+    public Hearts HeroHearts { get; set; }
     public Hero Hero { get; set; }
     public MapController MapController { get; set; }
     public bool StaticPosition { get; init; } = false;
@@ -34,7 +34,7 @@ public class MapHealth : IEntityInterface
         var layerName = IsHeroIntersects();
         if (IsHeroIntersects() != null)
         {
-            if (HealthLayers[layerName].IsVisible) Hearts.Increase();
+            if (HealthLayers[layerName].IsVisible) HeroHearts.Increase();
             HealthLayers[layerName].IsVisible = false;
         }
     }
