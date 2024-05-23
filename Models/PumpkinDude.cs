@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dungeon;
+using GetOut.Algorithms.BFS;
 using GetOut.Controllers;
 using GetOut.Program;
 using GetOut.View;
@@ -26,7 +26,7 @@ public class PumpkinDude : IEntityInterface
 
     private MapCell[,] Map { get; set; }
 
-    private readonly float Speed = 0.8f;
+    private readonly float Speed = 1f;
 
     public PumpkinDude(Vector2 positionInWorld)
     {
@@ -57,20 +57,19 @@ public class PumpkinDude : IEntityInterface
     }
 
     public void GoToHero()
-    { //Говнокод, но мы  это исправим
+    {
+        //Говнокод, но мы  это исправим
         var person = Hero.StartPosition;
         var p = Globals.Camera.ScreenToWorld(person);
         // var point1 = new Point((int)Math.Round((p.X / 16.0) + 0.5), (int)Math.Ceiling(p.Y / 16.0) + 1);
-        var point1 = new Point((int)Math.Round((p.X / 16.0) + 0.5), (int)Math.Ceiling((p.Y +16*2)/ 16.0));
+        var point1 = new Point((int)Math.Round((p.X / 16.0) + 0.5), (int)Math.Ceiling((p.Y + 16 * 2) / 16.0));
 
         var start = new Point((int)Math.Round(PositionInWorld.X / 16), (int)Math.Floor((PositionInWorld.Y / 16)));
 
         List<Point> reversePath = null;
         try
         {
-            reversePath = BfsTask.FindPaths(Map,
-                start,
-                new Point[] { point1 }).First().ToList();
+            reversePath = Bfs.FindPath(Map, start, point1);
         }
         catch
         {
@@ -78,8 +77,7 @@ public class PumpkinDude : IEntityInterface
         }
 
 
-        if (reversePath.Count <= 1) return;
-        reversePath.Reverse();
+        if (reversePath.Count < 2) return;
         var path = reversePath;
 
         var point = path.Skip(1).First();
@@ -95,14 +93,5 @@ public class PumpkinDude : IEntityInterface
 
         // PositionInWorld = target;
         Console.WriteLine(PositionInWorld);
-    }
-
-    public Vector2 TryMove(Vector2 nextPos)
-    {
-        var nextRect = new RectangleF(nextPos.X, nextPos.Y, Width * 3, Height * 3);
-
-        if (MapController.IsMovePossible(nextRect)) return nextPos;
-
-        return Vector2.Zero;
     }
 }
