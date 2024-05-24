@@ -745,6 +745,11 @@
 /processor:TiledMapProcessor
 /build:Levels/levels/level1.tmx
 
+#begin Levels/levels/level2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Levels/levels/level2.tmx
+
 #begin MainMenuScreen/Dungeon_Tileset_at.png
 /importer:TextureImporter
 /processor:TextureProcessor

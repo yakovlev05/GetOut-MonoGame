@@ -73,9 +73,9 @@ public class Game1 : Game
     public void LoadGameOverScreen() =>
         _screenManager.LoadScreen(new GameOverScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
 
-    public void LoadLevelScreen(List<IEntityInterface> entities)
+    public void LoadLevelScreen(string mapPath,  List<IEntityInterface> entities)
     {
-        _screenManager.LoadScreen(new LevelScreenTest(this, "./Levels/levels/level1", new GameController(entities)),
+        _screenManager.LoadScreen(new LevelScreen(this, mapPath, new GameController(entities)),
             new FadeTransition(GraphicsDevice, Color.Black));
     }
 }

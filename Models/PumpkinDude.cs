@@ -32,7 +32,7 @@ public class PumpkinDude : IEntityInterface
     {
         PositionInWorld = positionInWorld;
 
-        MyHearts = new Hearts(PositionInWorld, 3, 0.35f, new Vector2(0,-2f));
+        MyHearts = new Hearts(PositionInWorld, 3, 0.35f, new Vector2(0, -2f));
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/PumpkinDude");
 
@@ -53,7 +53,7 @@ public class PumpkinDude : IEntityInterface
         {
             Anims.Update(ActualDirection.Y != 0 ? "run_right" : "idle");
         }
-        
+
         MyHearts.Update();
         MyHearts.UpdatePosition(PositionInWorld);
     }

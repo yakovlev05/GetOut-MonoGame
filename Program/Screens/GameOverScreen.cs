@@ -67,7 +67,9 @@ public class GameOverScreen : GameScreen
                 _buttonsLayers[button.Key].IsVisible = true;
                 if (InputController.IsLeftButtonPressed())
                 {
-                    if (button.Key == "retry_button_active") Game.LoadLevelScreen(new List<IEntityInterface>(){new BigDemon(new Vector2(0,0))});
+                    if (button.Key == "retry_button_active")
+                        Game.LoadLevelScreen("./Levels/levels/level1",
+                            new List<IEntityInterface>() { new BigDemon(new Vector2(0, 0)) });
                     if (button.Key == "menu_button_active") Game.LoadLevelMenuScreen();
                 }
             }

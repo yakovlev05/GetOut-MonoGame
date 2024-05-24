@@ -8,7 +8,7 @@ using MonoGame.Extended.ViewportAdapters;
 
 namespace GetOut.Program.Screens;
 
-public class LevelScreenTest : GameScreen
+public class LevelScreen : GameScreen
 {
     private new Game1 Game => (Game1)base.Game;
     private SpriteBatch _spriteBatch;
@@ -17,7 +17,7 @@ public class LevelScreenTest : GameScreen
     private Matrix _matrix;
     private MapController _mapController;
 
-    public LevelScreenTest(Game game, string mapPath, GameController gameController) : base(game)
+    public LevelScreen(Game game, string mapPath, GameController gameController) : base(game)
     {
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
         _camera.Zoom = 3f;

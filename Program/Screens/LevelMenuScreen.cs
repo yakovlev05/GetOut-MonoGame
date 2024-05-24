@@ -74,11 +74,15 @@ public class LevelMenuScreen : GameScreen
                 {
                     // Console.WriteLine(button.Key);
                     if (button.Key == "level1_active")
-                        Game.LoadLevelScreen(new List<IEntityInterface>()
+                        Game.LoadLevelScreen("./Levels/levels/level1", new List<IEntityInterface>()
                         {
                             new BigDemon(new Vector2(0, 0)), new MapPeaks(), new MapHealth(1),
-                            new PumpkinDude(new Vector2(4*16, 16*6))
+                            new PumpkinDude(new Vector2(4 * 16, 16 * 6))
                         });
+                    else if (button.Key == "level2_active")
+                    {
+                        Game.LoadLevelScreen("./Levels/levels/level2", new List<IEntityInterface>());
+                    }
                 }
             }
             else _buttonsLayers[button.Key].IsVisible = false;
