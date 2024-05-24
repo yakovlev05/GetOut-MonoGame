@@ -83,6 +83,10 @@ public class LevelMenuScreen : GameScreen
                     {
                         Game.LoadLevelScreen("./Levels/levels/level2", new List<IEntityInterface>());
                     }
+                    else if (button.Key == "level3_active")
+                    {
+                        Game.LoadLevelScreen("./Levels/levels/level3", new List<IEntityInterface>());
+                    }
                 }
             }
             else _buttonsLayers[button.Key].IsVisible = false;
