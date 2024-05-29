@@ -21,8 +21,6 @@ public class PumpkinDude : IEntityInterface
     public int Height => 23;
     private Hearts MyHearts { get; set; }
 
-    private MapCell[,] Map { get; set; }
-
     private float Speed { get; set; } = 1;
 
     public PumpkinDude(Vector2 positionInWorld)
@@ -63,7 +61,6 @@ public class PumpkinDude : IEntityInterface
 
     public void Init()
     {
-        Map = MapController.GetMapCells();
     }
 
     private void GoToHero()
@@ -76,7 +73,7 @@ public class PumpkinDude : IEntityInterface
             new Point((int)Math.Round(PositionInWorld.X / 16), (int)Math.Floor((PositionInWorld.Y / 16)));
 
         // Поиск в ширину, старт - позиция монстра, финиш - позиция героя
-        var path = Bfs.FindPath(Map, dudePosition, heroPosition);
+        var path = Bfs.FindPath(MapController.Map, dudePosition, heroPosition);
 
         if (path.Count < 2)
         {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using GetOut.Models;
 using GetOut.Program;
@@ -19,6 +18,7 @@ public class MapController
 
     private TiledMapRenderer TiledMapRenderer { get; init; }
     private TiledMap TiledMap { get; set; }
+    public MapCell[,] Map { get; private set; }
 
     public MapController(string pathMap, OrthographicCamera camera)
     {
@@ -28,6 +28,7 @@ public class MapController
         Camera = camera;
         Walls = GetPointsInTileGrid("walls");
         Flags = GetPointsInTileGrid("flag");
+        Map = GetMapCells();
     }
 
     public List<Point> GetPointsInTileGrid(string layerName)
@@ -88,11 +89,11 @@ public class MapController
         {
             if (tile.GlobalIdentifier != 0)
             {
-                map[tile.X,tile.Y] = MapCell.Wall;
+                map[tile.X, tile.Y] = MapCell.Wall;
             }
             // map[tile.X,tile.Y] = tile.GlobalIdentifier != 0 ? MapCell.Empty : MapCell.Wall;
         }
-        
+
         return map;
     }
 }
