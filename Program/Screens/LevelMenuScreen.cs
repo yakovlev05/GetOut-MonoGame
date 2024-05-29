@@ -52,7 +52,7 @@ public class LevelMenuScreen : GameScreen
         InitializeButtonsLayers(); // Заполняем словарь, сотояющий название слоя - слой (только кнопки)
         InitializeButtonsRectangles(); // Заполянем словарь, состоящий из название слоя - прямоугольник кнопки
 
-        OpenLevels = new() { "1_", "2_", "3_" }; // Есть уровень 10, _ решение проблемы
+        OpenLevels = new() { "1_", "2_", "3_", "button" }; // Есть уровень 10, _ решение проблемы
 
         base.LoadContent();
     }
@@ -87,6 +87,10 @@ public class LevelMenuScreen : GameScreen
                     {
                         Game.LoadLevelScreen("./Levels/levels/level3", new List<IEntityInterface>());
                     }
+                    else if (button.Key == "back_button_active")
+                    {
+                        Game.LoadMainMenuScreen();
+                    }
                 }
             }
             else _buttonsLayers[button.Key].IsVisible = false;
@@ -114,7 +118,7 @@ public class LevelMenuScreen : GameScreen
         foreach (var layer in _tiledMap.TileLayers)
         {
             if (!layer.Name.Contains("active")) continue;
-            if (layer.Name.Contains("level")) _buttonsLayers.Add(layer.Name, layer);
+            if (layer.Name.Contains("level") || layer.Name.Contains("button")) _buttonsLayers.Add(layer.Name, layer);
         }
     }
 
@@ -123,10 +127,12 @@ public class LevelMenuScreen : GameScreen
         _buttonsRectangles = new();
         foreach (var layer in _buttonsLayers)
         {
-            // if (!layer.Key.Contains("active")) continue;
+            var width = layer.Key.Contains("level") ? 128 : 160;
+            var height = layer.Key.Contains("level") ? 128 : 80;
             var tileButton = layer.Value.Tiles.First(x => x.GlobalIdentifier != 0);
             var buttonVector = Vector2.Transform(new Vector2(tileButton.X * 16, tileButton.Y * 16), _matrix);
-            var buttonRectangle = new RectangleF(buttonVector.X, buttonVector.Y, 128 * _matrix.M11, 128 * _matrix.M22);
+            var buttonRectangle =
+                new RectangleF(buttonVector.X, buttonVector.Y, width * _matrix.M11, height * _matrix.M22);
 
             _buttonsRectangles.Add(layer.Key, buttonRectangle);
         }
