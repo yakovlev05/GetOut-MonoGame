@@ -57,8 +57,8 @@ public class Hero
         Anims.AddAnimation(new Vector2(0, -1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вверх
         Anims.AddAnimation(new Vector2(1, -1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо вверх
         Anims.AddAnimation("die", new Animation(texture, 12, 8, 0.1f, 4, 10)); // Смерть
-        Anims.AddAnimation("attack_right", new Animation(texture, 12, 8, 0.1f, 3, 10)); //Атака вправо
-        Anims.AddAnimation("left_attack_right", new Animation(texture, 12, 8, 0.1f, 3, 10, true)); // Атака влево
+        Anims.AddAnimation("attack_right", new Animation(texture, 12, 8, 0.075f, 3, 10)); //Атака вправо
+        Anims.AddAnimation("left_attack_right", new Animation(texture, 12, 8, 0.075f, 3, 10, true)); // Атака влево
     }
 
     public void Update()
@@ -93,7 +93,7 @@ public class Hero
             Anims.DrawFrame("die", StartPosition, 10);
             IsShowGameOverScreen = true;
         }
-        else Anims.Draw(StartPosition);
+        else Anims.Draw(StartPosition, Hearts.IsActiveShield);
     }
 
     public Vector2 GetMoveDirection(MapController mapController, Matrix matrix)

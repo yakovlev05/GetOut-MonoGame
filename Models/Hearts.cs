@@ -22,6 +22,7 @@ public class Hearts
     private Vector2 OffsetVector { get; init; }
     private float Scale { get; init; }
     public bool IsDied => Count == 0;
+    public bool IsActiveShield => LastDamageElapsedTimeInSeconds <= ShieldTimeInSeconds;
     
     public Hearts(Vector2 position, int count, float scale = 1, Vector2 offsetVector = default,
         int shieldTimeInSeconds = 5)

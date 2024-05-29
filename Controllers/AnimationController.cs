@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GetOut.Models;
+using GetOut.Program;
 using GetOut.View;
 using Microsoft.Xna.Framework;
 
@@ -9,6 +9,10 @@ public class AnimationController
 {
     private readonly Dictionary<object, Animation> _anims = new(); // Словарь анимация
     private object _lastKey; // Поледний использованный ключ для словаря
+
+    private readonly float _periodBlinkingInSeconds = 0.2f; // Период мигания
+    private float _elapsedTimeFromLastBlink = 0f; // Время с проследнего "мига"
+    private bool _hideOnBlink = false; // Скрытие при мигании
 
     public void AddAnimation(object key, Animation animation)
     {
@@ -25,6 +29,7 @@ public class AnimationController
     {
         if (_anims.TryGetValue(key, out Animation value))
         {
+            ResetAnimation(key);
             value.Start();
             _anims[key].Update();
             _lastKey = key;
@@ -36,9 +41,23 @@ public class AnimationController
         }
     }
 
-    public void Draw(Vector2 position)
+    public void Draw(Vector2 position, bool blinking = false)
     {
-        _anims[_lastKey].Draw(position);
+        if (blinking)
+        {
+            if (_elapsedTimeFromLastBlink > _periodBlinkingInSeconds)
+            {
+                _elapsedTimeFromLastBlink = 0;
+                _hideOnBlink = !_hideOnBlink;
+            }
+            else
+            {
+                _elapsedTimeFromLastBlink += Globals.TotalSeconds;
+            }
+        }
+        else _hideOnBlink = false;
+
+        if (!_hideOnBlink) _anims[_lastKey].Draw(position);
     }
 
     public void DrawFromKey(object key, Vector2 position)
@@ -54,5 +73,13 @@ public class AnimationController
     public void DrawFrame(object key, Vector2 position, int frame)
     {
         _anims[key].DrawFrame(position, frame);
+    }
+
+    private void ResetAnimation(object key)
+    {
+        if (!_lastKey.Equals(key))
+        {
+            _anims[key].Reset();
+        }
     }
 }
