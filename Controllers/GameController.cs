@@ -21,7 +21,7 @@ public class GameController
 
     public void Init(MapController mapController)
     {
-        Hero = new(new(900, 500), 200f, 3); // Центр Экрана, присутсвует везде
+        Hero = new(new(900, 500), 200f, 10); // Центр Экрана, присутсвует везде
         Hearts = Hero.Hearts; // Всегда есть, с эти классом взаимодействуют другие сущности;
 
         foreach (var entity in Entities)
