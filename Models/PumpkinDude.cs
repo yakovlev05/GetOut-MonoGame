@@ -11,11 +11,8 @@ namespace GetOut.Models;
 
 public class PumpkinDude : IEntityInterface
 {
-    public Hearts HeroHearts { get; set; }
     public Hero Hero { get; set; }
     public MapController MapController { get; set; }
-    public bool StaticPosition { get; init; } = false;
-    public bool RequireMapController { get; init; } = true;
 
     private AnimationController Anims { get; init; } = new();
     public Vector2 PositionInWorld { get; private set; }

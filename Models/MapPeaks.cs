@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using GetOut.Controllers;
 using GetOut.Program;
@@ -11,10 +10,7 @@ namespace GetOut.Models;
 
 public class MapPeaks : IEntityInterface
 {
-    public Hearts HeroHearts { get; set; }
     public Hero Hero { get; set; }
-    public bool StaticPosition { get; init; } = false; // Не имеет значения, это карта
-    public bool RequireMapController { get; init; } = true;
 
     public MapController MapController { get; set; }
     public TiledMapTilesetAnimatedTile AnimatedTile { get; set; } // Они двигаются синхронно, одного хватит
@@ -26,7 +22,7 @@ public class MapPeaks : IEntityInterface
 
     public void Update()
     {
-        if (IsDamageFrameKnow && IsHeroIntersects()) HeroHearts.Decrease();
+        if (IsDamageFrameKnow && IsHeroIntersects()) Hero.Hearts.Decrease();
     }
 
     public void Draw()

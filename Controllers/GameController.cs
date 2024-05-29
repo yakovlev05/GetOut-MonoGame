@@ -6,16 +6,9 @@ namespace GetOut.Controllers;
 
 public class GameController
 {
-    public Hero
-        Hero
-    {
-        get;
-        private set;
-    } // Героя вынесли отдельно, так как он будет везде, он независим от всего остального, исключительная личность
-
-    public Hearts Hearts { get; private set; }
-
-    public List<IEntityInterface> Entities { get; private set; } = new List<IEntityInterface>();
+    public Hero Hero { get; private set; } // Героя вынесли отдельно, так как он будет везде, он независим от всего остального, исключительная личность
+    private Hearts Hearts { get; set; }
+    private List<IEntityInterface> Entities { get; set; } = new List<IEntityInterface>();
 
     public GameController()
     {
@@ -34,9 +27,8 @@ public class GameController
 
         foreach (var entity in Entities)
         {
-            if (entity.RequireMapController) entity.MapController = mapController;
+            entity.MapController = mapController;
             entity.Hero = Hero;
-            entity.HeroHearts = Hearts;
             entity.Init();
         }
     }
@@ -52,22 +44,16 @@ public class GameController
         }
     }
 
-    public void Draw()
+    public void Draw() // Отрисовка статических объектов
     {
         Hero.Draw();
         Hearts.Draw();
-        foreach (var entity in Entities)
-        {
-            if (!entity.StaticPosition) continue;
-            entity.Draw();
-        }
     }
 
     public void DrawDynamic()
     {
         foreach (var entity in Entities)
         {
-            if (entity.StaticPosition) continue;
             entity.Draw();
         }
     }

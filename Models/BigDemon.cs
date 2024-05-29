@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GetOut.Controllers;
 using GetOut.Program;
 using GetOut.View;
@@ -12,10 +11,7 @@ namespace GetOut.Models;
 public class BigDemon : IEntityInterface
 {
     public MapController MapController { get; set; }
-    public Hearts HeroHearts { get; set; }
     public Hero Hero { get; set; }
-    public bool StaticPosition { get; init; } = false;
-    public bool RequireMapController { get; init; } = false;
     private AnimationController Anims { get; init; } = new();
     public Vector2 PositionInWorld { get; private set; }
     public int Width => 32;
@@ -87,7 +83,7 @@ public class BigDemon : IEntityInterface
 
     public void AttackHero()
     {
-        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) HeroHearts.Decrease();
+        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hero.Hearts.Decrease();
     }
 
     private bool IsHeroIntersect(RectangleF rectangleHero)

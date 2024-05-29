@@ -9,7 +9,6 @@ namespace GetOut.Models;
 public class Hearts
 {
     public Hero Hero { get; set; }
-    public bool StaticPosition { get; init; } = true;
     private AnimationController Anims { get; init; } = new();
     public Vector2 Position { get; private set; }
     private int Count { get; set; }
