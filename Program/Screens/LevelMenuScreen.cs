@@ -78,7 +78,8 @@ public class LevelMenuScreen : GameScreen
                         {
                             new BigDemon(new Vector2(0, 0)), new MapPeaks(), new MapHealth(1),
                             new PumpkinDude(new Vector2(37 * 16, 25 * 16), 1f, 30),
-                            new BigZombie(new Vector2(0, 5 * 16), 1f, 3)
+                            new BigZombie(new Vector2(0, 5 * 16), 1f, 3),
+                            new BigOgre(new Vector2(0, 10 * 16), 1f, 3)
                         });
                     else if (button.Key == "level2_active")
                     {
