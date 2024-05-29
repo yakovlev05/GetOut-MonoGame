@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using GetOut.Models;
-using Microsoft.Xna.Framework;
 
 namespace GetOut.Controllers;
 
 public class GameController
 {
-    public Hero Hero { get; private set; } // Героя вынесли отдельно, так как он будет везде, он независим от всего остального, исключительная личность
+    // Героя вынесли отдельно, так как он будет везде, он независим от всего остального, исключительная личность
+    public Hero Hero { get; private set; }
     private Hearts Hearts { get; set; }
     private List<IEntityInterface> Entities { get; set; } = new List<IEntityInterface>();
 
@@ -21,9 +21,8 @@ public class GameController
 
     public void Init(MapController mapController)
     {
-        Hero = new(new(900, 500), 200f); // Центр Экрана, присутсвует везде
-        Hearts = new Hearts(new Vector2(640+10, 360+10), 3); // Всегда есть, с эти классом взаимодействуют другие сущности
-        Hero.Hearts = Hearts;
+        Hero = new(new(900, 500), 200f, 3); // Центр Экрана, присутсвует везде
+        Hearts = Hero.Hearts; // Всегда есть, с эти классом взаимодействуют другие сущности;
 
         foreach (var entity in Entities)
         {

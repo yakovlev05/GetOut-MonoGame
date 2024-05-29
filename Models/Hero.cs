@@ -1,5 +1,4 @@
-﻿using System;
-using GetOut.Controllers;
+﻿using GetOut.Controllers;
 using GetOut.Program;
 using GetOut.View;
 using Microsoft.Xna.Framework;
@@ -11,36 +10,35 @@ namespace GetOut.Models;
 
 public class Hero
 {
+    public Hearts Hearts { get; set; }
+
+    private static Vector2 Direction => InputController.Direction;
+    public static bool IsAttack => InputController.IsPressedKey(Keys.Space);
+    public static float WidthHero => 15;
+    public static float HeightHero => 38;
+    public static float OffsetPositionX => 50;
+    public static float OffsetPositionY => 42;
+
     private float Speed { get; init; }
-    private AnimationController Anims { get; init; } = new();
     public Vector2 StartPosition { get; init; }
 
-    public Vector2 ActualPositionInScreenCord =>
+    private AnimationController Anims { get; init; } = new();
+
+    private Vector2 ActualPositionInScreenCord =>
         Vector2.Transform(new Vector2(StartPosition.X + OffsetPositionX, StartPosition.Y + OffsetPositionY),
             Globals.HeroMatrix);
 
     private Vector2 MoveDirection => Vector2.Normalize(InputController.Direction) * Speed * Globals.TotalSeconds;
-    private Vector2 Direction => InputController.Direction;
+    private Vector2 LastHorizontalDirection { get; set; } = new Vector2(1, 0);
+    private bool IsDied { get; set; }
+    public bool IsShowGameOverScreen { get; private set; }
 
-    public float WidthHero => 15;
-    public float HeightHero => 38;
 
-    public float OffsetPositionX => 50;
-    public float OffsetPositionY => 42;
-
-    public bool IsDied { get; set; } = false;
-    public bool IsShowGameOverScreen { get; private set; } = false;
-
-    public bool IsAttack => InputController.IsPressedKey(Keys.Space);
-
-    public Vector2 LastHorizontalDirection { get; set; } = new Vector2(1, 0);
-
-    public Hearts Hearts { get; set; }
-
-    public Hero(Vector2 position, float speed)
+    public Hero(Vector2 position, float speed, int heartsCount)
     {
         StartPosition = position;
         Speed = speed;
+        Hearts = new Hearts(new Vector2(640+10, 360+10), heartsCount);
 
         var texture = Globals.Content.Load<Texture2D>("./hero");
 
@@ -59,8 +57,8 @@ public class Hero
         Anims.AddAnimation(new Vector2(0, -1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вверх
         Anims.AddAnimation(new Vector2(1, -1), new Animation(texture, 12, 8, 0.1f, 8, 10)); // Движение вправо вверх
         Anims.AddAnimation("die", new Animation(texture, 12, 8, 0.1f, 4, 10)); // Смерть
-        Anims.AddAnimation("attack_right", new Animation(texture, 12, 8, 0.1f, 3, 10));
-        Anims.AddAnimation("left_attack_right", new Animation(texture, 12, 8, 0.1f, 3, 10, true));
+        Anims.AddAnimation("attack_right", new Animation(texture, 12, 8, 0.1f, 3, 10)); //Атака вправо
+        Anims.AddAnimation("left_attack_right", new Animation(texture, 12, 8, 0.1f, 3, 10, true)); // Атака влево
     }
 
     public void Update()

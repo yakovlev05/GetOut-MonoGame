@@ -60,9 +60,9 @@ public class MapController
         return Flags
             .Select(x => Camera.WorldToScreen(x.X, x.Y))
             .Select(x => new RectangleF(x.X, x.Y, 16 * Camera.Zoom, 16 * Camera.Zoom))
-            .Any(x => x.Intersects(new RectangleF(hero.StartPosition.X + hero.OffsetPositionX,
-                hero.StartPosition.Y + hero.OffsetPositionY, hero.WidthHero * Camera.Zoom,
-                hero.HeightHero * Camera.Zoom)));
+            .Any(x => x.Intersects(new RectangleF(hero.StartPosition.X + Hero.OffsetPositionX,
+                hero.StartPosition.Y + Hero.OffsetPositionY, Hero.WidthHero * Camera.Zoom,
+                Hero.HeightHero * Camera.Zoom)));
     }
 
     public TiledMapTilesetAnimatedTile GetAnimatedTile(string layerName)
