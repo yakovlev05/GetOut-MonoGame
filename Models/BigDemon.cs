@@ -17,6 +17,7 @@ public class BigDemon : IEntityInterface
     private AnimationController Anims { get; init; } = new();
 
     private Vector2 PositionInWorld { get; set; }
+    private float Speed { get; set; }
     public int Width => 32;
     public int Height => 36;
 
@@ -32,10 +33,11 @@ public class BigDemon : IEntityInterface
         { "run_left", 5.0f } // 5 секунд
     };
 
-    public BigDemon(Vector2 positionInWorld, int heartsCount = 3)
+    public BigDemon(Vector2 positionInWorld, int heartsCount = 3, float speed = 1)
     {
         PositionInWorld = positionInWorld;
         Hearts = new Hearts(PositionInWorld, heartsCount, 0.35f, new Vector2(8, 0), 3);
+        Speed = speed;
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/BigDemon");
 
@@ -47,9 +49,10 @@ public class BigDemon : IEntityInterface
     public void Update()
     {
         if (Hearts.IsDied) return;
-        
+
         if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hero.Hearts.Decrease();
-        if (Hero.IsAttack && IsHeroIntersect(Hero.GetRectangleAttackInScreenCord())) Hearts.Decrease(); // Герой нас дамажит
+        if (Hero.IsAttack && IsHeroIntersect(Hero.GetRectangleAttackInScreenCord()))
+            Hearts.Decrease(); // Герой нас дамажит
 
         var currentAnimation = _animationQueue.Peek();
         _timeSinceLastAnimationSwitch += Globals.TotalSeconds;
@@ -78,9 +81,9 @@ public class BigDemon : IEntityInterface
 
     private void Move(string currentAnimation)
     {
-        if (currentAnimation == "idle") PositionInWorld += new Vector2(0, 0);
-        else if (currentAnimation == "run_right") PositionInWorld += new Vector2(1, 0);
-        else if (currentAnimation == "run_left") PositionInWorld += new Vector2(-1, 0);
+        if (currentAnimation == "idle") PositionInWorld += new Vector2(0, 0) * Speed;
+        else if (currentAnimation == "run_right") PositionInWorld += new Vector2(1, 0) * Speed;
+        else if (currentAnimation == "run_left") PositionInWorld += new Vector2(-1, 0) * Speed;
     }
 
     private void AttackHero()
