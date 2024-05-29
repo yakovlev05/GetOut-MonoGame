@@ -26,13 +26,13 @@ public class PumpkinDude : IEntityInterface
     private float Speed { get; set; }
     private int StepsForActivate { get; set; } // Длина пути от монстра до героя, при котором монстр ничинает охоту
 
-    public PumpkinDude(Vector2 positionInWorld, float speed = 1, int stepsForActivate = 50)
+    public PumpkinDude(Vector2 positionInWorld, float speed = 1, int stepsForActivate = 50, int heartsCount = 3)
     {
         PositionInWorld = positionInWorld;
         Speed = speed;
         StepsForActivate = stepsForActivate;
 
-        Hearts = new Hearts(PositionInWorld, 3, 0.35f, new Vector2(0, -6.5f));
+        Hearts = new Hearts(PositionInWorld, heartsCount, 0.35f, new Vector2(0, -6.5f), 3);
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/PumpkinDude");
 
@@ -44,6 +44,8 @@ public class PumpkinDude : IEntityInterface
 
     public void Update()
     {
+        if (Hearts.IsDied) return; // Монстр уже погиб
+
         if (!IsActive)
         {
             ShouldFollowHero(); // Проверяем активность монстра (должен ли он идти за героем)
@@ -62,7 +64,8 @@ public class PumpkinDude : IEntityInterface
             Anims.Update(ActualDirection.Y != 0 ? "run_right" : "idle");
         }
 
-        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hero.Hearts.Decrease();
+        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hero.Hearts.Decrease(); // Дамажим героя
+        if (Hero.IsAttack && IsHeroIntersect(Hero.GetRectangleAttackInScreenCord())) Hearts.Decrease();
 
         Hearts.Update();
         Hearts.UpdatePosition(PositionInWorld);
@@ -70,7 +73,9 @@ public class PumpkinDude : IEntityInterface
 
     public void Draw()
     {
-        Anims.Draw(PositionInWorld);
+        if (Hearts.IsDied) return;
+
+        Anims.Draw(PositionInWorld, Hearts.IsActiveShield);
         Hearts.Draw();
     }
 

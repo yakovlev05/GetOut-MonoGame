@@ -12,13 +12,13 @@ public class BigDemon : IEntityInterface
 {
     public MapController MapController { get; set; }
     public Hero Hero { get; set; }
-    
+    public Hearts Hearts { get; set; }
+
     private AnimationController Anims { get; init; } = new();
-    
+
     private Vector2 PositionInWorld { get; set; }
     public int Width => 32;
     public int Height => 36;
-    private bool IsDied { get; set; } = false;
 
     private readonly Queue<string>
         _animationQueue = new(new[] { "idle", "run_right", "run_left" }); // Круг повторения анимации
@@ -32,9 +32,10 @@ public class BigDemon : IEntityInterface
         { "run_left", 5.0f } // 5 секунд
     };
 
-    public BigDemon(Vector2 positionInWorld)
+    public BigDemon(Vector2 positionInWorld, int heartsCount = 3)
     {
         PositionInWorld = positionInWorld;
+        Hearts = new Hearts(PositionInWorld, heartsCount, 0.35f, new Vector2(8, 0), 3);
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/BigDemon");
 
@@ -45,15 +46,10 @@ public class BigDemon : IEntityInterface
 
     public void Update()
     {
-        if (IsDied) return;
-        if (Hero.IsAttack)
-        {
-            if (IsHeroIntersect(Hero.GetRectangleAttackInScreenCord()))
-            {
-                IsDied = true;
-                return;
-            }
-        }
+        if (Hearts.IsDied) return;
+        
+        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hero.Hearts.Decrease();
+        if (Hero.IsAttack && IsHeroIntersect(Hero.GetRectangleAttackInScreenCord())) Hearts.Decrease(); // Герой нас дамажит
 
         var currentAnimation = _animationQueue.Peek();
         _timeSinceLastAnimationSwitch += Globals.TotalSeconds;
@@ -68,22 +64,26 @@ public class BigDemon : IEntityInterface
         Move(currentAnimation);
         AttackHero();
         Anims.Update(currentAnimation);
+
+        Hearts.Update();
+        Hearts.UpdatePosition(PositionInWorld);
     }
 
     public void Draw()
     {
-        if (IsDied) return;
-        Anims.Draw(PositionInWorld);
+        if (Hearts.IsDied) return;
+        Anims.Draw(PositionInWorld, Hearts.IsActiveShield);
+        Hearts.Draw();
     }
 
-    public void Move(string currentAnimation)
+    private void Move(string currentAnimation)
     {
         if (currentAnimation == "idle") PositionInWorld += new Vector2(0, 0);
         else if (currentAnimation == "run_right") PositionInWorld += new Vector2(1, 0);
         else if (currentAnimation == "run_left") PositionInWorld += new Vector2(-1, 0);
     }
 
-    public void AttackHero()
+    private void AttackHero()
     {
         if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hero.Hearts.Decrease();
     }
