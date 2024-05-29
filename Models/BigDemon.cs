@@ -12,11 +12,13 @@ public class BigDemon : IEntityInterface
 {
     public MapController MapController { get; set; }
     public Hero Hero { get; set; }
+    
     private AnimationController Anims { get; init; } = new();
-    public Vector2 PositionInWorld { get; private set; }
+    
+    private Vector2 PositionInWorld { get; set; }
     public int Width => 32;
     public int Height => 36;
-    public bool IsDied { get; set; } = false;
+    private bool IsDied { get; set; } = false;
 
     private readonly Queue<string>
         _animationQueue = new(new[] { "idle", "run_right", "run_left" }); // Круг повторения анимации

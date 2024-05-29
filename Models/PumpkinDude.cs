@@ -15,11 +15,11 @@ public class PumpkinDude : IEntityInterface
     public MapController MapController { get; set; }
 
     private AnimationController Anims { get; init; } = new();
-    public Vector2 PositionInWorld { get; private set; }
-    public Vector2 ActualDirection { get; private set; }
+    private Vector2 PositionInWorld { get; set; }
+    private Vector2 ActualDirection { get; set; }
     public int Width => 16;
     public int Height => 23;
-    public Hearts MyHearts { get; set; }
+    private Hearts MyHearts { get; set; }
 
     private MapCell[,] Map { get; set; }
 

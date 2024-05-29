@@ -11,13 +11,13 @@ namespace GetOut.Models;
 public class MapPeaks : IEntityInterface
 {
     public Hero Hero { get; set; }
-
     public MapController MapController { get; set; }
-    public TiledMapTilesetAnimatedTile AnimatedTile { get; set; } // Они двигаются синхронно, одного хватит
-    public TiledMapTilesetTileAnimationFrame DamageFrame { get; set; }
-    public List<Point> ListPointsInScreenCordsPeaks { get; set; }
 
-    public bool IsDamageFrameKnow =>
+    private TiledMapTilesetAnimatedTile AnimatedTile { get; set; } // Они двигаются синхронно, одного хватит
+    private TiledMapTilesetTileAnimationFrame DamageFrame { get; set; }
+    private List<Point> ListPointsInScreenCordsPeaks { get; set; }
+
+    private bool IsDamageFrameKnow =>
         AnimatedTile.CurrentAnimationFrame.LocalTileIdentifier == DamageFrame.LocalTileIdentifier;
 
     public void Update()
@@ -39,7 +39,7 @@ public class MapPeaks : IEntityInterface
             .ToList();
     }
 
-    public bool IsHeroIntersects()
+    private bool IsHeroIntersects()
     {
         var heroOriginalRect = Hero.GetDefaultRectangleInScreenCord();
         heroOriginalRect.Height /= 3;

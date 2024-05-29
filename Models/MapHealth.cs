@@ -13,16 +13,14 @@ public class MapHealth : IEntityInterface
     public Hero Hero { get; set; }
     public MapController MapController { get; set; }
 
-    public int StartCountHealth { get; init; }
+    private int StartCountHealthOnMap { get; init; }
+    private Dictionary<string, TiledMapTileLayer> HealthLayers { get; set; } = new(); // Каждый объект - один слой
+    private Dictionary<string, Point> HealthPoints { get; set; } = new(); // Координаты каждого зелья
 
-    public Dictionary<string, TiledMapTileLayer> HealthLayers { get; private set; } =
-        new(); // Каждый объект - один слой
-
-    public Dictionary<string, Point> HealthPoints { get; private set; } = new(); // Координаты каждого зелья
-
-    public MapHealth(int startCountHealth)
+    public MapHealth(int startCountHealthOnMap)
     {
-        StartCountHealth = startCountHealth; // Один слой - одно зелье, поэтому количество слоёв = количеству зелий
+        StartCountHealthOnMap =
+            startCountHealthOnMap; // Один слой - одно зелье, поэтому количество слоёв = количеству зелий
         // Название слоя: health_0, health_1 ...
     }
 
@@ -42,14 +40,14 @@ public class MapHealth : IEntityInterface
 
     public void Init()
     {
-        for (int i = 0; i < StartCountHealth; i++)
+        for (int i = 0; i < StartCountHealthOnMap; i++)
         {
             HealthLayers.Add($"health_{i}", MapController.GetTileLayer($"health_{i}"));
             HealthPoints.Add($"health_{i}", MapController.GetPointsInTileGrid($"health_{i}").First());
         }
     }
 
-    public string IsHeroIntersects() // Возвращает слой, если да, иначе null
+    private string IsHeroIntersects() // Возвращает слой, если да, иначе null
     {
         foreach (var point in HealthPoints)
         {

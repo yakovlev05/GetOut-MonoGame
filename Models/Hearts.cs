@@ -9,25 +9,30 @@ namespace GetOut.Models;
 public class Hearts
 {
     public Hero Hero { get; set; }
+
     private AnimationController Anims { get; init; } = new();
-    public Vector2 Position { get; private set; }
+
+    private Vector2 Position { get; set; }
     private int Count { get; set; }
     private int StartCount { get; set; }
     private float WidthHeart => 13.0f * Scale;
     private float HeightHeart => 4.0f * Scale;
-    private float ShieldTimeInSeconds => 5; // Время невосприимчивосвти к урону после получения урона
-    private float LastDamageElapsedTimeInSeconds { get; set; } = 6; // Текущее время с последнего урона
+    private float ShieldTimeInSeconds { get; init; } // Время невосприимчивосвти к урону после получения урона
+    private float LastDamageElapsedTimeInSeconds { get; set; } // Текущее время с последнего урона
+    private Vector2 OffsetVector { get; init; }
+    private float Scale { get; init; }
     public bool IsDied => Count == 0;
-    public float Scale { get; init; }
-    public Vector2 OffsetVector { get; init; }
-
-    public Hearts(Vector2 position, int count, float scale = 1, Vector2 offsetVector = default)
+    
+    public Hearts(Vector2 position, int count, float scale = 1, Vector2 offsetVector = default,
+        int shieldTimeInSeconds = 5)
     {
         Position = position;
         Count = count;
         StartCount = count;
         Scale = scale;
         OffsetVector = offsetVector;
+        ShieldTimeInSeconds = shieldTimeInSeconds;
+        LastDamageElapsedTimeInSeconds = ShieldTimeInSeconds + 1;
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/hearts");
 
@@ -35,7 +40,8 @@ public class Hearts
         for (int i = 0; i < Count; i++)
         {
             Anims.AddAnimation(i,
-                new Animation(texture, 1, 3, 0.1f, 2, 1, offsetPosition: offsetVectorHorizon * i + OffsetVector, scale: Scale));
+                new Animation(texture, 1, 3, 0.1f, 2, 1, offsetPosition: offsetVectorHorizon * i + OffsetVector,
+                    scale: Scale));
         }
     }
 
