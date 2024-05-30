@@ -61,15 +61,16 @@ public class GameOverScreen : GameScreen
 
         foreach (var button in _buttonsRectangles)
         {
+            if (button.Key == "retry_button_active") continue; // Блокиурем кноппку ретрай
             var rectangle = button.Value;
             if (InputController.IsMouseInRectangle(rectangle))
             {
                 _buttonsLayers[button.Key].IsVisible = true;
                 if (InputController.IsLeftButtonPressed())
                 {
-                    if (button.Key == "retry_button_active")
-                        Game.LoadLevelScreen("./Levels/levels/level1",
-                            new List<IEntityInterface>() {  });
+                    // if (button.Key == "retry_button_active")
+                    //     Game.LoadLevelScreen("./Levels/levels/level1",
+                    //         new List<IEntityInterface>() {  });
                     if (button.Key == "menu_button_active") Game.LoadLevelMenuScreen();
                 }
             }
