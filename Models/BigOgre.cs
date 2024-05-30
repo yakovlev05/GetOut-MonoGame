@@ -81,14 +81,15 @@ public class BigOgre : IEntityInterface
     private void Move()
     {
         var currentPoint = PathInWorldPoints[CurrentPointPathIndex].Item1;
-        var t = currentPoint.ToVector2();
-        var f = PositionInWorld;
-        var direction = Vector2.Normalize(currentPoint.ToVector2() - PositionInWorld);
+        var vector = currentPoint.ToVector2() - PositionInWorld;
+        var direction = vector == Vector2.Zero ? vector : Vector2.Normalize(vector);
 
-
+        PositionInWorld += Vector2.Distance(PositionInWorld, currentPoint.ToVector2()) < Speed
+            ? Vector2.Zero
+            : direction * Speed;
+        
         if (WaitTime <= 0)
         {
-            PositionInWorld += direction * Speed;
             if (Vector2.Distance(PositionInWorld, currentPoint.ToVector2()) < Speed)
             {
                 CurrentPointPathIndex++;

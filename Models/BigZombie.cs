@@ -28,7 +28,8 @@ public class BigZombie : IEntityInterface
     private float WaitTime { get; set; }
 
 
-    public BigZombie(Vector2 positionInWorld, List<Tuple<Point, int>> pathInWorldPoints, float speed = 1, int heartsCount = 3)
+    public BigZombie(Vector2 positionInWorld, List<Tuple<Point, int>> pathInWorldPoints, float speed = 1,
+        int heartsCount = 3)
     {
         PositionInWorld = positionInWorld;
         Speed = speed;
@@ -79,14 +80,16 @@ public class BigZombie : IEntityInterface
     private void Move()
     {
         var currentPoint = PathInWorldPoints[CurrentPointPathIndex].Item1;
-        var t = currentPoint.ToVector2();
-        var f = PositionInWorld;
-        var direction = Vector2.Normalize(currentPoint.ToVector2() - PositionInWorld);
+        var vector = currentPoint.ToVector2() - PositionInWorld;
+        var direction = vector == Vector2.Zero ? vector : Vector2.Normalize(vector);
 
-
+        PositionInWorld += Vector2.Distance(PositionInWorld, currentPoint.ToVector2()) < Speed
+            ? Vector2.Zero
+            : direction * Speed;
+        
         if (WaitTime <= 0)
         {
-            PositionInWorld += direction * Speed;
+            var t = Vector2.Distance(PositionInWorld, currentPoint.ToVector2());
             if (Vector2.Distance(PositionInWorld, currentPoint.ToVector2()) < Speed)
             {
                 CurrentPointPathIndex++;
