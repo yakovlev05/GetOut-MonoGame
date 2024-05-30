@@ -76,18 +76,26 @@ public class LevelMenuScreen : GameScreen
                     if (button.Key == "level1_active")
                         Game.LoadLevelScreen("./Levels/levels/level1", new List<IEntityInterface>()
                         {
-                            new BigDemon(new Vector2(0, 0), new List<Point>()
+                            new BigDemon(new Vector2(0, 0), new List<Tuple<Point, int>>()
                             {
-                                new Point(17 * 16, 0 * 16),
-                                new Point(17*16,8*16),
-                                new Point(0,8*16),
-                                new Point(0, 0)
+                                new(new Point(17 * 16, 0 * 16), 5),
+                                new(new Point(17 * 16, 8 * 16), 2),
+                                new(new Point(0, 8 * 16), 3),
+                                new(new Point(0, 0), 10)
                             }),
                             new MapPeaks(),
                             new MapHealth(1),
                             new PumpkinDude(new Vector2(37 * 16, 25 * 16), 1f, 30),
-                            new BigZombie(new Vector2(0, 5 * 16), 1f, 3),
-                            new BigOgre(new Vector2(0, 10 * 16), 1f, 3),
+                            new BigZombie(new Vector2(0, 5 * 16), new List<Tuple<Point, int>>()
+                            {
+                                new(new Point(5 * 16, 5 * 16), 5),
+                                new(new Point(100 * 16, 100 * 16), 5)
+                            }, 1f, 3),
+                            new BigOgre(new Vector2(0, 10 * 16), new List<Tuple<Point, int>>()
+                            {
+                                new(new Point(5, 8 * 16), 3),
+                                new(new Point(0, 100 * 16), 10)
+                            }, 1f, 3),
                             new Chort(new Vector2(5 * 16, 5 * 16), 1f, 1, 3)
                         });
                     else if (button.Key == "level2_active")

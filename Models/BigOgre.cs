@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GetOut.Controllers;
 using GetOut.Program;
 using GetOut.View;
@@ -23,25 +25,18 @@ public class BigOgre : IEntityInterface
 
     private float _timeSinceLastAnimationSwitch = 0.0f; // Время с последнего переключения анимации
 
-    private readonly Queue<string> _animationQueue = new(new[] // Круг анимации
-    {
-        "idle",
-        "run_right",
-        "run_left"
-    });
+    private List<Tuple<Point, int>> PathInWorldPoints { get; set; }
+    private int CurrentPointPathIndex { get; set; } = 0;
+    private float WaitTime { get; set; }
 
-    private readonly Dictionary<string, float> _animationDurations = new() // По сути - маршрут монстра
-    {
-        { "idle", 5.0f }, // 5 секунд
-        { "run_right", 5.0f }, // 5 секунд
-        { "run_left", 5.0f } // 5 секунд
-    };
-
-    public BigOgre(Vector2 positionInWorld, float speed = 1, int heartsCount = 3)
+    public BigOgre(Vector2 positionInWorld, List<Tuple<Point, int>> pathInWorldPoints, float speed = 1,
+        int heartsCount = 3)
     {
         PositionInWorld = positionInWorld;
         Speed = speed;
         Hearts = new Hearts(PositionInWorld, heartsCount, 0.35f, new Vector2(8, 0), 3);
+        PathInWorldPoints = pathInWorldPoints;
+        WaitTime = PathInWorldPoints.First().Item2;
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/BigOgre");
 
@@ -57,18 +52,7 @@ public class BigOgre : IEntityInterface
         if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hero.Hearts.Decrease();
         if (Hero.IsAttack && IsHeroIntersect(Hero.GetRectangleAttackInScreenCord())) Hearts.Decrease();
 
-        var currentAnimation = _animationQueue.Peek();
-        _timeSinceLastAnimationSwitch += Globals.TotalSeconds;
-
-        if (_timeSinceLastAnimationSwitch >= _animationDurations[currentAnimation])
-        {
-            _animationQueue.Dequeue();
-            _animationQueue.Enqueue(currentAnimation);
-            _timeSinceLastAnimationSwitch = 0.0f;
-        }
-
-        Move(currentAnimation);
-        Anims.Update(currentAnimation);
+        Move();
 
         Hearts.Update();
         Hearts.UpdatePosition(PositionInWorld);
@@ -94,10 +78,28 @@ public class BigOgre : IEntityInterface
         return rectangleDemon.Intersects(rectangleHero);
     }
 
-    private void Move(string currentAnimation)
+    private void Move()
     {
-        if (currentAnimation == "idle") PositionInWorld += new Vector2(0, 0) * Speed;
-        else if (currentAnimation == "run_right") PositionInWorld += new Vector2(1, 0) * Speed;
-        else if (currentAnimation == "run_left") PositionInWorld += new Vector2(-1, 0) * Speed;
+        var currentPoint = PathInWorldPoints[CurrentPointPathIndex].Item1;
+        var t = currentPoint.ToVector2();
+        var f = PositionInWorld;
+        var direction = Vector2.Normalize(currentPoint.ToVector2() - PositionInWorld);
+
+
+        if (WaitTime <= 0)
+        {
+            PositionInWorld += direction * Speed;
+            if (Vector2.Distance(PositionInWorld, currentPoint.ToVector2()) < Speed)
+            {
+                CurrentPointPathIndex++;
+                if (CurrentPointPathIndex >= PathInWorldPoints.Count) CurrentPointPathIndex = 0;
+                WaitTime = PathInWorldPoints[CurrentPointPathIndex].Item2;
+            }
+        }
+        else WaitTime -= Globals.TotalSeconds;
+
+        if (direction.X > 0 || (direction.X == 0 && direction.Y != 0)) Anims.Update("run_right");
+        else if (direction.X < 0) Anims.Update("run_left");
+        else Anims.Update("idle");
     }
 }

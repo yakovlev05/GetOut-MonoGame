@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GetOut.Controllers;
 using GetOut.Program;
 using GetOut.View;
@@ -21,15 +23,18 @@ public class BigDemon : IEntityInterface
     public int Width => 32;
     public int Height => 36;
 
-    private List<Point> PathInWorldPoints { get; set; }
+    private List<Tuple<Point, int>> PathInWorldPoints { get; set; }
     private int CurrentPointPathIndex { get; set; } = 0;
+    private float WaitTime { get; set; }
 
-    public BigDemon(Vector2 positionInWorld, List<Point> pathInWorldPoints, int heartsCount = 3, float speed = 1)
+    public BigDemon(Vector2 positionInWorld, List<Tuple<Point, int>> pathInWorldPoints, int heartsCount = 3,
+        float speed = 1)
     {
         PositionInWorld = positionInWorld;
         Hearts = new Hearts(PositionInWorld, heartsCount, 0.35f, new Vector2(8, 0), 3);
         Speed = speed;
         PathInWorldPoints = pathInWorldPoints;
+        WaitTime = PathInWorldPoints.First().Item2;
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/BigDemon");
 
@@ -62,15 +67,23 @@ public class BigDemon : IEntityInterface
 
     private void Move()
     {
-        var currentPoint = PathInWorldPoints[CurrentPointPathIndex];
+        var currentPoint = PathInWorldPoints[CurrentPointPathIndex].Item1;
+        var t = currentPoint.ToVector2();
+        var f = PositionInWorld;
         var direction = Vector2.Normalize(currentPoint.ToVector2() - PositionInWorld);
-        PositionInWorld += direction * Speed;
 
-        if (Vector2.Distance(PositionInWorld, currentPoint.ToVector2()) < Speed)
+
+        if (WaitTime <= 0)
         {
-            CurrentPointPathIndex++;
-            if (CurrentPointPathIndex >= PathInWorldPoints.Count) CurrentPointPathIndex = 0;
+            PositionInWorld += direction * Speed;
+            if (Vector2.Distance(PositionInWorld, currentPoint.ToVector2()) < Speed)
+            {
+                CurrentPointPathIndex++;
+                if (CurrentPointPathIndex >= PathInWorldPoints.Count) CurrentPointPathIndex = 0;
+                WaitTime = PathInWorldPoints[CurrentPointPathIndex].Item2;
+            }
         }
+        else WaitTime -= Globals.TotalSeconds;
 
         if (direction.X > 0 || (direction.X == 0 && direction.Y != 0)) Anims.Update("run_right");
         else if (direction.X < 0) Anims.Update("run_left");
