@@ -21,23 +21,15 @@ public class BigDemon : IEntityInterface
     public int Width => 32;
     public int Height => 36;
 
-    private readonly Queue<string>
-        _animationQueue = new(new[] { "idle", "run_right", "run_left" }); // Круг повторения анимации
+    private List<Point> PathInWorldPoints { get; set; }
+    private int CurrentPointPathIndex { get; set; } = 0;
 
-    private float _timeSinceLastAnimationSwitch = 0.0f; // Время с последнего переключения анимации
-
-    private readonly Dictionary<string, float> _animationDurations = new()
-    {
-        { "idle", 5.0f }, // 5 секунд
-        { "run_right", 5.0f }, // 5 секунд
-        { "run_left", 5.0f } // 5 секунд
-    };
-
-    public BigDemon(Vector2 positionInWorld, int heartsCount = 3, float speed = 1)
+    public BigDemon(Vector2 positionInWorld, List<Point> pathInWorldPoints, int heartsCount = 3, float speed = 1)
     {
         PositionInWorld = positionInWorld;
         Hearts = new Hearts(PositionInWorld, heartsCount, 0.35f, new Vector2(8, 0), 3);
         Speed = speed;
+        PathInWorldPoints = pathInWorldPoints;
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/BigDemon");
 
@@ -54,18 +46,8 @@ public class BigDemon : IEntityInterface
         if (Hero.IsAttack && IsHeroIntersect(Hero.GetRectangleAttackInScreenCord()))
             Hearts.Decrease(); // Герой нас дамажит
 
-        var currentAnimation = _animationQueue.Peek();
-        _timeSinceLastAnimationSwitch += Globals.TotalSeconds;
 
-        if (_timeSinceLastAnimationSwitch >= _animationDurations[currentAnimation])
-        {
-            _animationQueue.Dequeue();
-            _animationQueue.Enqueue(currentAnimation);
-            _timeSinceLastAnimationSwitch = 0.0f;
-        }
-
-        Move(currentAnimation);
-        Anims.Update(currentAnimation);
+        Move();
 
         Hearts.Update();
         Hearts.UpdatePosition(PositionInWorld);
@@ -78,11 +60,21 @@ public class BigDemon : IEntityInterface
         Hearts.Draw();
     }
 
-    private void Move(string currentAnimation)
+    private void Move()
     {
-        if (currentAnimation == "idle") PositionInWorld += new Vector2(0, 0) * Speed;
-        else if (currentAnimation == "run_right") PositionInWorld += new Vector2(1, 0) * Speed;
-        else if (currentAnimation == "run_left") PositionInWorld += new Vector2(-1, 0) * Speed;
+        var currentPoint = PathInWorldPoints[CurrentPointPathIndex];
+        var direction = Vector2.Normalize(currentPoint.ToVector2() - PositionInWorld);
+        PositionInWorld += direction * Speed;
+
+        if (Vector2.Distance(PositionInWorld, currentPoint.ToVector2()) < Speed)
+        {
+            CurrentPointPathIndex++;
+            if (CurrentPointPathIndex >= PathInWorldPoints.Count) CurrentPointPathIndex = 0;
+        }
+
+        if (direction.X > 0 || (direction.X == 0 && direction.Y != 0)) Anims.Update("run_right");
+        else if (direction.X < 0) Anims.Update("run_left");
+        else Anims.Update("idle");
     }
 
     private bool IsHeroIntersect(RectangleF rectangleHero)

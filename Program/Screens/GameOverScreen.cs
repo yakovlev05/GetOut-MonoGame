@@ -69,7 +69,7 @@ public class GameOverScreen : GameScreen
                 {
                     if (button.Key == "retry_button_active")
                         Game.LoadLevelScreen("./Levels/levels/level1",
-                            new List<IEntityInterface>() { new BigDemon(new Vector2(0, 0)) });
+                            new List<IEntityInterface>() {  });
                     if (button.Key == "menu_button_active") Game.LoadLevelMenuScreen();
                 }
             }
