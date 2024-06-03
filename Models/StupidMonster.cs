@@ -15,13 +15,13 @@ public abstract class StupidMonster : IEntityInterface
     public abstract Hearts Hearts { get; set; }
     public abstract AnimationController Anims { get; init; }
 
-    protected Vector2 PositionInWorld { get; set; }
+    protected Vector2 PositionInWorld { get; private set; }
     private float Speed { get; set; }
     public abstract int Width { get; }
     public abstract int Height { get; }
 
     private List<Tuple<Point, int>> PathInWorldPoints { get; set; }
-    private int CurrentPointPathIndex { get; set; } = 0;
+    private int CurrentPointPathIndex { get; set; }
     private float WaitTime { get; set; }
 
     protected StupidMonster(Vector2 positionInWorld, List<Tuple<Point, int>> pathInWorldPoints, float speed)
