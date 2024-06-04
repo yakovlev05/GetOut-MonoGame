@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GetOut.Controllers;
 using GetOut.Models;
 using GetOut.Program.Screens;
@@ -67,8 +68,8 @@ public class Game1 : Game
         _screenManager.LoadScreen(new LevelMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
 
 
-    public void LoadVictoryScreen() =>
-        _screenManager.LoadScreen(new VictoryScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
+    public void LoadVictoryScreen(string spentTime) =>
+        _screenManager.LoadScreen(new VictoryScreen(this, spentTime), new FadeTransition(GraphicsDevice, Color.Black));
 
     public void LoadGameOverScreen() =>
         _screenManager.LoadScreen(new GameOverScreen(this), new FadeTransition(GraphicsDevice, Color.Black));

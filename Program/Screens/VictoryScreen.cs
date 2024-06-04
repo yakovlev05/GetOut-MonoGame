@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
@@ -18,6 +19,7 @@ public class VictoryScreen : GameScreen
     private TiledMap _tiledMap;
     private TiledMapRenderer _tiledMapRenderer;
     private SpriteBatch _spriteBatch;
+    private BitmapFont _bitmapFont;
 
     private TiledMapTileLayer _okButtonActive;
 
@@ -25,13 +27,17 @@ public class VictoryScreen : GameScreen
 
     private Matrix _matrix;
 
-    public VictoryScreen(Game game) : base(game)
+    private string _spentTime;
+
+    public VictoryScreen(Game game, string spentTime) : base(game)
     {
+        _spentTime = spentTime;
     }
 
     public override void LoadContent()
     {
         _tiledMap = Content.Load<TiledMap>("./VictoryScreen/VictoryScreen");
+        _bitmapFont = Globals.Content.Load<BitmapFont>("./fonts/OffBit/OffBit");
         _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -75,6 +81,14 @@ public class VictoryScreen : GameScreen
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         _tiledMapRenderer.Draw(_matrix);
         // _spriteBatch.DrawRectangle(_okButtonRectangle, Color.Red);
+        _spriteBatch.DrawString(_bitmapFont,
+            $"Затраченное время: {_spentTime}",
+            new Vector2(700, 400),
+            Color.White, 0,
+            Vector2.Zero,
+            1f,
+            SpriteEffects.None,
+            0);
         _spriteBatch.End();
     }
 }

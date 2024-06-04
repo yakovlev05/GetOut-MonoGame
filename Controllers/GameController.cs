@@ -8,7 +8,7 @@ public class GameController
     // Героя вынесли отдельно, так как он будет везде, он независим от всего остального, исключительная личность
     public Hero Hero { get; private set; }
     private Hearts Hearts { get; set; }
-    private TimeStatistic TimeStatistic { get; set; }
+    public TimeStatistic TimeStatistic { get; set; }
     private List<IEntityInterface> Entities { get; set; } = new List<IEntityInterface>();
 
     public GameController()

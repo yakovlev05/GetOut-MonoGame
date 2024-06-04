@@ -52,7 +52,7 @@ public class LevelScreen : GameScreen
     public override void Update(GameTime gameTime)
     {
         if (InputController.IsPressedKey(Keys.Escape)) Game.LoadLevelMenuScreen();
-        if (_mapController.IsExit(_gameController.Hero)) Game.LoadVictoryScreen();
+        if (_mapController.IsExit(_gameController.Hero)) Game.LoadVictoryScreen(_gameController.TimeStatistic.TimeInString);
         if (_gameController.Hero.IsShowGameOverScreen) Game.LoadGameOverScreen();
 
         _mapController.Update(gameTime);
