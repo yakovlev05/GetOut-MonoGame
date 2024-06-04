@@ -44,13 +44,7 @@ public static class LevelsEntitiesRegistry
             {
                 new(new Point(66 * 16, 73 * 16), 7),
                 new(new Point(74 * 16, 73 * 16), 3)
-            }),
-            new WarriorOrc(new Vector2(16 * 5, 16 * 5), new List<Tuple<Point, int>>()
-            {
-                new(new Point(10 * 16, 16 * 5), 5),
-                new(new Point(16 * 5, 16 * 5), 0)
-            }),
-            new MaskedOrc(new Vector2(16*5,16*5))
+            })
         };
     }
 
