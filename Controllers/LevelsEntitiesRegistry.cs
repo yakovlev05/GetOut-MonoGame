@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using GetOut.Models;
+using GetOut.Models.MapEntity;
+using GetOut.Models.Monsters.Smart;
+using GetOut.Models.Monsters.Stupid;
 using Microsoft.Xna.Framework;
 
 namespace GetOut.Controllers;
@@ -42,6 +45,21 @@ public static class LevelsEntitiesRegistry
                 new(new Point(66 * 16, 73 * 16), 7),
                 new(new Point(74 * 16, 73 * 16), 3)
             }),
+            new WarriorOrc(new Vector2(16 * 5, 16 * 5), new List<Tuple<Point, int>>()
+            {
+                new(new Point(10 * 16, 16 * 5), 5),
+                new(new Point(16 * 5, 16 * 5), 0)
+            }),
+            new MaskedOrc(new Vector2(16*5,16*5))
+        };
+    }
+
+    public static List<IEntityInterface> GetLevel2()
+    {
+        return new List<IEntityInterface>()
+        {
+            new MapPeaks(),
+            new MapHealth(1)
         };
     }
 }

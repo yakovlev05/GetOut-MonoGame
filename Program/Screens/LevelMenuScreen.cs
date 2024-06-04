@@ -77,7 +77,7 @@ public class LevelMenuScreen : GameScreen
                         Game.LoadLevelScreen("./Levels/levels/level1", LevelsEntitiesRegistry.GetLevel1());
                     else if (button.Key == "level2_active")
                     {
-                        Game.LoadLevelScreen("./Levels/levels/level2", new List<IEntityInterface>());
+                        Game.LoadLevelScreen("./Levels/levels/level2", LevelsEntitiesRegistry.GetLevel2());
                     }
                     else if (button.Key == "level3_active")
                     {
