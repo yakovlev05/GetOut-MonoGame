@@ -2,11 +2,12 @@
 using System.Linq;
 using GetOut.Algorithms.BFS;
 using GetOut.Controllers;
+using GetOut.Models.Statistic;
 using GetOut.Program;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
-namespace GetOut.Models;
+namespace GetOut.Models.Monsters.Smart;
 
 public abstract class SmartMonster : IEntityInterface
 {

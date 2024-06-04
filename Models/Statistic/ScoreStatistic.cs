@@ -1,10 +1,9 @@
-﻿using System;
-using GetOut.Program;
+﻿using GetOut.Program;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.BitmapFonts;
 
-namespace GetOut.Models;
+namespace GetOut.Models.Statistic;
 
 public class ScoreStatistic
 {

@@ -6,7 +6,7 @@ using GetOut.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GetOut.Models;
+namespace GetOut.Models.Monsters.Stupid;
 
 public class BigZombie : StupidMonster
 {

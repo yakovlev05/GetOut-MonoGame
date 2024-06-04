@@ -1,4 +1,5 @@
 ﻿using GetOut.Controllers;
+using GetOut.Models.Statistic;
 
 namespace GetOut.Models;
 

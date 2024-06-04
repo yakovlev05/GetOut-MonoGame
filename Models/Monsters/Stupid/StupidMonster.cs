@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetOut.Controllers;
+using GetOut.Models.Statistic;
 using GetOut.Program;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
-namespace GetOut.Models;
+namespace GetOut.Models.Monsters.Stupid;
 
 public abstract class StupidMonster : IEntityInterface
 {

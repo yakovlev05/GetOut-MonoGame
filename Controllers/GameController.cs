@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GetOut.Models;
+using GetOut.Models.Statistic;
 
 namespace GetOut.Controllers;
 

@@ -4,7 +4,7 @@ using GetOut.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GetOut.Models;
+namespace GetOut.Models.Monsters.Smart;
 
 public class Chort : SmartMonster
 {
