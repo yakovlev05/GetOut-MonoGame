@@ -52,6 +52,8 @@ public class LevelScreen : GameScreen
     public override void Update(GameTime gameTime)
     {
         if (InputController.IsPressedKey(Keys.Escape)) Game.LoadLevelMenuScreen();
+        if (InputController.IsPressedKey(Keys.G) && InputController.IsPressedKey(Keys.O) &&
+            InputController.IsPressedKey(Keys.D)) _gameController.Hero.Hearts.SetGodMode(true);
         if (_mapController.IsExit(_gameController.Hero))
             Game.LoadVictoryScreen(_gameController.TimeStatistic.TimeInString,
                 _gameController.ScoreStatistic.TotalScore.ToString());

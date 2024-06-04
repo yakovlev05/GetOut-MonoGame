@@ -38,7 +38,7 @@ public class Hero
     {
         StartPosition = position;
         Speed = speed;
-        Hearts = new Hearts(new Vector2(640+10, 360+10), heartsCount);
+        Hearts = new Hearts(new Vector2(640 + 10, 360 + 10), heartsCount);
 
         var texture = Globals.Content.Load<Texture2D>("./hero");
 
