@@ -19,7 +19,7 @@ public class WarriorOrc : StupidMonster
     public WarriorOrc(Vector2 positionInWorld, List<Tuple<Point, int>> pathInWorldPoints, int heartsCount = 3,
         float speed = 1) : base(positionInWorld, pathInWorldPoints, speed)
     {
-        Hearts = new Hearts(PositionInWorld, heartsCount, 0.35f, new Vector2(8, 0), 3);
+        Hearts = new Hearts(PositionInWorld, heartsCount, 0.35f, new Vector2(0, 0), 3);
 
         var texture = Globals.Content.Load<Texture2D>("./Levels/assets/WarriorOrc");
 

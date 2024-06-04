@@ -86,6 +86,8 @@ public abstract class StupidMonster : IEntityInterface
         }
         else WaitTime -= Globals.TotalSeconds;
 
+        if (Vector2.Distance(PositionInWorld, currentPoint.ToVector2()) < Speed) direction = Vector2.Zero;
+
         if (direction.X > 0 || (direction.X == 0 && direction.Y != 0)) Anims.Update("run_right");
         else if (direction.X < 0) Anims.Update("run_left");
         else Anims.Update("idle");
