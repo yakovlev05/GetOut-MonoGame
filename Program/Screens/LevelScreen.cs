@@ -22,7 +22,7 @@ public class LevelScreen : GameScreen
         _camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1920, 1080));
         _camera.Zoom = 3f;
         _matrix = _camera.GetViewMatrix();
-        
+
 
         _mapController = new MapController(mapPath, _camera);
 
@@ -33,12 +33,12 @@ public class LevelScreen : GameScreen
     {
         //-960 -540 край карты на середине //492
         _camera.Position = new Vector2(-912, -492);
-        
+
         Globals.HeroMatrix = _matrix;
         Globals.Camera = _camera;
-        
+
         _gameController.Init(_mapController);
-        
+
         base.Initialize();
     }
 
@@ -52,7 +52,9 @@ public class LevelScreen : GameScreen
     public override void Update(GameTime gameTime)
     {
         if (InputController.IsPressedKey(Keys.Escape)) Game.LoadLevelMenuScreen();
-        if (_mapController.IsExit(_gameController.Hero)) Game.LoadVictoryScreen(_gameController.TimeStatistic.TimeInString);
+        if (_mapController.IsExit(_gameController.Hero))
+            Game.LoadVictoryScreen(_gameController.TimeStatistic.TimeInString,
+                _gameController.ScoreStatistic.TotalScore.ToString());
         if (_gameController.Hero.IsShowGameOverScreen) Game.LoadGameOverScreen();
 
         _mapController.Update(gameTime);
@@ -74,14 +76,14 @@ public class LevelScreen : GameScreen
         _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
         _gameController.DrawDynamic();
         _spriteBatch.End();
-        
+
         // Отрисовка границ героя через координаты мира
         // _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix());
         // var cord = Globals.Camera.ScreenToWorld(-1920+38*3, -1080+50*3); // 38,  50
         // Console.WriteLine(cord);
         // _spriteBatch.DrawRectangle(cord.X,cord.Y,15,38,Color.Blue);
         // _spriteBatch.End();
-        
+
         // // Отрисовка границ объектов для тестирования
         // _spriteBatch.Begin();
         // foreach (var wall in _mapController.Walls)

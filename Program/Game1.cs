@@ -68,8 +68,8 @@ public class Game1 : Game
         _screenManager.LoadScreen(new LevelMenuScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
 
 
-    public void LoadVictoryScreen(string spentTime) =>
-        _screenManager.LoadScreen(new VictoryScreen(this, spentTime), new FadeTransition(GraphicsDevice, Color.Black));
+    public void LoadVictoryScreen(string spentTime, string score) =>
+        _screenManager.LoadScreen(new VictoryScreen(this, spentTime, score), new FadeTransition(GraphicsDevice, Color.Black));
 
     public void LoadGameOverScreen() =>
         _screenManager.LoadScreen(new GameOverScreen(this), new FadeTransition(GraphicsDevice, Color.Black));

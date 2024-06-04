@@ -12,10 +12,13 @@ public class MapHealth : IEntityInterface
 {
     public Hero Hero { get; set; }
     public MapController MapController { get; set; }
+    public ScoreStatistic ScoreStatistic { get; set; }
 
     private int StartCountHealthOnMap { get; init; }
     private Dictionary<string, TiledMapTileLayer> HealthLayers { get; set; } = new(); // Каждый объект - один слой
     private Dictionary<string, Point> HealthPoints { get; set; } = new(); // Координаты каждого зелья
+
+    public int Score => 7;
 
     public MapHealth(int startCountHealthOnMap)
     {
@@ -29,7 +32,12 @@ public class MapHealth : IEntityInterface
         var layerName = IsHeroIntersects();
         if (IsHeroIntersects() != null)
         {
-            if (HealthLayers[layerName].IsVisible) Hero.Hearts.Increase();
+            if (HealthLayers[layerName].IsVisible)
+            {
+                Hero.Hearts.Increase();
+                UpdateScoreStatistic();
+            }
+
             HealthLayers[layerName].IsVisible = false;
         }
     }
@@ -58,5 +66,10 @@ public class MapHealth : IEntityInterface
         }
 
         return null;
+    }
+
+    private void UpdateScoreStatistic()
+    {
+        ScoreStatistic.AddScore(Score);
     }
 }

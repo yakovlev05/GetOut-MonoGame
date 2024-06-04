@@ -8,7 +8,8 @@ public class GameController
     // Героя вынесли отдельно, так как он будет везде, он независим от всего остального, исключительная личность
     public Hero Hero { get; private set; }
     private Hearts Hearts { get; set; }
-    public TimeStatistic TimeStatistic { get; set; }
+    public TimeStatistic TimeStatistic { get; private set; }
+    public ScoreStatistic ScoreStatistic { get; private set; }
     private List<IEntityInterface> Entities { get; set; } = new List<IEntityInterface>();
 
     public GameController()
@@ -25,11 +26,13 @@ public class GameController
         Hero = new(new(900, 500), 200f, 10); // Центр Экрана, присутсвует везде
         Hearts = Hero.Hearts; // Всегда есть, с эти классом взаимодействуют другие сущности;
         TimeStatistic = new TimeStatistic();
+        ScoreStatistic = new ScoreStatistic();
 
         foreach (var entity in Entities)
         {
             entity.MapController = mapController;
             entity.Hero = Hero;
+            entity.ScoreStatistic = ScoreStatistic;
             entity.Init();
         }
     }
@@ -51,6 +54,7 @@ public class GameController
         Hero.Draw();
         Hearts.Draw();
         TimeStatistic.Draw();
+        ScoreStatistic.Draw();
     }
 
     public void DrawDynamic()

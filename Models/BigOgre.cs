@@ -14,6 +14,7 @@ public class BigOgre : StupidMonster
     public sealed override AnimationController Anims { get; init; } = new();
     public override int Width => 32;
     public override int Height => 36;
+    public override int Score => 32;
 
     public BigOgre(Vector2 positionInWorld, List<Tuple<Point, int>> pathInWorldPoints, int heartsCount = 3,
         float speed = 1) : base(positionInWorld, pathInWorldPoints, speed)

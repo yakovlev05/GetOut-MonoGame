@@ -15,6 +15,7 @@ public class BigDemon : StupidMonster
 
     public override int Width => 32;
     public override int Height => 36;
+    public override int Score => 51;
 
     public BigDemon(Vector2 positionInWorld, List<Tuple<Point, int>> pathInWorldPoints, int heartsCount = 3,
         float speed = 1) : base(positionInWorld, pathInWorldPoints, speed)

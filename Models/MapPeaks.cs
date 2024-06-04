@@ -12,6 +12,7 @@ public class MapPeaks : IEntityInterface
 {
     public Hero Hero { get; set; }
     public MapController MapController { get; set; }
+    public ScoreStatistic ScoreStatistic { get; set; }
 
     private TiledMapTilesetAnimatedTile AnimatedTile { get; set; } // Они двигаются синхронно, одного хватит
     private TiledMapTilesetTileAnimationFrame DamageFrame { get; set; }
@@ -20,9 +21,15 @@ public class MapPeaks : IEntityInterface
     private bool IsDamageFrameKnow =>
         AnimatedTile.CurrentAnimationFrame.LocalTileIdentifier == DamageFrame.LocalTileIdentifier;
 
+    public int Score => 3;
+
     public void Update()
     {
-        if (IsDamageFrameKnow && IsHeroIntersects()) Hero.Hearts.Decrease();
+        if (IsDamageFrameKnow && IsHeroIntersects())
+        {
+            Hero.Hearts.Decrease();
+            UpdateScoreStatistic();
+        }
     }
 
     public void Draw()
@@ -49,5 +56,10 @@ public class MapPeaks : IEntityInterface
             .Select(x => Globals.Camera.WorldToScreen(x.X, x.Y))
             .Select(x => new RectangleF(x.X, x.Y, 16 * Globals.Camera.Zoom, 16 * Globals.Camera.Zoom))
             .Any(x => x.Intersects(heroOriginalRect));
+    }
+
+    private void UpdateScoreStatistic()
+    {
+        ScoreStatistic.AddScore(Score);
     }
 }

@@ -12,6 +12,7 @@ public class Chort : SmartMonster
     public sealed override AnimationController Anims { get; init; } = new();
     protected override int Width => 16;
     protected override int Height => 23;
+    public override int Score => 253;
 
     public Chort(Vector2 positionInWorld, float speed = 1, int stepsForActivate = 20, int heartsCount = 3)
         : base(positionInWorld, speed, stepsForActivate)

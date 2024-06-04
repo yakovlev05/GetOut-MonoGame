@@ -14,11 +14,13 @@ public abstract class StupidMonster : IEntityInterface
     public Hero Hero { get; set; }
     public abstract Hearts Hearts { get; set; }
     public abstract AnimationController Anims { get; init; }
+    public ScoreStatistic ScoreStatistic { get; set; }
 
     protected Vector2 PositionInWorld { get; private set; }
     private float Speed { get; set; }
     public abstract int Width { get; }
     public abstract int Height { get; }
+    public abstract int Score { get; }
 
     private List<Tuple<Point, int>> PathInWorldPoints { get; set; }
     private int CurrentPointPathIndex { get; set; }
@@ -36,9 +38,17 @@ public abstract class StupidMonster : IEntityInterface
     {
         if (Hearts.IsDied) return;
 
-        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hero.Hearts.Decrease();
+        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord()))
+        {
+            Hero.Hearts.Decrease();
+            UpdateScoreStatistic();
+        }
+
         if (Hero.IsAttack && IsHeroIntersect(Hero.GetRectangleAttackInScreenCord()))
-            Hearts.Decrease(); // Герой нас дамажит
+        {
+            Hearts.Decrease();
+            UpdateScoreStatistic();
+        } // Герой нас дамажит
 
 
         Move();
@@ -91,5 +101,10 @@ public abstract class StupidMonster : IEntityInterface
 
     public void Init()
     {
+    }
+
+    private void UpdateScoreStatistic()
+    {
+        ScoreStatistic.AddScore(Score);
     }
 }

@@ -14,6 +14,7 @@ public abstract class SmartMonster : IEntityInterface
     public MapController MapController { get; set; }
     protected abstract Hearts Hearts { get; set; }
     public abstract AnimationController Anims { get; init; }
+    public ScoreStatistic ScoreStatistic { get; set; }
 
     protected Vector2 PositionInWorld { get; set; }
     private Vector2 ActualDirection { get; set; }
@@ -22,6 +23,7 @@ public abstract class SmartMonster : IEntityInterface
     private int StepsForActivate { get; set; } // Длина пути от монстра до героя, при котором монстр ничинает охоту
     protected abstract int Width { get; }
     protected abstract int Height { get; }
+    public abstract int Score { get; }
 
     protected SmartMonster(Vector2 positionInWorld, float speed, int stepsForActivate)
     {
@@ -52,8 +54,17 @@ public abstract class SmartMonster : IEntityInterface
             Anims.Update(ActualDirection.Y != 0 ? "run_right" : "idle");
         }
 
-        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord())) Hero.Hearts.Decrease(); // Дамажим героя
-        if (Hero.IsAttack && IsHeroIntersect(Hero.GetRectangleAttackInScreenCord())) Hearts.Decrease();
+        if (IsHeroIntersect(Hero.GetDefaultRectangleInScreenCord()))
+        {
+            Hero.Hearts.Decrease();
+            UpdateScoreStatistic();
+        } // Дамажим героя
+
+        if (Hero.IsAttack && IsHeroIntersect(Hero.GetRectangleAttackInScreenCord()))
+        {
+            Hearts.Decrease();
+            UpdateScoreStatistic();
+        }
 
         Hearts.Update();
         Hearts.UpdatePosition(PositionInWorld);
@@ -118,5 +129,10 @@ public abstract class SmartMonster : IEntityInterface
 
         var path = Bfs.FindPath(MapController.Map, monsterPosition, heroPosition);
         IsActive = path.Count <= StepsForActivate;
+    }
+
+    private void UpdateScoreStatistic()
+    {
+        ScoreStatistic.AddScore(Score);
     }
 }

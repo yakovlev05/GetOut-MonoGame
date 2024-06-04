@@ -28,10 +28,12 @@ public class VictoryScreen : GameScreen
     private Matrix _matrix;
 
     private string _spentTime;
+    private string _score;
 
-    public VictoryScreen(Game game, string spentTime) : base(game)
+    public VictoryScreen(Game game, string spentTime, string score) : base(game)
     {
         _spentTime = spentTime;
+        _score = score;
     }
 
     public override void LoadContent()
@@ -84,6 +86,14 @@ public class VictoryScreen : GameScreen
         _spriteBatch.DrawString(_bitmapFont,
             $"Затраченное время: {_spentTime}",
             new Vector2(700, 400),
+            Color.White, 0,
+            Vector2.Zero,
+            1f,
+            SpriteEffects.None,
+            0);
+        _spriteBatch.DrawString(_bitmapFont,
+            $"Набранные очки: {_score}",
+            new Vector2(700, 450),
             Color.White, 0,
             Vector2.Zero,
             1f,
