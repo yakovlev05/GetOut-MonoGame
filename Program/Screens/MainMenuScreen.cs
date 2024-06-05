@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
 using MonoGame.Extended.Tiled;
@@ -18,6 +19,7 @@ public class MainMenuScreen : GameScreen
     private TiledMap _tiledMap;
     private TiledMapRenderer _tiledMapRenderer;
     private SpriteBatch _spriteBatch;
+    private BitmapFont _bitmapFont;
 
     private TiledMapTileLayer _playButtonActive;
     private TiledMapTileLayer _exitButtonActive;
@@ -34,6 +36,7 @@ public class MainMenuScreen : GameScreen
     public override void LoadContent()
     {
         _tiledMap = Content.Load<TiledMap>("./MainMenuScreen/mainmenu");
+        _bitmapFont = Content.Load<BitmapFont>("./fonts/OffBit/OffBit");
         _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -92,6 +95,14 @@ public class MainMenuScreen : GameScreen
 
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         _tiledMapRenderer.Draw(_matrix);
+        _spriteBatch.DrawString(_bitmapFont, "github.com/yakovlev05/GetOut-MonoGame",
+            new Vector2(1450, 1000),
+            Color.White,
+            0,
+            Vector2.Zero,
+            0.8f,
+            SpriteEffects.None,
+            0);
         _spriteBatch.End();
     }
 }
