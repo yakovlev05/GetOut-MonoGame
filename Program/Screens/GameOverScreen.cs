@@ -53,6 +53,12 @@ public class GameOverScreen : GameScreen
         base.LoadContent();
     }
 
+    public override void Initialize()
+    {
+        Game.IsMouseVisible = true;
+        base.Initialize();
+    }
+
     public override void Update(GameTime gameTime)
     {
         _tiledMapRenderer.Update(gameTime);

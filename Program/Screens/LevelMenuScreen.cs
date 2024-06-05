@@ -57,6 +57,12 @@ public class LevelMenuScreen : GameScreen
         base.LoadContent();
     }
 
+    public override void Initialize()
+    {
+        Game.IsMouseVisible = true;
+        base.Initialize();
+    }
+
     public override void Update(GameTime gameTime)
     {
         _tiledMapRenderer.Update(gameTime);
@@ -81,7 +87,7 @@ public class LevelMenuScreen : GameScreen
                     }
                     else if (button.Key == "level3_active")
                     {
-                        Game.LoadLevelScreen("./Levels/levels/level3", new List<IEntityInterface>());
+                        Game.LoadLevelScreen("./Levels/levels/level3", LevelsEntitiesRegistry.GetLevel3());
                     }
                     else if (button.Key == "back_button_active")
                     {

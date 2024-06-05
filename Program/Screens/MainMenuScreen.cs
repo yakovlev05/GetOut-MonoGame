@@ -88,6 +88,12 @@ public class MainMenuScreen : GameScreen
         else _exitButtonActive.IsVisible = false;
     }
 
+    public override void Initialize()
+    {
+        Game.IsMouseVisible = true;
+        base.Initialize();
+    }
+
     public override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);

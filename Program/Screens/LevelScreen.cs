@@ -39,6 +39,7 @@ public class LevelScreen : GameScreen
 
         _gameController.Init(_mapController);
 
+        Game.IsMouseVisible = false;
         base.Initialize();
     }
 
