@@ -69,14 +69,21 @@ public class Game1 : Game
 
 
     public void LoadVictoryScreen(string spentTime, string score) =>
-        _screenManager.LoadScreen(new VictoryScreen(this, spentTime, score), new FadeTransition(GraphicsDevice, Color.Black));
+        _screenManager.LoadScreen(new VictoryScreen(this, spentTime, score),
+            new FadeTransition(GraphicsDevice, Color.Black));
 
     public void LoadGameOverScreen() =>
         _screenManager.LoadScreen(new GameOverScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
 
-    public void LoadLevelScreen(string mapPath,  List<IEntityInterface> entities)
+    public void LoadLevelScreen(string mapPath, List<IEntityInterface> entities)
     {
         _screenManager.LoadScreen(new LevelScreen(this, mapPath, new GameController(entities)),
+            new FadeTransition(GraphicsDevice, Color.Black));
+    }
+
+    public void LoadInfoLevelScreen(string mapPath, List<IEntityInterface> entities)
+    {
+        _screenManager.LoadScreen(new InfoLevelScreen(this, mapPath, entities),
             new FadeTransition(GraphicsDevice, Color.Black));
     }
 }

@@ -80,14 +80,14 @@ public class LevelMenuScreen : GameScreen
                 {
                     // Console.WriteLine(button.Key);
                     if (button.Key == "level1_active")
-                        Game.LoadLevelScreen("./Levels/levels/level1", LevelsEntitiesRegistry.GetLevel1());
+                        Game.LoadInfoLevelScreen("./Levels/levels/level1", LevelsEntitiesRegistry.GetLevel1());
                     else if (button.Key == "level2_active")
                     {
-                        Game.LoadLevelScreen("./Levels/levels/level2", LevelsEntitiesRegistry.GetLevel2());
+                        Game.LoadInfoLevelScreen("./Levels/levels/level2", LevelsEntitiesRegistry.GetLevel2());
                     }
                     else if (button.Key == "level3_active")
                     {
-                        Game.LoadLevelScreen("./Levels/levels/level3", LevelsEntitiesRegistry.GetLevel3());
+                        Game.LoadInfoLevelScreen("./Levels/levels/level3", LevelsEntitiesRegistry.GetLevel3());
                     }
                     else if (button.Key == "back_button_active")
                     {
