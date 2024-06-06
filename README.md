@@ -2,7 +2,7 @@
 Игра про лабиринты 🐍
 
 ## Техническая информация
-**`C#` `MonoGame`**\
+**`C#` `MonoGame`**
 - Игра сделана в рамках курса по C#.
 - Чтобы включить God Mode, во время прохождения уровня нажмите GOD одновременно
 - Решения лабиринтов тут https://github.com/yakovlev05/GetOut-MonoGame/tree/main/Solutions
@@ -25,10 +25,10 @@
 Необходимо в mgcb editor указать путь до скачанного **MonoGame.Extended.Content.Pipeline**
 
 - **Выбираем Content**\
-![изображение](https://github.com/yakovlev05/GetOut-MonoGame/assets/144012782/8924ccdb-09e8-4823-9668-3ae9efe89f85) \
+![изображение](https://github.com/yakovlev05/GetOut-MonoGame/assets/144012782/8924ccdb-09e8-4823-9668-3ae9efe89f85) 
 
 - **Выбираем References** \
-![изображение](https://github.com/yakovlev05/GetOut-MonoGame/assets/144012782/f00291e4-392e-49b5-8b36-2e54588abb67) \
+![изображение](https://github.com/yakovlev05/GetOut-MonoGame/assets/144012782/f00291e4-392e-49b5-8b36-2e54588abb67) 
 
 - **Указываем путь** \
-![изображение](https://github.com/yakovlev05/GetOut-MonoGame/assets/144012782/91bcfd6a-32fa-4f2c-8f91-bbcbdc401bd5)\
+![изображение](https://github.com/yakovlev05/GetOut-MonoGame/assets/144012782/91bcfd6a-32fa-4f2c-8f91-bbcbdc401bd5)
